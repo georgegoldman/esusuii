@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import TextField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, EqualTo
+from wtforms.validators import InputRequired, Length, EqualTo, ValidationError
+from application.models import User
 
 class RegistrationForm(FlaskForm):
     ''' registration form '''
@@ -14,3 +15,8 @@ class RegistrationForm(FlaskForm):
     confirm_pwd = PasswordField('confirm password',  validators=[InputRequired(message='confirm password required'), EqualTo('password', message='Passwords must match')])
 
     submit_button = SubmitField('Create')
+
+    def validate_email(self, email):
+        email_object = User.query.filter_by(email=email.data).first()
+        if email_object:
+            raise ValidationError("email already exit. Select a different email.")
