@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+	{% with messages = get_flashed_messages%}
+
+		{% if messages %}
+
+			{{ messages[0]}}
+			{{ messages[1]}}
+
+		{% endif %}
+
+	{% endwith %}
+
+	<h1>LOG IN</h1>
+
+	<form class="" action="#" method="POST">
+
+		<div class="input-group">
+
+			{{form.email(class_='form-control input-lg', placeholder='Email')}}
+
+		</div><br>
+
+		<div class="input-group">
+
+			{{ form.password(class='form-control input-lg', placeholder='Password')}}
+
+		</div><br>
+
+		<div class="input-group">
+
+			{{form.submit_button(class='btn btn-lg')}}
+
+		</div>
+
+		{{ form.csrf_token }}
+
+	</form>
+
+{% endblock %}
