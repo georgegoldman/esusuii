@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from application.web_forms import RegistrationForm, LoginForm
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 view = Blueprint('view', __name__)
 
@@ -29,4 +29,5 @@ def login():
 @login_required
 def account_home():
 
-    return render_template('account_home.html')
+
+    return render_template('account_home.html', username=current_user.username)

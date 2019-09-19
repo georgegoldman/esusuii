@@ -17,12 +17,13 @@ def signup():
         email = form.email.data
         password = form.password.data
 
-        user = User(username=username, email=email, password=password)
+        user = User.query.filter_by(email=email).first()
 
         if user:
             flash('user already exist!')
             return render_template('signup.html', form=form)
 
+        user(username=username, email=email, password=password)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('view.login'))
