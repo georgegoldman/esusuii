@@ -34,4 +34,4 @@ class Group(db.Model):
         self.number_of_member = number_of_member
 
     def __repr__(self):
-        return f'<user {self.username}>'
+        return '<user {}>'.format(self.username)
