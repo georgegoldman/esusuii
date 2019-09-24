@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import TextField, PasswordField, SubmitField, StringField
+from wtforms import TextField, PasswordField, SubmitField, StringField, IntegerField
 from wtforms.validators import InputRequired, Length, EqualTo, ValidationError, DataRequired, Email
 from application.models import User
 
@@ -35,4 +35,13 @@ class AdminForm(FlaskForm):
 
     password = PasswordField('password',  validators=[DataRequired()])
 
+    submit_button = SubmitField('Create')
+
+class GroupForm(FlaskForm):
+
+    '''group signup'''
+    group_name = StringField('group name', validators=[DataRequired()])
+    group_no_of_members = IntegerField('number of members', validators=[DataRequired()])
+    group_target = StringField('group target', validators=[DataRequired()])
+    group_aggr_amount = IntegerField('aggregate amount', validators=[DataRequired()])
     submit_button = SubmitField('Create')

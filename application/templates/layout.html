@@ -28,6 +28,10 @@
 				<li><a href="/admin_signup">create group</a></li>
 				{% endif %}
 
+				{% if current_user.is_admin == True %}
+					<li><a href="/admin">Admin</a></li>
+				{% endif %}
+
 			</ul>
 
 		</div>

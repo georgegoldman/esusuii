@@ -40,12 +40,13 @@ def login():
         password = form.password.data
 
         user = User.query.filter_by(email=email).first()
-        if user.email==email and user.password==password:
+
+        if user and user.password==password:
             login_user(user)
             return redirect(url_for('view.account_home'))
 
         else:
-            flash('wrong logs')
+            flash('Account does not exit')
             return redirect(url_for('view.login'))
 
 @auth.route('/logout')
@@ -54,6 +55,8 @@ def logout():
 
     logout_user()
     return redirect(url_for('view.home'))
+
+'''admin creation and group route'''
 
 @auth.route('/create_admin', methods=['POST'])
 @login_required
@@ -67,8 +70,10 @@ def create_admin():
 
         user = User.query.filter_by(email=email).first()
 
-        if user.admin == None:
-            user.admin=True
+        if user.is_admin == None:
+            user.is_admin=True
             db.session.commit()
-            return 'you are now an admin'
-        return 'this account already belongs to an admin user'
+            flash('Your account have been upgraded to an administrative acoount')
+            return redirect(url_for('view.group_creation'))
+        elif user.is_admin == True:
+            return redirect(url_for('view.group_creation'))

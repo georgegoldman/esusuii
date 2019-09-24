@@ -1,22 +1,20 @@
 from . import db
-from flask_login import UserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 
-class User(db.Model, UserMixin):
+class User(db.Model, UserMixin, AnonymousUserMixin):
 
     __tablename__='USERS'
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.Text)
     password = db.Column(db.String(80))
-    admin = db.Column(db.Boolean)
+    is_admin = db.Column(db.Boolean)
 
-    def __init__(self, email, password, admin=None):
+    def __init__(self, email, password, is_admin=None):
         self.email = email
         self.password = password
-        self.admin = admin
+        self.is_admin = is_admin
 
-    '''def is_admin(self):
-        return self.admin'''
 
 
     def __repr__(self):

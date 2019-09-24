@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from application.web_forms import RegistrationForm, LoginForm, AdminForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
 from flask_login import login_required, current_user
 
 view = Blueprint('view', __name__)
@@ -38,3 +38,10 @@ def admin_signup():
 
     form = AdminForm()
     return render_template('admin-signup.html', form=form,)
+
+@view.route('/group_creation')
+@login_required
+def group_creation():
+    form = GroupForm()
+
+    return render_template('create-group-page.html', form=form)
