@@ -18,12 +18,14 @@
 
 				<li><a href="{{ url_for('view.home')}}">home</a></li>
 				{% if not current_user.is_authenticated%}
+				<li><a href="{{url_for('view.signup')}}">signup</a></li>
 				<li><a href="{{ url_for('view.login')}}">login</a></li>
-				<li><a href="{{url_for('view.signup')}}">sign</a></li>
 				{% endif %}
 
 				{% if current_user.is_authenticated%}
+				<li><a href="/account_home">profile</a></li>
 				<li><a href="{{url_for('auth.logout')}}">logout</a></li>
+				<li><a href="/admin_signup">create group</a></li>
 				{% endif %}
 
 			</ul>

@@ -15,26 +15,7 @@
 	{% endwith %}
 
 	<form class="" action="/signup" method="post">
-
-		<div class="input-group">
-
-			{{ form.username(class_='form-control input-lg', placeholder='Username', autofocus=true)}}
-
-			<ul>
-
-				{% for error in form.username.errors %}
-
-					<li>
-
-						{{ error }}
-
-					</li>
-
-				{% endfor %}
-
-			</ul>
-
-		</div><br>
+			
 
 		<div class="input-group">
 

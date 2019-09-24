@@ -8,8 +8,6 @@ from application.models import User
 class RegistrationForm(FlaskForm):
     ''' registration form '''
 
-    username = TextField('username', validators=[InputRequired(message='username required'), Length(min=4, max=25, message='Username must be up to 4 and 25 character')])
-
     email = TextField('email',  validators=[InputRequired(message='email required'), Length(min=4, max=100, message='Email must be up to 4 and 25 character')])
 
     password = PasswordField('password',  validators=[InputRequired(message='password required')])
@@ -29,3 +27,12 @@ class LoginForm(FlaskForm):
     password = PasswordField('password',  validators=[DataRequired()])
 
     submit_button = SubmitField('Log in')
+
+class AdminForm(FlaskForm):
+
+    '''admin signup'''
+    email = StringField('email',  validators=[DataRequired(), Email()])
+
+    password = PasswordField('password',  validators=[DataRequired()])
+
+    submit_button = SubmitField('Create')

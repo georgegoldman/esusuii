@@ -2,20 +2,19 @@
 
 {% block content %}
 
-	{% with messages = get_flashed_messages%}
+{% with messages = get_flashed_messages() %}
 
-		{% if messages %}
+	{% if messages %}
 
-			{{ messages[0]}}
+		{{ messages[0]}}
 
+	{% endif %}
 
-		{% endif %}
-
-	{% endwith %}
+{% endwith %}
 
 	<h1>LOG IN</h1>
 
-	<form class="" action="#" method="POST">
+	<form class="" action="/login" method="POST">
 
 		<div class="input-group">
 

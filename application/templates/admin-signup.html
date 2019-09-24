@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+  <form method="post" action="/create_admin">
+    <br>
+
+    <legend>Admin signup</legend>
+
+    <div class="input-group">
+
+      {{form.email(class_='form-control input-lg', placeholder='Email')}}
+
+    </div><br>
+
+    <div class="input-group">
+
+      {{ form.password(class='form-control input-lg', placeholder='Password')}}
+
+    </div><br>
+
+    <div class="input-group">
+
+      {{form.submit_button(class='btn btn-lg')}}
+
+    </div>
+
+    {{ form.csrf_token }}
+
+  </form>
+{% endblock %}

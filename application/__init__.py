@@ -3,12 +3,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from flask_admin import Admin
 
-app  = Flask(__name__)
+app = Flask(__name__)
 
 app.config['DEBUG']=1
 app.config['SECRET_KEY']='32RERFWEG2'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///db.sqlite'
+
+
+admin = Admin(app, name='Admin Dashboard')
 
 db = SQLAlchemy(app)
 migrate =  Migrate(app, db)
@@ -16,6 +20,7 @@ migrate =  Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
+from .admin import admin
 from application import models
 db.create_all()
 
@@ -27,7 +32,7 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 login_manager.login_view = 'auth.login'
-login_manager.login_message = u"sign in to access this page"
+login_manager.login_message = "hello, please sign "
 
 
 from application.views import view

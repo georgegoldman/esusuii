@@ -1,37 +1,64 @@
-from application import db
+from . import db
 from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
 
-    __tablename__ = 'users'
-    id  = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255))
-    email = db.Column(db.String(255))
-    password = db.Column(db.String(255))
-    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
-    group = db.relationship('Group', backref=db.backref('products', lazy='dynamic'))
+    __tablename__='USERS'
 
-    def __init__(self, username, email, password):
-        self.username = username
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.Text)
+    password = db.Column(db.String(80))
+    admin = db.Column(db.Boolean)
+
+    def __init__(self, email, password, admin=None):
         self.email = email
         self.password = password
+        self.admin = admin
+
+    '''def is_admin(self):
+        return self.admin'''
+
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return "< User {}>".format(self.id)
+
 
 
 class Group(db.Model):
 
-    __tablename__  = 'group'
-    id = db.Column(db.Integer, primary_key=True)
-    group_name = db.Column(db.String(255))
-    group_admin = db.Column(db.String(255))
-    number_of_member = db.Column(db.Integer)
+    __tablename__='GROUPS'
 
-    def __init__(self, group_name, number_of_member, group_admin):
+    id = db.Column(db.Integer, primary_key=True)
+    group_name = db.Column(db.String(80))
+    group_no_of_members = db.Column(db.Integer())
+    group_target = db.Column(db.Integer)
+    group_aggr_amount = db.Column(db.Integer)
+    user_id = db.Column(db.Integer, db.ForeignKey('USERS.id'))
+
+    def __init__(self, group_name, group_members, group_target, group_aggr_amount):
         self.group_name = group_name
-        self.group_admin = group_admin
-        self.number_of_member = number_of_member
+        self.group_members = group_members
+        self.group_target = group_target
+        self.group_aggr_amount = group_aggr_amount
 
     def __repr__(self):
-        return '<user {}>'.format(self.username)
+        return "<Group> {}".format(self.id)
+
+class Members(db.Model):
+    __tablename__='MEMBERS'
+
+    id = db.Column(db.Integer, primary_key=True)
+    member_name = db.Column(db.Text)
+    group_name = db.Column(db.Text)
+    payment_scheme = db.Column(db.Integer)
+    group_id = db.Column(db.Integer, db.ForeignKey('GROUPS.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('USERS.id'))
+
+
+    def __init__(self,member_name, group_name, payment_scheme):
+        self.member_name = member_name
+        self.group_name = group_name
+        self.payment_scheme = payment_scheme
+
+    def __repr__(self):
+        return "<Members {}>".format(self.id)
