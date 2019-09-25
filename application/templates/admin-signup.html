@@ -1,6 +1,16 @@
 {% extends 'layout.html' %}
 {% block content %}
 
+{% with messages = get_flashed_messages() %}
+
+  {% if messages %}
+
+    {{messages[0]}}
+
+  {% endif %}
+
+{% endwith %}
+
   <form method="post" action="/create_admin">
     <br>
 

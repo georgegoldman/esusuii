@@ -33,9 +33,9 @@ class Group(db.Model):
     group_aggr_amount = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('USERS.id'))
 
-    def __init__(self, group_name, group_members, group_target, group_aggr_amount):
+    def __init__(self, group_name, group_no_of_members, group_target, group_aggr_amount):
         self.group_name = group_name
-        self.group_members = group_members
+        self.group_no_of_members = group_no_of_members
         self.group_target = group_target
         self.group_aggr_amount = group_aggr_amount
 

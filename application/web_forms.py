@@ -41,7 +41,7 @@ class GroupForm(FlaskForm):
 
     '''group signup'''
     group_name = StringField('group name', validators=[DataRequired()])
-    group_no_of_members = IntegerField('number of members', validators=[DataRequired()])
-    group_target = StringField('group target', validators=[DataRequired()])
-    group_aggr_amount = IntegerField('aggregate amount', validators=[DataRequired()])
+
+    group_target = IntegerField('group target', validators=[DataRequired()])
+
     submit_button = SubmitField('Create')

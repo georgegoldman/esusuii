@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
-from application.web_forms import RegistrationForm, LoginForm, AdminForm
-from application.models import User
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
+from application.models import User, Group
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -70,10 +70,33 @@ def create_admin():
 
         user = User.query.filter_by(email=email).first()
 
-        if user.is_admin == None:
-            user.is_admin=True
-            db.session.commit()
-            flash('Your account have been upgraded to an administrative acoount')
-            return redirect(url_for('view.group_creation'))
-        elif user.is_admin == True:
-            return redirect(url_for('view.group_creation'))
+        if current_user.email != email:
+            flash('invalid logs')
+            return redirect(url_for('view.admin_signup'))
+        else:
+            if current_user.is_admin == None:
+                user.is_admin=True
+                db.session.commit()
+                flash('Your account have been upgraded to an administrative acoount')
+                return redirect(url_for('view.group_creation'))
+            elif user.is_admin == True:
+                return redirect(url_for('view.group_creation'))
+
+
+
+'''create group logic'''
+
+@auth.route('/create_group', methods=['POST'])
+@login_required
+def create_group():
+
+    form = GroupForm()
+
+    if form.validate_on_submit():
+        group_name = form.group_name.data
+        gruop_target = int(form.group_target.data)
+
+        group = Group(group_name=group_name, group_no_of_members=int(0), group_target=gruop_target, group_aggr_amount=int(0))
+        db.session.add(group)
+        db.session.commit()
+        return 'Group created successfully'
