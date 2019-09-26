@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
-from application.models import User, Group
+from application.models import User, Group, Member
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -46,7 +46,7 @@ def login():
             return redirect(url_for('view.account_home'))
 
         else:
-            flash('Account does not exit')
+            flash(f"Account does not exit !")
             return redirect(url_for('view.login'))
 
 @auth.route('/logout')
@@ -74,15 +74,14 @@ def create_admin():
             flash('invalid logs')
             return redirect(url_for('view.admin_signup'))
         else:
-            if current_user.is_admin == None:
+            if current_user.is_admin == False:
                 user.is_admin=True
                 db.session.commit()
-                flash('Your account have been upgraded to an administrative acoount')
+                flash('Your account have been upgraded to an administrative account')
                 return redirect(url_for('view.group_creation'))
             elif user.is_admin == True:
                 return redirect(url_for('view.group_creation'))
-
-
+    return render_template('admin-signup.html', form=form)
 
 '''create group logic'''
 
@@ -94,9 +93,21 @@ def create_group():
 
     if form.validate_on_submit():
         group_name = form.group_name.data
-        gruop_target = int(form.group_target.data)
+        group_target = int(form.group_target.data)
 
-        group = Group(group_name=group_name, group_no_of_members=int(0), group_target=gruop_target, group_aggr_amount=int(0))
+
+        group = Group.query.filter_by(group_name=group_name).first()
+
+        group = Group(group_name=group_name, group_admin=current_user.email, group_members=int(1), group_target=group_target, current_contribution=int(0), user_id=current_user.id)
         db.session.add(group)
         db.session.commit()
+
+        paymt_calc = int(group.group_target)/group.group_members
+
+        member = Member(member_name=current_user.email, group_name=group_name, payment_scheme=paymt_calc, user_id=current_user.id, group_id=group.id)
+
+        db.session.add(member)
+        db.session.commit()
+
+
         return 'Group created successfully'

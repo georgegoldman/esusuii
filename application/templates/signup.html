@@ -2,91 +2,85 @@
 
 {% block content %}
 
-	<h1>GET STARTED</h1>
-
-	{% with messages = get_flashed_messages() %}
-
-		{% if messages %}
-
-			{{ messages[0]}}
-
-		{% endif %}
-
-	{% endwith %}
 
 	<form class="" action="/signup" method="post">
-			
 
-		<div class="input-group">
+		<legend>Signup</legend>
 
-			{{ form.email(class_='form-control input-lg', placeholder='Email', autofocus=True)}}
+		<fieldset>
 
-			<ul>
+			<div class="input-group">
 
-				{% for error in form.email.errors %}
+				{{ form.email(class_='form-control input-lg', placeholder='Email', autofocus=True)}}
 
-					<li>
+				<ul>
 
-						{{ error }}
+					{% for error in form.email.errors %}
 
-					</li>
+						<li>
 
-				{% endfor %}
+							{{ error }}
 
-			</ul>
+						</li>
 
+					{% endfor %}
 
-		</div><br>
-
-		<div class="input-group">
-
-			{{ form.password(class_='form-control input-lg', placeholder='Password')}}
-
-			<ul>
-
-				{% for error in form.password.errors %}
-
-					<li>
-
-						{{ error }}
-
-					</li>
-
-				{% endfor %}
-
-			</ul>
+				</ul>
 
 
-		</div><br>
+			</div><br>
 
-		<div class="input-group">
+			<div class="input-group">
 
-			{{ form.confirm_pwd(class_='form-control input-lg', placeholder='Retype password')}}
+				{{ form.password(class_='form-control input-lg', placeholder='Password')}}
 
-			<ul>
+				<ul>
 
-				{% for error in form.confirm_pwd.errors %}
+					{% for error in form.password.errors %}
 
-					<li>
+						<li>
 
-						{{ error }}
+							{{ error }}
 
-					</li>
+						</li>
 
-				{% endfor %}
+					{% endfor %}
 
-			</ul>
+				</ul>
 
 
-		</div><br>
+			</div><br>
 
-		<div class="input-group">
+			<div class="input-group">
 
-			{{ form.submit_button(class_='btn btn-lg') }}
+				{{ form.confirm_pwd(class_='form-control input-lg', placeholder='Retype password')}}
 
-		</div>
+				<ul>
 
-		{{ form.csrf_token }}
+					{% for error in form.confirm_pwd.errors %}
+
+						<li>
+
+							{{ error }}
+
+						</li>
+
+					{% endfor %}
+
+				</ul>
+
+
+			</div><br>
+
+			<div class="input-group">
+
+				{{ form.submit_button(class_='btn btn-lg') }}
+
+			</div>
+
+			{{ form.csrf_token }}
+
+		</fieldset>
 
 	</form>
 

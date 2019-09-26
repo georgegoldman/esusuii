@@ -1,40 +1,49 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
 
-  {% if messages %}
+  <div>
 
-    {{messages[0]}}
+    <form action="/create_admin" method="post">
 
-  {% endif %}
+      {% if current_user.is_admin == False %}
 
-{% endwith %}
+        <legend>Admin signup</legend>
 
-  <form method="post" action="/create_admin">
-    <br>
+      {% elif current_user.is_admin == True %}
 
-    <legend>Admin signup</legend>
+        <legend>Admin check </legend>
 
-    <div class="input-group">
+      {% endif %}
 
-      {{form.email(class_='form-control input-lg', placeholder='Email')}}
+      <fieldset class="form-group">
 
-    </div><br>
 
-    <div class="input-group">
+            <div class="input-group">
 
-      {{ form.password(class='form-control input-lg', placeholder='Password')}}
+              {{ form.email(class_='form-control input-lg', placeholder='Email') }}
 
-    </div><br>
+            </div><br>
 
-    <div class="input-group">
+            <div class="input-group">
 
-      {{form.submit_button(class='btn btn-lg')}}
+              {{ form.password(class_='form-control input-lg', placeholder='Password') }}
 
-    </div>
+            </div><br>
 
-    {{ form.csrf_token }}
+            <div class="input-group">
 
-  </form>
+              {{ form.submit_button(class_='btn btn-outline-info btn-lg') }}
+
+            </div>
+
+            {{ form.csrf_token }}
+
+      </fieldset>
+
+
+    </form>
+
+  </div>
+
 {% endblock %}

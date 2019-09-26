@@ -38,7 +38,22 @@
 
 		<div class="col-lg-9 pull-right">
 
+			<div>
+
+				{% with messages = get_flashed_messages() %}
+
+			    {% if messages %}
+
+			      {{ messages[0] }}
+
+			    {% endif %}
+
+			  {% endwith%}
+
+			</div>
+
 			{% block content %}
+
 			{% endblock %}
 
 		</div>

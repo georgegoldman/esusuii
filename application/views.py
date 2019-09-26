@@ -42,6 +42,7 @@ def admin_signup():
 @view.route('/group_creation')
 @login_required
 def group_creation():
+
     form = GroupForm()
 
     return render_template('create-group-page.html', form=form)

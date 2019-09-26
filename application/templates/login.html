@@ -2,39 +2,34 @@
 
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
-
-	{% if messages %}
-
-		{{ messages[0]}}
-
-	{% endif %}
-
-{% endwith %}
-
-	<h1>LOG IN</h1>
 
 	<form class="" action="/login" method="POST">
 
-		<div class="input-group">
+		<legend>Login</legend>
 
-			{{form.email(class_='form-control input-lg', placeholder='Email')}}
+		<fieldset>
 
-		</div><br>
+			<div class="input-group">
 
-		<div class="input-group">
+				{{form.email(class_='form-control input-lg', placeholder='Email')}}
 
-			{{ form.password(class='form-control input-lg', placeholder='Password')}}
+			</div><br>
 
-		</div><br>
+			<div class="input-group">
 
-		<div class="input-group">
+				{{ form.password(class='form-control input-lg', placeholder='Password')}}
 
-			{{form.submit_button(class='btn btn-lg')}}
+			</div><br>
 
-		</div>
+			<div class="input-group">
 
-		{{ form.csrf_token }}
+				{{form.submit_button(class='btn btn-lg')}}
+
+			</div>
+
+			{{ form.csrf_token }}
+
+		</fieldset>
 
 	</form>
 
