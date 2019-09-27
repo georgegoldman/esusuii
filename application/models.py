@@ -7,7 +7,8 @@ class User(db.Model, UserMixin, AnonymousUserMixin):
     email = db.Column(db.Text)
     password = db.Column(db.String(80))
     is_admin = db.Column(db.Boolean)
-    group = db.relationship('Group', backref='users', lazy=True)
+    group = db.relationship('Group', backref='user', lazy='dynamic')
+    member = db.relationship('Member', backref='user', lazy='dynamic')
 
     def __init__(self, email, password, is_admin=False):
         self.email = email
@@ -30,7 +31,7 @@ class Group(db.Model):
     group_target = db.Column(db.Integer)
     current_contribution = db.Column(db.Integer)
     member = db.relationship('Member', backref='members', lazy=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, group_name, group_admin, group_members, group_target, current_contribution, user_id):
         self.group_name = group_name

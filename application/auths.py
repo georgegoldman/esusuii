@@ -28,6 +28,8 @@ def signup():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('view.login'))
+    flash('check your email if correct !')
+    return redirect(url_for('view.signup'))
 
 
 @auth.route('/login', methods=['POST'])
@@ -110,4 +112,4 @@ def create_group():
         db.session.commit()
 
 
-        return 'Group created successfully'
+        return redirect(url_for('view.group'))

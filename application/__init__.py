@@ -12,7 +12,7 @@ app.config['SECRET_KEY']='32RERFWEG2'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///db.sqlite'
 
 
-admin = Admin(app, name='Admin Dashboard')
+
 
 db = SQLAlchemy(app)
 migrate =  Migrate(app, db)
@@ -20,7 +20,7 @@ migrate =  Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
-from .admin import admin
+
 from application import models
 db.create_all()
 
