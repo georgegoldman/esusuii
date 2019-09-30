@@ -72,7 +72,7 @@ def create_admin():
 
         user = User.query.filter_by(email=email).first()
 
-        if current_user.email != email:
+        if current_user.email != email or current_user.password != password:
             flash('invalid logs')
             return redirect(url_for('view.admin_signup'))
         else:
@@ -105,8 +105,9 @@ def create_group():
         db.session.commit()
 
         paymt_calc = int(group.group_target)/group.group_members
+        weekly_target = paymt_calc/4
 
-        member = Member(member_name=current_user.email, group_name=group_name, payment_scheme=paymt_calc, user_id=current_user.id, group_id=group.id)
+        member = Member(member_name=current_user.email, group_name=group_name, weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id)
 
         db.session.add(member)
         db.session.commit()

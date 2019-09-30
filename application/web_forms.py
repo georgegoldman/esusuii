@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import TextField, PasswordField, SubmitField, StringField, IntegerField
+from wtforms.fields.html5 import EmailField
 from wtforms.validators import  Length, EqualTo, ValidationError, DataRequired, Email
 from application.models import User
 
@@ -8,7 +9,7 @@ from application.models import User
 class RegistrationForm(FlaskForm):
     ''' registration form '''
 
-    email = TextField('email',  validators=[DataRequired(message='email required'), Email()])
+    email = EmailField('email',  validators=[DataRequired(message='email required'), Email()])
 
     password = PasswordField('password',  validators=[DataRequired(message='password required')])
 
@@ -22,7 +23,7 @@ class LoginForm(FlaskForm):
 
     '''login form'''
 
-    email = StringField('email',  validators=[DataRequired(message='email required'), Email()])
+    email = EmailField('email',  validators=[DataRequired(message='email required'), Email()])
 
     password = PasswordField('password',  validators=[DataRequired()])
 
@@ -31,7 +32,7 @@ class LoginForm(FlaskForm):
 class AdminForm(FlaskForm):
 
     '''admin signup'''
-    email = TextField('email',  validators=[DataRequired(message='email required'), Email()])
+    email = EmailField('email',  validators=[DataRequired(message='email required'), Email()])
 
     password = PasswordField('password',  validators=[DataRequired(message='password required')])
 

@@ -7,7 +7,11 @@
 
       <div>
 
-        <h1>{{group.group_name}}</h1>
+        <h1>
+
+          <a href="">{{group.group_name}}</a>
+
+        </h1>
 
         <table>
 
@@ -17,16 +21,16 @@
 
                     <blockquote>Group admin<br>
 
-                  {{group.group_admin}}</blockquote>
+                  <center>{{group.group_admin}}</center></blockquote>
 
 
               </td>
 
               <td colspan="7">
 
-                    <blockquote>Group target <br>
+                    <blockquote>members<br>
 
-                  {{group.group_target}}</blockquote>
+                  <center>{{group.group_members}}</center></blockquote>
 
 
               </td>
@@ -35,10 +39,37 @@
 
                     <blockquote> current contribution<br>
 
-                  {{group.current_contribution}}</blockquote>
+                      <center>{{group.current_contribution}}</center>
+
+                    </blockquote>
 
 
               </td>
+
+              <td colspan="7">
+
+                    <blockquote>Group target<br>
+
+                      <center>{{group.group_target}}<center>
+
+                    </blockquote>
+
+
+              </td>
+
+          </tr>
+
+          <tr>
+
+            <td>
+
+              {% for members in group.members  %}
+
+                {{members.member_name}}
+
+              {% endfor %}
+
+            </td>
 
           </tr>
 
