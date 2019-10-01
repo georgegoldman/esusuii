@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, Markup
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_script import Manager
@@ -31,8 +31,9 @@ from application.models import User
 def load_user(user_id):
     return User.query.get(user_id)
 
+
 login_manager.login_view = 'auth.login'
-login_manager.login_message = "hello, please sign "
+login_manager.login_message = Markup("hello please can you login or just <a href='/signup' class='alert-link'>signup</a> up thanks")
 
 
 from application.views import view

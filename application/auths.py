@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash
+from flask import Blueprint, render_template, redirect, url_for, flash, request, Markup
 from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
 from application.models import User, Group, Member
 from application import db
@@ -48,7 +48,7 @@ def login():
             return redirect(url_for('view.account_home'))
 
         else:
-            flash(f"Account does not exit !")
+            flash(Markup("Account does not exit ! please <a href='/signup' class='alert-link'>signup</a>"))
             return redirect(url_for('view.login'))
 
 @auth.route('/logout')
@@ -114,3 +114,30 @@ def create_group():
 
 
         return redirect(url_for('view.group'))
+
+@auth.route('/add_members')
+@login_required
+def add_member():
+
+    email = request.args.get('email')
+
+    group = Group.query.filter_by(user_id=current_user.id).first()
+
+    paymt_calc = group.group_target/(group.group_members+1)
+    weekly_target = paymt_calc/4
+
+    member = Member.query.filter_by(group_name=group.group_name).first()
+
+    if member.member_name == email:
+        flash('already member')
+        return redirect(url_for('view.add_member'))
+    else:
+        member = Member(member_name=email, group_name=name, weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id)
+
+        db.session.add(member)
+        db.session.commit()
+
+        group.group_members += 1
+        db.session.commit()
+
+        return 'successfully added to the group'

@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
+from flask import Blueprint, render_template, request
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, AdduserForm
 from flask_login import login_required, current_user
-from .models import Group, Member
+from .models import Group, Member, User
 
 view = Blueprint('view', __name__)
 
@@ -59,3 +59,24 @@ def group():
 
 
     return render_template('group.html', groups=group, member=member, count = 0, one = 1)
+
+
+@view.route('/member')
+@login_required
+def add_member():
+
+    group_name = request.args.get('members')
+
+    members = Member.query.filter_by(group_name=group_name).first()
+
+    return render_template('add-member.html', member=members, group_name=group_name)
+
+@view.route('/group_details')
+@login_required
+def group_details():
+
+    group_name = request.args.get('group_name')
+
+    group = Group.query.filter_by(group_name=group_name).first()
+
+    return render_template('group-details.html', group=group)

@@ -47,3 +47,8 @@ class GroupForm(FlaskForm):
     group_target = IntegerField('group target', validators=[DataRequired()])
 
     submit_button = SubmitField('Create')
+
+
+class AdduserForm(FlaskForm):
+    username = StringField('text', validators=[DataRequired()])
+    submit_button = SubmitField('add')

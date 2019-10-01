@@ -9,71 +9,11 @@
 
         <h1>
 
-          <a href="">{{group.group_name}}</a>
+          <a href="/group_details?group_name={{group.group_name}}">{{group.group_name}}</a>
 
         </h1>
 
-        <table>
 
-          <tr>
-
-              <td >
-
-                    <blockquote>Group admin<br>
-
-                  <center>{{group.group_admin}}</center></blockquote>
-
-
-              </td>
-
-              <td colspan="7">
-
-                    <blockquote>members<br>
-
-                  <center>{{group.group_members}}</center></blockquote>
-
-
-              </td>
-
-              <td colspan="7">
-
-                    <blockquote> current contribution<br>
-
-                      <center>{{group.current_contribution}}</center>
-
-                    </blockquote>
-
-
-              </td>
-
-              <td colspan="7">
-
-                    <blockquote>Group target<br>
-
-                      <center>{{group.group_target}}<center>
-
-                    </blockquote>
-
-
-              </td>
-
-          </tr>
-
-          <tr>
-
-            <td>
-
-              {% for members in group.members  %}
-
-                {{members.member_name}}
-
-              {% endfor %}
-
-            </td>
-
-          </tr>
-
-        </table>
 
       </div><br>
 
