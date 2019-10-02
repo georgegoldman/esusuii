@@ -33,7 +33,7 @@ def load_user(user_id):
 
 
 login_manager.login_view = 'auth.login'
-login_manager.login_message = Markup("hello please can you login or just <a href='/signup' class='alert-link'>signup</a> up thanks")
+login_manager.login_message = Markup("hello please can you login or <a href='/signup' class='alert-link'>signup</a> up thanks")
 
 
 from application.views import view
