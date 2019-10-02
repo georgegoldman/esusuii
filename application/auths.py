@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, Markup
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, AdduserForm
 from application.models import User, Group, Member
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
@@ -94,7 +94,7 @@ def create_group():
     form = GroupForm()
 
     if form.validate_on_submit():
-        group_name = form.group_name.data
+        group_name = str(form.group_name.data)
         group_target = int(form.group_target.data)
 
 
@@ -115,29 +115,42 @@ def create_group():
 
         return redirect(url_for('view.group'))
 
-@auth.route('/add_members')
+@auth.route('/add_members', methods=['POST'])
 @login_required
 def add_member():
 
-    email = request.args.get('email')
+    form = AdduserForm()
 
-    group = Group.query.filter_by(user_id=current_user.id).first()
+    group_name = request.args.get('group_name')
 
-    paymt_calc = group.group_target/(group.group_members+1)
-    weekly_target = paymt_calc/4
+    if form.validate_on_submit():
 
-    member = Member.query.filter_by(group_name=group.group_name).first()
+        email = form.email.data
 
-    if member.member_name == email:
-        flash('already member')
-        return redirect(url_for('view.add_member'))
-    else:
-        member = Member(member_name=email, group_name=name, weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id)
+        group = Group.query.filter_by(group_name=group_name).first()
 
-        db.session.add(member)
-        db.session.commit()
+        paymt_calc = group.group_target/(group.group_members+1)
 
-        group.group_members += 1
-        db.session.commit()
+        weekly_target = paymt_calc/4
 
-        return 'successfully added to the group'
+        member = Member.query.filter_by(group_name=group_name).first()
+
+        user = User.query.filter_by(email=email).first()
+
+        if member.member_name == email:
+            flash('already a member')
+            return redirect(url_for('view.add_member'))
+        elif not user:
+            flash(Markup('this account don\t exist in the platform !<br><a href="/signup">create an accgroup_targetountgroup_target</a>'))
+            return redirect(url_for('view.add_member'))
+        else:
+            member = Member(member_name=email, group_name=group_name, weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id)
+
+            db.session.add(member)
+            db.session.commit()
+
+            group.group_members += 1
+            db.session.commit()
+
+            return 'successfully added to the group'
+    return f'no vlidation but the group name is {group_name}'

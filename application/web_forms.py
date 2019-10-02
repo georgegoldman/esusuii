@@ -50,5 +50,7 @@ class GroupForm(FlaskForm):
 
 
 class AdduserForm(FlaskForm):
-    username = StringField('text', validators=[DataRequired()])
+
+    email = EmailField('email', validators=[DataRequired(),])
+
     submit_button = SubmitField('add')

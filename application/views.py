@@ -65,11 +65,13 @@ def group():
 @login_required
 def add_member():
 
+    form = AdduserForm()
     group_name = request.args.get('members')
 
-    members = Member.query.filter_by(group_name=group_name).first()
+    member = Member.query.all()
+    group = Group.query.filter_by(group_name=group_name).first()
 
-    return render_template('add-member.html', member=members, group_name=group_name)
+    return render_template('add-member.html', members=member, group_name=group_name, form=form, group=group)
 
 @view.route('/group_details')
 @login_required

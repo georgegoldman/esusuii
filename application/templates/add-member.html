@@ -4,6 +4,10 @@
 
 
 
+{% for member in members %}
+
+  {% if member.group_name == group_name %}
+
   <table>
 
     <tr>
@@ -11,16 +15,48 @@
       <td>
 
         {{ member.member_name }}
-        
+
       </td><br>
 
     </tr>
 
   </table>
 
+  {% endif %}
 
-
-
+{% endfor%}
 
 
 {% endblock%}
+
+{% block side %}
+
+{% if current_user.email == group.group_admin %}
+
+  <form method="post" action="/add_members?group_name={{group_name}}" class="pull-right">
+
+    {{group_name}}
+
+    <h1>Add member</h1>
+
+    <div class="input-group">
+
+      {{form.email(class="form-control input-lg", placeholder="Enter user email")}}
+
+
+    </div><br>
+
+    <div class="input-group">
+
+      {{form.submit_button(class="btn btn-lg")}}
+
+
+    </div>
+
+  {{ form.csrf_token }}
+
+  </form)>
+
+{% endif%}
+
+{% endblock %}
