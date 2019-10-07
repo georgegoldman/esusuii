@@ -28,9 +28,9 @@ def signup():
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('view.login'))
-    flash('check your email if correct !')
-    return redirect(url_for('view.signup'))
 
+    flash('check your email or passwords if they\'re correct !')
+    return redirect(url_for('view.signup'))
 
 @auth.route('/login', methods=['POST'])
 def login():
@@ -50,6 +50,8 @@ def login():
         else:
             flash(Markup("Account does not exit ! please <a href='/signup' class='alert-link'>signup</a>"))
             return redirect(url_for('view.login'))
+    flash('check your login details')
+    return redirect(url_for('view.login'))
 
 @auth.route('/logout')
 @login_required
@@ -57,100 +59,3 @@ def logout():
 
     logout_user()
     return redirect(url_for('view.home'))
-
-'''admin creation and group route'''
-
-@auth.route('/create_admin', methods=['POST'])
-@login_required
-def create_admin():
-
-    form = AdminForm()
-
-    if form.validate_on_submit():
-        email = form.email.data
-        password = form.password.data
-
-        user = User.query.filter_by(email=email).first()
-
-        if current_user.email != email or current_user.password != password:
-            flash('invalid logs')
-            return redirect(url_for('view.admin_signup'))
-        else:
-            if current_user.is_admin == False:
-                user.is_admin=True
-                db.session.commit()
-                flash('Your account have been upgraded to an administrative account')
-                return redirect(url_for('view.group_creation'))
-            elif user.is_admin == True:
-                return redirect(url_for('view.group_creation'))
-    return render_template('admin-signup.html', form=form)
-
-'''create group logic'''
-
-@auth.route('/create_group', methods=['POST'])
-@login_required
-def create_group():
-
-    form = GroupForm()
-
-    if form.validate_on_submit():
-        group_name = str(form.group_name.data)
-        group_target = int(form.group_target.data)
-
-
-        group = Group.query.filter_by(group_name=group_name).first()
-
-        group = Group(group_name=group_name, group_admin=current_user.email, group_members=int(1), group_target=group_target, current_contribution=int(0), user_id=current_user.id)
-        db.session.add(group)
-        db.session.commit()
-
-        paymt_calc = int(group.group_target)/group.group_members
-        weekly_target = paymt_calc/4
-
-        member = Member(member_name=current_user.email, group_name=group_name, weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id)
-
-        db.session.add(member)
-        db.session.commit()
-
-
-        return redirect(url_for('view.group'))
-
-@auth.route('/add_members', methods=['POST'])
-@login_required
-def add_member():
-
-    form = AdduserForm()
-
-    group_name = request.args.get('group_name')
-
-    if form.validate_on_submit():
-
-        email = form.email.data
-
-        group = Group.query.filter_by(group_name=group_name).first()
-
-        paymt_calc = group.group_target/(group.group_members+1)
-
-        weekly_target = paymt_calc/4
-
-        member = Member.query.filter_by(group_name=group_name).first()
-
-        user = User.query.filter_by(email=email).first()
-
-        if member.member_name == email:
-            flash('already a member')
-            return redirect(url_for('view.add_member'))
-        elif not user:
-            flash(Markup('this account don\t exist in the platform !<br><a href="/signup">create an accgroup_targetountgroup_target</a>'))
-            return redirect(url_for('view.add_member'))
-        else:
-            member = Member(member_name=email, group_name=group_name, weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id)
-
-            db.session.add(member)
-            db.session.commit()
-
-            group.group_members += 1
-            db.session.commit()
-
-            return 'successfully added to the group'
-    return f'no vlidation but the group name is {group_name}'

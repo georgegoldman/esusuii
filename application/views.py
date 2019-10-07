@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, request
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, AdduserForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, AdduserForm, ChangeAdminForm
 from flask_login import login_required, current_user
 from .models import Group, Member, User
+import datetime
+from datetime import date
 
 view = Blueprint('view', __name__)
 
@@ -65,13 +67,19 @@ def group():
 @login_required
 def add_member():
 
+    memers_in_a_group = list()
+
+
+
     form = AdduserForm()
-    group_name = request.args.get('members')
+    group_id = request.args.get('members')
 
     member = Member.query.all()
-    group = Group.query.filter_by(group_name=group_name).first()
+    user = User.query.all()
 
-    return render_template('add-member.html', members=member, group_name=group_name, form=form, group=group)
+    group = Group.query.filter_by(id=group_id).first()
+
+    return render_template('add-member.html', members=member, group_id=group_id, form=form, group=group, users=user)
 
 @view.route('/group_details')
 @login_required
@@ -82,3 +90,14 @@ def group_details():
     group = Group.query.filter_by(group_name=group_name).first()
 
     return render_template('group-details.html', group=group)
+
+
+@view.route('/change_admin')
+@login_required
+def change_admin():
+
+    group_id = request.args.get('group_id')
+
+    form = ChangeAdminForm()
+
+    return render_template('change-admin.html', form=form, group_id=group_id)

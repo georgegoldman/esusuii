@@ -18,17 +18,15 @@
 
           <td colspan="7">
 
-                <a href="/member?members={{group.group_name}}">
+                <a href="/member?members={{group.id}}">
 
                   <blockquote>members<br>
-
                 <center>{{group.group_members}}</center></blockquote>
 
                 </a>
 
 
           </td>
-
           <td colspan="7">
 
                 <blockquote> current contribution<br>
@@ -55,6 +53,20 @@
 
 
     </table>
+
+    <div>
+
+      <a href="/change_admin?group_id={{group.id}}">
+
+        <button class="btn btn-lg">
+
+          change admin
+
+        </button>
+
+      </a>
+
+    </div>
 
 
 </div>

@@ -29,14 +29,12 @@
 
 						{% if current_user.is_authenticated%}
 						<li><a href="/account_home">profile</a></li>
-						<li><a href="{{url_for('auth.logout')}}">logout</a></li>
 						<li><a href="/group">groups</a></li>
-						<li><a href="/admin_signup">create group</a></li>
+						<li><a href="/admin_signup"> create group</a></li>
+						<li><a href="{{url_for('auth.logout')}}">logout</a></li>
 						{% endif %}
 
-						{% if current_user.is_admin == True %}
-							<li><a href="#">Admin</a></li>
-						{% endif %}
+
 
 					</ul>
 

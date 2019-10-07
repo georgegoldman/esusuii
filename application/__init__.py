@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 app.config['DEBUG']=1
 app.config['SECRET_KEY']='32RERFWEG2'
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///db.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:password@localhost/esusu'
 
 
 
@@ -41,3 +41,6 @@ app.register_blueprint(view)
 
 from application.auths import auth
 app.register_blueprint(auth)
+
+from application.oplogic import oplogic
+app.register_blueprint(oplogic)

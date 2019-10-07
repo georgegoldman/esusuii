@@ -54,3 +54,13 @@ class AdduserForm(FlaskForm):
     email = EmailField('email', validators=[DataRequired(),])
 
     submit_button = SubmitField('add')
+
+class ChangeAdminForm(FlaskForm):
+    
+    group_id = StringField('group id', validators=[DataRequired()])
+
+    member_id = IntegerField('member id', validators=[DataRequired()])
+
+    password = PasswordField('password', validators=[DataRequired()])
+
+    submit_button = SubmitField('change')
