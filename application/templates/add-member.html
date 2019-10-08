@@ -73,9 +73,10 @@
 
 {% block side %}
 
+
 {% if current_user.id == group.group_admin %}
 
-  <form method="post" action="/add_members?group_id={{group.id}}" class="pull-right">
+  <form method="post" action="/add_members?group_id={{group.id}}" class=" col-lg-offset-9 navbar-fixed-top">
 
     {{group.group_name}}
 
@@ -83,15 +84,13 @@
 
     <div class="input-group">
 
-      {{form.email(class="form-control input-lg", placeholder="Enter user email")}}
-
+      {{ form.email(class="form-control input-lg", placeholder="Enter user email")}}
 
     </div><br>
 
     <div class="input-group">
 
       {{form.submit_button(class="btn btn-lg")}}
-
 
     </div>
 

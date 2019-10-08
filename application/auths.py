@@ -3,6 +3,7 @@ from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupF
 from application.models import User, Group, Member
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
 
@@ -15,6 +16,7 @@ def signup():
     if form.validate_on_submit():
         password = form.password.data
         email = form.email.data
+        username = form.username.data
 
         user = User.query.filter_by(email=email).first()
 
@@ -23,7 +25,7 @@ def signup():
             return render_template('signup.html', form=form)
 
 
-        user = User(email=email, password=password)
+        user = User(email=email, username=username, password=generate_password_hash(password, method='sha256'))
 
         db.session.add(user)
         db.session.commit()
@@ -43,15 +45,13 @@ def login():
 
         user = User.query.filter_by(email=email).first()
 
-        if user and user.password==password:
+        if user and check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('view.account_home'))
 
         else:
-            flash(Markup("Account does not exit ! please <a href='/signup' class='alert-link'>signup</a>"))
+            flash(Markup("Check your login details or account does not exit ! please <a href='/signup' class='alert-link'>signup</a>"))
             return redirect(url_for('view.login'))
-    flash('check your login details')
-    return redirect(url_for('view.login'))
 
 @auth.route('/logout')
 @login_required

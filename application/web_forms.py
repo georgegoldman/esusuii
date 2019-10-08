@@ -11,6 +11,8 @@ class RegistrationForm(FlaskForm):
 
     email = EmailField('email',  validators=[DataRequired(message='email required'), Email()])
 
+    username = StringField('username', validators=[DataRequired(message='username required')])
+
     password = PasswordField('password',  validators=[DataRequired(message='password required')])
 
     confirm_pwd = PasswordField('confirm password',  validators=[DataRequired(message='confirm password required'), EqualTo('password', message='Passwords must match')])
@@ -51,13 +53,12 @@ class GroupForm(FlaskForm):
 
 class AdduserForm(FlaskForm):
 
-    email = EmailField('email', validators=[DataRequired(),])
+    email = EmailField('email', validators=[DataRequired(message='email required'), Email()])
 
     submit_button = SubmitField('add')
 
 class ChangeAdminForm(FlaskForm):
-    
-    group_id = StringField('group id', validators=[DataRequired()])
+
 
     member_id = IntegerField('member id', validators=[DataRequired()])
 

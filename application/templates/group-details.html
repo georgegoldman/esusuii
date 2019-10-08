@@ -11,7 +11,25 @@
 
                 <blockquote>Group admin<br>
 
-              <center>{{group.group_admin}}</center></blockquote>
+
+
+              <center>
+
+                {% for user in users%}
+
+                {% if user.id == group.group_admin%}
+
+                {{user.username}}
+                {% endif %}
+
+                {% endfor %}
+
+                <i><!--id: {{group.group_admin}}--></i>
+
+              </center>
+
+
+            </blockquote>
 
 
           </td>
@@ -54,6 +72,7 @@
 
     </table>
 
+{% if group.group_admin == current_user.id %}
     <div>
 
       <a href="/change_admin?group_id={{group.id}}">
@@ -68,8 +87,11 @@
 
     </div>
 
+{% endif %}
+
 
 </div>
+
 
 
 

@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from .web_forms import AdminForm, GroupForm, AdduserForm, ChangeAdminForm
 from .models import User, Group, Member
 from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 oplogic = Blueprint('oplogic', __name__)
 
@@ -20,7 +21,7 @@ def create_admin():
 
         user = User.query.filter_by(email=email).first()
 
-        if current_user.email != email or current_user.password != password:
+        if current_user.email != email or not check_password_hash(current_user.password, password):
             flash('invalid logs')
             return redirect(url_for('view.admin_signup'))
         else:
@@ -64,47 +65,48 @@ def create_group():
 
         return redirect(url_for('view.group'))
 
-@oplogic.route('/add_members', methods=['POST'])
+@oplogic.route('/add_members', methods=['GET','POST'])
 @login_required
 def add_member():
 
     form = AdduserForm()
 
-    group_id = request.args.get('group_id')
-
     if form.validate_on_submit():
 
+        group_id = request.args.get('group_id')
         email = form.email.data
 
-        group = Group.query.filter_by(id=group_id).first()
-
-        paymt_calc = group.group_target/(group.group_members+1)
-
-        weekly_target = paymt_calc/4
-
-        member = Member.query.filter_by(group_id=group_id).first()
-
+        members = Member.query.all()
         user = User.query.filter_by(email=email).first()
 
-        for member_g in group.members:
+        for member in members:
+            #return f'{member.group_id}'
 
-            if not user:
-                flash(Markup('this account don\t exist in the platform !<br><a href="/signup">click to create an account for the potential user</a>'))
-                return redirect(url_for('view.home'))
-            elif user.id  == member.user_id:
-                flash('already a member')
-                return redirect(url_for('view.add_member'))
-            else:
-                member = Member(weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id, user_id=user.id)
+            try:
+                if member.group_id == group_id or member.user_id == user.id:
+                    return f'{email} is already a user'
+                elif not user.email:
+                    return  Mackup(f"account don\'t exist")
+                else:
+                    group = Group.query.filter_by(id=group_id).first()
 
-                db.session.add(member)
-                db.session.commit()
+                    group.group_members += 1
+                    db.session.commit()
 
-                group.group_members += 1
-                db.session.commit()
+                    paymt_calc = (int(group.group_target)/(group.group_members + 1))
+                    weekly_target = paymt_calc/4
 
-                return 'successfully added to the group'
-        return f'no vlidation but the group name is {group_name}'
+                    member = Member(weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id, user_id=user.id)
+
+                    db.session.add(member)
+                    db.session.commit()
+
+                    return f'successfully add to group {group.group_name}'
+
+            except AttributeError:
+                return 'account don\'t exist'
+
+
 
 
 '''Remove a member route'''
@@ -126,15 +128,33 @@ def remove_user():
     group.group_members -= 1
     db.session.commit()
 
-    return f'{group.group_name} member removed'
+    return f'member {member.id} removed {group.group_name} member removed'
 
 
-@oplogic.route('/change_admin')
+@oplogic.route('/change_admin', methods=['POST'])
 @login_required
 def change_admin():
 
     form = ChangeAdminForm()
 
-    if form.validate_on_submit():
-        member_id = form.member_id.data
-        password = form.password.data
+    try:
+        if form.validate_on_submit():
+            group_id = int(request.args.get('group_id'))
+            member_id = form.member_id.data
+            password = form.password.data
+
+            group = Group.query.filter_by(id=group_id).first()
+
+            member = Member.query.filter_by(id=member_id).first()
+
+            user = User.query.filter_by(id=group.group_admin).first()
+
+            if member.group_id == group.id and password == user.password:
+
+                group.group_admin = member.user_id
+                group.user_id = member.user_id
+                db.session.commit()
+
+                return  'Groud admin successfully changed'
+    except AttributeError:
+        return 'group or user does not exist or check you logs'

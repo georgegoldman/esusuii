@@ -89,7 +89,10 @@ def group_details():
 
     group = Group.query.filter_by(group_name=group_name).first()
 
-    return render_template('group-details.html', group=group)
+    users = User.query.all()
+
+
+    return render_template('group-details.html', group=group, users=users)
 
 
 @view.route('/change_admin')
