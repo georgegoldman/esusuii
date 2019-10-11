@@ -4,14 +4,19 @@ from flask_login import login_required, current_user
 from .models import Group, Member, User
 import datetime
 from datetime import date
+from application import db
+from sqlalchemy.sql import text
+from sqlalchemy import create_engine
 
 view = Blueprint('view', __name__)
 
+engine = create_engine('postgresql://postgres:password@localhost/esusu', convert_unicode=True)
+connection  = engine.connect()
 
 @view.route('/')
 @view.route('/home')
 def home():
-    return render_template('home.html', title='eltd-home')
+    return render_template('home.html', title='esusu-home')
 
 
 @view.route('/signup')
@@ -19,14 +24,14 @@ def signup():
 
     form = RegistrationForm()
 
-    return render_template('signup.html', form=form, title='eltd-signup')
+    return render_template('signup.html', form=form, title='esusu-signup')
 
 
 @view.route('/login')
 def login():
     form = LoginForm()
 
-    return render_template('login.html', form=form, title='eltd-login')
+    return render_template('login.html', form=form, title='esusu-login')
 
 @view.route('/account_home')
 @login_required
@@ -67,32 +72,31 @@ def group():
 @login_required
 def add_member():
 
-    memers_in_a_group = list()
+    group_id  = request.args.get('user_id')
 
+    member_details = connection.execute(
+        text(f'select * from public.user inner join public.member on public.member.user_id = public.user.id where public.member.group_id = {group_id}')
+    )
 
+    return render_template('member-detail.html', member = member_details)
 
-    form = AdduserForm()
-    group_id = request.args.get('members')
-
-    member = Member.query.all()
-    user = User.query.all()
-
-    group = Group.query.filter_by(id=group_id).first()
-
-    return render_template('add-member.html', members=member, group_id=group_id, form=form, group=group, users=user)
 
 @view.route('/group_details')
 @login_required
 def group_details():
 
-    group_name = request.args.get('group_name')
-
-    group = Group.query.filter_by(group_name=group_name).first()
-
-    users = User.query.all()
+    group_id = request.args.get('group_id')
 
 
-    return render_template('group-details.html', group=group, users=users)
+    group = connection.execute(
+        text(f' select * from public.user full join public.group on public.user.id = public.group.user_id where public.group.id = {group_id}')
+    )
+
+    members = connection.execute(
+        text(f'select * from public.member right outer join public.user on public.user.id = public.member.user_id where public.member.group_id = {group_id}')
+    )
+
+    return render_template('group-details.html', group=group, members=members)
 
 
 @view.route('/change_admin')

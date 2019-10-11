@@ -1,0 +1,22 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+
+  {% for member_details in member %}
+
+    <div>
+
+        <p align="center"><font size="3" color="#5f9cbc">{{member_details.username}} membership details</font></p>
+
+      <p>Weekly target : {{member_details.weekly_target}}</p>
+      <p>Monthly target : {{member_details.monthly_target}}</p>
+
+
+    </div>
+
+  {% endfor %}
+
+{% endblock%}
+
+{% block side %}
+{% endblock %}

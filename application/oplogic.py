@@ -62,7 +62,8 @@ def create_group():
         db.session.add(member)
         db.session.commit()
 
-
+        user.group_in += 1
+        db.session.commit()
         return redirect(url_for('view.group'))
 
 @oplogic.route('/add_members', methods=['GET','POST'])
@@ -73,10 +74,15 @@ def add_member():
 
     if form.validate_on_submit():
 
-        group_id = request.args.get('group_id')
+        group_idgroup_id = request.args.get('group_id')
         email = form.email.data
+        member = Member.query.filter_by(group_id=group_id).first()
+        userlist = users.query.join(Group)
 
-        members = Member.query.all()
+        for user in users:
+            #return f'{user[0].username}'
+
+            members = Member.query.all()
         user = User.query.filter_by(email=email).first()
 
         for member in members:
@@ -109,7 +115,7 @@ def add_member():
 
 
 
-'''Remove a member route'''
+#Remove a member route
 @oplogic.route('/remove_user')
 @login_required
 def remove_user():
@@ -136,6 +142,8 @@ def remove_user():
 def change_admin():
 
     form = ChangeAdminForm()
+
+
 
     try:
         if form.validate_on_submit():

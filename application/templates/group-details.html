@@ -1,99 +1,70 @@
-{% extends 'layout.html'%}
+{% extends 'layout.html' %}
+
 {% block content %}
 
-  <br><div>
-
-    <table>
-
-      <tr>
-
-          <td >
-
-                <blockquote>Group admin<br>
 
 
 
-              <center>
+{% for group_detail in group %}
 
-                {% for user in users%}
+<div>
 
-                {% if user.id == group.group_admin%}
+  <p align="center"><font size="3" color="#5f9fff">{{ group_detail.group_name }} Details</font></p>
 
-                {{user.username}}
-                {% endif %}
+  <p>
+    GROUP ADMIN: {{ group_detail.username }}
+  </p>
 
-                {% endfor %}
-
-                <i><!--id: {{group.group_admin}}--></i>
-
-              </center>
+  <p>
 
 
-            </blockquote>
+
+  </p>
+
+  <p>
+
+  GROUP TARGET = {{group_detail.group_target}}
+
+  </p>
+
+  <p>
+
+  CURRENT CONTRIBUTIONS = {{group_detail.current_contribution}}
+
+  </p>
+
+  <p>
+
+  GROUP MEMBERS:<br>
+
+  {% for member in members %}
+
+  {% if current_user.id == group_detail.group_admin %}
+
+    <a href="/member?user_id={{member.group_id}}"><button type="button" class="btn btn-md">{{member.username}}</button></a>
+
+  {% else %}
+
+  <blockquote>
+    {{member.username}}
+  </blockquote>
+
+  {% endif %}
+  {% endfor %}
 
 
-          </td>
 
-          <td colspan="7">
-
-                <a href="/member?members={{group.id}}">
-
-                  <blockquote>members<br>
-                <center>{{group.group_members}}</center></blockquote>
-
-                </a>
-
-
-          </td>
-          <td colspan="7">
-
-                <blockquote> current contribution<br>
-
-                  <center>{{group.current_contribution}}</center>
-
-                </blockquote>
-
-
-          </td>
-
-          <td colspan="7">
-
-                <blockquote>Group target<br>
-
-                  <center>{{group.group_target}}<center>
-
-                </blockquote>
-
-
-          </td>
-
-      </tr>
-
-
-    </table>
-
-{% if group.group_admin == current_user.id %}
-    <div>
-
-      <a href="/change_admin?group_id={{group.id}}">
-
-        <button class="btn btn-lg">
-
-          change admin
-
-        </button>
-
-      </a>
-
-    </div>
-
-{% endif %}
-
+  <p>TOTAL NUMBER OF MEMBERS = {{group_detail.group_members}}</p>
 
 </div>
 
+{% endfor %}
 
 
+
+{% endblock %}
+
+{% block side %}
 
 
 {% endblock %}
