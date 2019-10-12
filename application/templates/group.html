@@ -3,20 +3,33 @@
 
 
 
-    {% for group in groups%}
+    {% for data in all%}
 
-      <div>
 
-        <h1>
+    <div>
 
-          <a href="/group_details?group_id={{group.id}}">{{group.group_name}}</a>
-          <a href="#"><button class="btn btn-md">+ Join</button></a>
-
-        </h1>
+      <p>
+      <a href="/group_details?group_id={{data.group_id}}">
 
 
 
-      </div><br>
+        <font size="25%"><b>{{data.group_name}}</b></font>
+
+      </a>
+
+      {% if current_user.id == data.user_id %}
+
+        <a href="#"><font color="#db2"><button type="button" name="button" class="btn btn-sm">Optout -></button></font></a>
+
+
+      {% else %}
+
+      <a href="#"><font color="#0b0"><button type="button" name="button" class="btn btn-sm">+ Join</button></font></a>
+
+      {% endif %}
+
+      </p>
+    <div><br>
 
     {% endfor %}
 

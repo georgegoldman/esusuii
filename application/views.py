@@ -60,12 +60,17 @@ def group_creation():
 def group():
 
 
-    group  = Group.query.all()
-    member = Member.query.all()
 
 
+    all = connection.execute(
+        text(f'select * from public.group full join public.member on public.group.id = public.member.group_id full join public.user on public.user.id = public.member.user_id where public.user.id = public.member.user_id ')
+    )
+    members  = connection.execute(
+        text(f'select * from public.user full join public.member on public.user.id = public.member.user_id')
+    )
 
-    return render_template('group.html', groups=group, member=member, count = 0, one = 1)
+    for member in members:
+        return render_template('group.html', all=all, member=member)
 
 
 @view.route('/member')
@@ -89,14 +94,19 @@ def group_details():
 
 
     group = connection.execute(
-        text(f' select * from public.user full join public.group on public.user.id = public.group.user_id where public.group.id = {group_id}')
+        text(f" select * from public.user full join public.group on public.user.id = public.group.user_id where public.group.id = {group_id}")
     )
 
-    members = connection.execute(
-        text(f'select * from public.member right outer join public.user on public.user.id = public.member.user_id where public.member.group_id = {group_id}')
+    single_group = connection.execute(
+        text(f"select * from public.group where public.group.id = {group_id}")
     )
+    for detail in single_group:
+        members = connection.execute(
+            text(f'select * from public.member right outer join public.user on public.user.id = public.member.user_id where public.member.group_id = {detail.id}')
+            )
 
     return render_template('group-details.html', group=group, members=members)
+
 
 
 @view.route('/change_admin')
