@@ -4,8 +4,12 @@ from .web_forms import AdminForm, GroupForm, AdduserForm, ChangeAdminForm
 from .models import User, Group, Member
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.sql import text
+from sqlalchemy import create_engine
 
 oplogic = Blueprint('oplogic', __name__)
+engine = create_engine('postgresql://postgres:password@localhost/esusu', convert_unicode=True)
+connection = engine.connect()
 
 '''admin creation and group route'''
 
@@ -66,54 +70,41 @@ def create_group():
         db.session.commit()
         return redirect(url_for('view.group'))
 
-@oplogic.route('/add_members', methods=['GET','POST'])
+@oplogic.route('/join_group', methods=['GET','POST'])
 @login_required
-def add_member():
-
-    form = AdduserForm()
-
-    if form.validate_on_submit():
-
-        group_idgroup_id = request.args.get('group_id')
-        email = form.email.data
-        member = Member.query.filter_by(group_id=group_id).first()
-        userlist = users.query.join(Group)
-
-        for user in users:
-            #return f'{user[0].username}'
-
-            members = Member.query.all()
-        user = User.query.filter_by(email=email).first()
-
-        for member in members:
-            #return f'{member.group_id}'
-
-            try:
-                if member.group_id == group_id or member.user_id == user.id:
-                    return f'{email} is already a user'
-                elif not user.email:
-                    return  Mackup(f"account don\'t exist")
-                else:
-                    group = Group.query.filter_by(id=group_id).first()
-
-                    group.group_members += 1
-                    db.session.commit()
-
-                    paymt_calc = (int(group.group_target)/(group.group_members + 1))
-                    weekly_target = paymt_calc/4
-
-                    member = Member(weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id, user_id=user.id)
-
-                    db.session.add(member)
-                    db.session.commit()
-
-                    return f'successfully add to group {group.group_name}'
-
-            except AttributeError:
-                return 'account don\'t exist'
+def join_group():
 
 
+    user_id = request.args.get('current_user_id')
+    group_id = request.args.get('group_id')
 
+    members  = connection.execute(
+    text(f"select * from public.member where public.member.group_id = {group_id}" )
+    )
+
+    for member in members:
+
+        user = User.query.filter_by(id=user_id).first()
+
+        if user.id == member.user_id:
+            return 'already a member to this group'
+
+        else:
+            user.group_in += 1
+            db.session.commit()
+
+            group = Group.query.filter_by(id=group_id).first()
+            group.group_members += 1
+            db.session.commit()
+
+            paymt_calc = int(group.group_target)/group.group_members
+            weekly_target = paymt_calc/4
+            member = Member(weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id, user_id=user.id)
+
+            db.session.add(member)
+            db.session.commit()
+
+            return f'{user.email} successfully added to group {group.group_name}'
 
 #Remove a member route
 @oplogic.route('/remove_user')

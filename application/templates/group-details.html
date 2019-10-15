@@ -1,70 +1,15 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html'%}
 
 {% block content %}
 
+  {% for data in datas %}
 
+    {{ data.username}}<br>
 
-
-{% for group_detail in group %}
-
-<div>
-
-  <p align="center"><font size="3" color="#5f9fff">{{ group_detail.group_name }} Details</font></p>
-
-  <p>
-    GROUP ADMIN: {{ group_detail.username }}
-  </p>
-
-  <p>
-
-
-
-  </p>
-
-  <p>
-
-  GROUP TARGET = {{group_detail.group_target}}
-
-  </p>
-
-  <p>
-
-  CURRENT CONTRIBUTIONS = {{group_detail.current_contribution}}
-
-  </p>
-
-  <p>
-
-  GROUP MEMBERS:<br>
-
-  {% for member in members %}
-
-  {% if current_user.id == group_detail.group_admin %}
-
-    <a href="/member?user_id={{member.group_id}}"><button type="button" class="btn btn-md">{{member.username}}</button></a>
-
-  {% else %}
-
-  <blockquote>
-    {{member.username}}
-  </blockquote>
-
-  {% endif %}
   {% endfor %}
-
-
-
-  <p>TOTAL NUMBER OF MEMBERS = {{group_detail.group_members}}</p>
-
-</div>
-
-{% endfor %}
-
-
 
 {% endblock %}
 
-{% block side %}
-
+{% block side%}
 
 {% endblock %}

@@ -1,38 +1,36 @@
 {% extends 'layout.html' %}
 {%block content %}
 
+{% for group in groups %}
 
+  <div>
+      <span>
+        {{group.group_name}}
+      </span>
+      <span>
+        {% for member in members%}
 
-    {% for data in all%}
+          {% if member.group_id == group.id %}
 
+              {% if member.user_id == current_user.id %}
 
-    <div>
+                <a href="#">leave</a>
 
-      <p>
-      <a href="/group_details?group_id={{data.group_id}}">
+              {% elif member.user_id != current_user.id %}
 
+                <a href="#">+join-</a>
 
+              {% else %}
 
-        <font size="25%"><b>{{data.group_name}}</b></font>
+                <a href="#">+join</a>
 
-      </a>
+              {% endif %}
 
-      {% if current_user.id == data.user_id %}
+          {% endif %}
 
-        <a href="#"><font color="#db2"><button type="button" name="button" class="btn btn-sm">Optout -></button></font></a>
+        {% endfor %}
+      </span>
+  </div>
 
-
-      {% else %}
-
-      <a href="#"><font color="#0b0"><button type="button" name="button" class="btn btn-sm">+ Join</button></font></a>
-
-      {% endif %}
-
-      </p>
-    <div><br>
-
-    {% endfor %}
-
-
-
+{% endfor %}
 {% endblock %}

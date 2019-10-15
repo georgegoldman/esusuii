@@ -38,7 +38,7 @@ def login():
 def account_home():
 
 
-    return render_template('account_home.html', username=current_user.email)
+    return render_template('account_home.html', username=current_user.username)
 
 @view.route('/admin_signup')
 @login_required
@@ -60,17 +60,29 @@ def group_creation():
 def group():
 
 
+    # members = connection.execute(
+    #     text(f"select * from public.user left join public.member on public.user.id = public.member.group_id where public.user.id = {current_user.id} ")
+    # )
 
+    members = Member.query.all()
 
-    all = connection.execute(
-        text(f'select * from public.group full join public.member on public.group.id = public.member.group_id full join public.user on public.user.id = public.member.user_id where public.user.id = public.member.user_id ')
+    # members = Member.query.all()
+    groups = connection.execute(
+        text(f"select * from public.group")
     )
-    members  = connection.execute(
-        text(f'select * from public.user full join public.member on public.user.id = public.member.user_id')
-    )
 
-    for member in members:
-        return render_template('group.html', all=all, member=member)
+    # def desolve_table(y):
+    #     for current_user.id  in y:
+    #         return True
+
+
+
+    # for group in groups:
+    return render_template('group.html', members=members, groups=groups)
+
+
+    # print(len(members))
+    # return 'hi'
 
 
 @view.route('/member')
@@ -93,19 +105,11 @@ def group_details():
     group_id = request.args.get('group_id')
 
 
-    group = connection.execute(
-        text(f" select * from public.user full join public.group on public.user.id = public.group.user_id where public.group.id = {group_id}")
+    datas = connection.execute(
+        text(f" select * from public.user inner join public.member on public.member.user_id = public.user.id full join public.group on public.group.id = public.member.group_id where public.group.id = {group_id}")
     )
 
-    single_group = connection.execute(
-        text(f"select * from public.group where public.group.id = {group_id}")
-    )
-    for detail in single_group:
-        members = connection.execute(
-            text(f'select * from public.member right outer join public.user on public.user.id = public.member.user_id where public.member.group_id = {detail.id}')
-            )
-
-    return render_template('group-details.html', group=group, members=members)
+    return render_template('group-details.html', datas=datas)
 
 
 
