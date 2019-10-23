@@ -1,0 +1,37 @@
+{% extends 'layout.html'%}
+
+
+
+{% block content %}
+
+{% include 'group-navigator.html'%}
+
+<div class="">
+
+  <h2>Start tenure</h2>
+  <hr>
+    <a href="#"> <button class="btn btn-success btn-lg "type="button" name="button">
+      Click to start tenure
+    </button> </a>
+
+</div><br>
+
+<div class="">
+
+  <h2>Change admin</h2>
+  <hr>
+
+  <form class="" action="index.html" method="post">
+
+    <div class="input-group">
+
+      {{form.search(class='form-control input-lg', placeholder='Search member name')}}
+
+    </div>
+
+  </form>
+
+</div>
+
+
+{% endblock %}

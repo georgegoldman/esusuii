@@ -4,16 +4,13 @@
 
 {% include 'group-navigator.html'%}
 
-  <h1>{{group.group_name}}</h1>
-
-    <h3>Group Admin</h3>
-
-    <p>{{group.user.username}}</p>
+  <h1>Group target</h1>
+  <h3>{{group.group_target}}</h3>
+  <h1>Curent contribution </h1>
+  <h3>{{group.current_contribution}}</h3>
 
 {% endblock %}
 
 {% block side %}
-
-
 
 {% endblock %}

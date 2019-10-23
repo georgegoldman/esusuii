@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, AdduserForm, ChangeAdminForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm
 from flask_login import login_required, current_user
 from .models import Group, Member, User
 import datetime
@@ -87,16 +87,22 @@ def group():
 
 @view.route('/member')
 @login_required
-def add_member():
+def member():
 
-    group_id  = request.args.get('user_id')
+    group_id  = request.args.get('group_id')
 
-    member_details = connection.execute(
-        text(f'select * from public.user inner join public.member on public.member.user_id = public.user.id where public.member.group_id = {group_id}')
-    )
+    group = Group.query.get(group_id)
+    members_in_group = Member.query.filter_by(group_id=group_id).all()
+    return render_template('member-detail.html', members_in_group=members_in_group, group=group)
 
-    return render_template('member-detail.html', member = member_details)
+@view.route('/busery')
+@login_required
+def busery():
+    group_id  = request.args.get('group_id')
+    group = Group.query.get(group_id)
+    members_in_group = Member.query.filter_by(group_id=group_id).all()
 
+    return render_template('busery.html', group=group, members_in_group=members_in_group)
 
 @view.route('/group_details')
 @login_required
@@ -104,21 +110,26 @@ def group_details():
 
     group_id = request.args.get('group_id')
 
-
     datas = connection.execute(
-        text(f" select * from public.user inner join public.member on public.member.user_id = public.user.id full join public.group on public.group.id = public.member.group_id where public.group.id = {group_id}")
+        text(f" select * from public.user inner join public.member on public.member.user_id = public.user.id  where public.member.group_id = {group_id}")
+    )
+    group = Group.query.filter_by(id=group_id).first()
+    members_in_group = Member.query.filter_by(group_id=group.id).all()
+
+    user = User.query.all()
+
+    members = connection.execute(
+        text(f"select * from  public.user full join public.member on public.user.id = public.member.user_id	")
     )
 
-    return render_template('group-details.html', datas=datas)
+    return render_template('group-details.html', datas=datas, members=members, group=group, current_user=current_user, members_in_group=members_in_group)
 
 
 
-@view.route('/change_admin')
+@view.route('/admin_pannel')
 @login_required
-def change_admin():
-
-    group_id = request.args.get('group_id')
-
+def admin_pannel():
     form = ChangeAdminForm()
-
-    return render_template('change-admin.html', form=form, group_id=group_id)
+    group_id  = request.args.get('group_id')
+    group = Group.query.get(group_id)
+    return render_template('admin-pannel.html', group=group, form=form)

@@ -8,11 +8,11 @@
 
       {% if current_user.is_admin == False %}
 
-        <legend>Admin signup</legend>
+        <legend>Ugrade to an Admin account to enable group creation </legend>
 
       {% elif current_user.is_admin == True %}
 
-        <legend>Admin check </legend>
+        <legend>Your Admin logs are required </legend>
 
       {% endif %}
 

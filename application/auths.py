@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request, Markup
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, AdduserForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm
 from application.models import User, Group, Member
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user

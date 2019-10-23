@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, redirect, url_for, request, render_template, Markup
 from flask_login import login_required, current_user
-from .web_forms import AdminForm, GroupForm, AdduserForm, ChangeAdminForm
+from .web_forms import AdminForm, GroupForm, ChangeAdminForm
 from .models import User, Group, Member
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -48,112 +48,91 @@ def create_group():
 
     if form.validate_on_submit():
         group_name = str(form.group_name.data)
+        member_limit = int(form.member_limit.data)
         group_target = int(form.group_target.data)
 
-        user = User.query.filter_by(id=current_user.id).first()
-
-        group = Group.query.filter_by(group_name=group_name).first()
-
-        group = Group(group_name=group_name, group_admin=current_user.id, group_members=int(1), group_target=group_target, current_contribution=int(0), user_id=current_user.id)
+        group = Group(group_name=group_name, group_admin=current_user.id, group_members=1, member_limit=member_limit, group_target=group_target, current_contribution=0, user_id=current_user.id)
         db.session.add(group)
         db.session.commit()
 
-        paymt_calc = int(group.group_target)/group.group_members
-        weekly_target = paymt_calc/4
+        group = Group.query.filter_by(group_name=group_name).first()
 
-        member = Member(weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id, user_id=user.id)
-
+        weekly_target = (group_target/member_limit)/4
+        monthly_target = group_target/member_limit
+        member = Member(weekly_target=weekly_target, monthly_target=monthly_target, group_id=group.id, user_id=current_user.id)
         db.session.add(member)
         db.session.commit()
 
-        user.group_in += 1
+        current_user.group_in += 1
         db.session.commit()
+
+        flash(f'{group.group_name} have been successfully created')
         return redirect(url_for('view.group'))
 
+'''adding a member to a group '''
 @oplogic.route('/join_group', methods=['GET','POST'])
 @login_required
 def join_group():
-
-
-    user_id = request.args.get('current_user_id')
     group_id = request.args.get('group_id')
+    member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
+    members_in_group = Member.query.filter_by(group_id=group_id).count()
+    group = Group.query.get(group_id)
 
-    members  = connection.execute(
-    text(f"select * from public.member where public.member.group_id = {group_id}" )
-    )
-
-    for member in members:
-
-        user = User.query.filter_by(id=user_id).first()
-
-        if user.id == member.user_id:
-            return 'already a member to this group'
-
+    if group.member_limit == members_in_group:
+        flash(f'{group.group_name} has reached it limit')
+        return render_template('account_home.html')
+    else:
+        if member:
+            flash('You are already a member to this group')
+            return render_template('account_home.html')
         else:
-            user.group_in += 1
+            weekly_target = (group.group_target/group.member_limit)/4
+            monthly_target = group.group_target/group.member_limit
+            new_member = Member(weekly_target=weekly_target,monthly_target=0,group_id=group_id,user_id=current_user.id)
+            db.session.add(new_member)
             db.session.commit()
 
-            group = Group.query.filter_by(id=group_id).first()
+            current_user.group_in += 1
+            db.session.commit()
+
+
             group.group_members += 1
             db.session.commit()
 
-            paymt_calc = int(group.group_target)/group.group_members
-            weekly_target = paymt_calc/4
-            member = Member(weekly_target=weekly_target, monthly_target=paymt_calc, group_id=group.id, user_id=user.id)
+            flash('You have been added successfully.')
+            return render_template('account_home.html')
 
-            db.session.add(member)
-            db.session.commit()
-
-            return f'{user.email} successfully added to group {group.group_name}'
 
 #Remove a member route
-@oplogic.route('/remove_user')
+@oplogic.route('/leave_group')
 @login_required
 def remove_user():
+    group_id = request.args.get('group_id')
+    member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
+    group = Group.query.get(group_id)
 
+    if member:
+        db.session.delete(member)
+        db.session.commit()
 
-    member_id = request.args.get('member_id')
+        current_user.group_in -= 1
+        db.session.commit()
 
+        group = Group.query.get(group_id)
+        group.group_members -= 1
+        db.session.commit()
 
-    member = Member.query.filter_by(id=member_id).first()
+        flash(f'You have been removed successfully {group.group_name}.')
+        return render_template('account_home.html')
+    else:
 
-    group  = Group.query.filter_by(id=member.group_id).first()
+        flash(f'You are not a member to this {group.group_name}')
+        return render_template('account_home.html')
 
-    db.session.delete(member)
-    db.session.commit()
-
-    group.group_members -= 1
-    db.session.commit()
-
-    return f'member {member.id} removed {group.group_name} member removed'
-
-
-@oplogic.route('/change_admin', methods=['POST'])
+@oplogic.route('/start_tenure')
 @login_required
-def change_admin():
+def start_tenure():
 
-    form = ChangeAdminForm()
-
-
-
-    try:
-        if form.validate_on_submit():
-            group_id = int(request.args.get('group_id'))
-            member_id = form.member_id.data
-            password = form.password.data
-
-            group = Group.query.filter_by(id=group_id).first()
-
-            member = Member.query.filter_by(id=member_id).first()
-
-            user = User.query.filter_by(id=group.group_admin).first()
-
-            if member.group_id == group.id and password == user.password:
-
-                group.group_admin = member.user_id
-                group.user_id = member.user_id
-                db.session.commit()
-
-                return  'Groud admin successfully changed'
-    except AttributeError:
-        return 'group or user does not exist or check you logs'
+    group_id  = rquest.args.get()
+    member = Member.query.filter_by()
+    return 'tenure started'

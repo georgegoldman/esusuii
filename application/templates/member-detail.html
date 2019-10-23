@@ -2,19 +2,26 @@
 
 {% block content %}
 
-  {% for member_details in member %}
+{% include 'group-navigator.html'%}
 
-    <div>
-
-        <p align="center"><font size="3" color="#5f9cbc">{{member_details.username}} membership details</font></p>
-
-      <p>Weekly target : {{member_details.weekly_target}}</p>
-      <p>Monthly target : {{member_details.monthly_target}}</p>
+<p >Group strenght</p>
+<p >{{group.group_members}}</p>
+<hr>
 
 
-    </div>
+{% for member in members_in_group %}
 
-  {% endfor %}
+  <div class="">
+
+    <h1>{{member.user.username}}</h1>
+    <h3>weekly target</h3>
+    <p>{{member.weekly_target}}</p>
+    <h3>Group in</h3>
+    <p>{{member.user.group_in}}</p>
+
+  </div>
+
+{% endfor %}
 
 {% endblock%}
 

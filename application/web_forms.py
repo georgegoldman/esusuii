@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.html5 import NumberInput
 from wtforms import TextField, PasswordField, SubmitField, StringField, IntegerField
 from wtforms.fields.html5 import EmailField
 from wtforms.validators import  Length, EqualTo, ValidationError, DataRequired, Email
@@ -38,7 +39,7 @@ class AdminForm(FlaskForm):
 
     password = PasswordField('password',  validators=[DataRequired(message='password required')])
 
-    submit_button = SubmitField('Create')
+    submit_button = SubmitField('Ugrade')
 
 class GroupForm(FlaskForm):
 
@@ -46,22 +47,17 @@ class GroupForm(FlaskForm):
 
     group_name = StringField('group name', validators=[DataRequired(),])
 
-    group_target = IntegerField('group target', validators=[DataRequired()])
+    group_target = IntegerField(widget=NumberInput(), validators=[DataRequired()])
+
+    member_limit = IntegerField(widget=NumberInput(), validators=[DataRequired()])
 
     submit_button = SubmitField('Create')
 
 
-class AdduserForm(FlaskForm):
 
-    email = EmailField('email', validators=[DataRequired(message='email required'), Email()])
-
-    submit_button = SubmitField('add')
 
 class ChangeAdminForm(FlaskForm):
 
-
-    member_id = IntegerField('member id', validators=[DataRequired()])
-
-    password = PasswordField('password', validators=[DataRequired()])
-
-    submit_button = SubmitField('change')
+    search = StringField('Search', validators=[DataRequired()])
+    submit = SubmitField('Serach')
+    

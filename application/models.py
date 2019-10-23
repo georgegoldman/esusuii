@@ -7,24 +7,18 @@ class User(db.Model, UserMixin, AnonymousUserMixin):
     username = db.Column(db.Text)
     email = db.Column(db.Text)
     password = db.Column(db.String(80))
-    group_in = db.Column(db.Integer)
-    is_admin = db.Column(db.Boolean)
+    group_in = db.Column(db.Integer, default = 0)
+    is_admin = db.Column(db.Boolean, default=False)
     group = db.relationship('Group', backref='user', lazy='dynamic')
     member = db.relationship('Member', backref='user', lazy='dynamic')
 
-    def __init__(self, username, email, password, group_in=int(0), is_admin=False):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password = password
-        self.group_in  = group_in
-        self.is_admin = is_admin
-
-
 
     def __repr__(self):
-        return f'< User {self.id}>'
-
-
+        return f"User('{self.username}', '{self.email}', '{self.group_in}', '{self.is_admin}')"
 
 class Group(db.Model):
 
@@ -32,21 +26,23 @@ class Group(db.Model):
     group_name = db.Column(db.String(80))
     group_admin = db.Column(db.Integer)
     group_members = db.Column(db.Integer)
+    member_limit = db.Column(db.Integer)
     group_target = db.Column(db.Integer)
     current_contribution = db.Column(db.Integer)
     members = db.relationship('Member', backref='group', lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, group_name, group_admin, group_members, group_target, current_contribution, user_id):
+    def __init__(self, group_name, group_admin, group_members, member_limit, group_target, current_contribution, user_id):
         self.group_name = group_name
         self.group_admin = group_admin
         self.group_members = group_members
+        self.member_limit = member_limit
         self.group_target = group_target
         self.current_contribution = current_contribution
         self.user_id = user_id
 
     def __repr__(self):
-        return f'<Group> {self.id}'
+        return f"Group('{self.group_name}', '{self.group_admin}', '{self.group_members}', '{self.member_limit}', '{self.group_target}', '{self.current_contribution}')"
 
 class Member(db.Model):
 
@@ -64,4 +60,4 @@ class Member(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return f'<Members {self.id}>'
+        return f"Member('{self.weekly_target}', '{self.monthly_target}', '{self.group_id}', '{self.user_id}')"
