@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin, AnonymousUserMixin
+from sqlalchemy.dialects.postgresql import ARRAY
 
 class User(db.Model, UserMixin, AnonymousUserMixin):
 
@@ -18,7 +19,27 @@ class User(db.Model, UserMixin, AnonymousUserMixin):
         self.password = password
 
     def __repr__(self):
-        return f"User('{self.username}', '{self.email}', '{self.group_in}', '{self.is_admin}')"
+        return f"['{self.username}']"
+
+class Member(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Text)
+    weekly_target = db.Column(db.Integer)
+    monthly_target = db.Column(db.Integer)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+
+    def __init__(self, username, weekly_target, monthly_target, group_id, user_id):
+        self.username = username
+        self.weekly_target = weekly_target
+        self.monthly_target = monthly_target
+        self.group_id = group_id
+        self.user_id = user_id
+
+        def __repr__(self):
+            return f"['{self.id}']"
 
 class Group(db.Model):
 
@@ -30,6 +51,7 @@ class Group(db.Model):
     group_target = db.Column(db.Integer)
     current_contribution = db.Column(db.Integer)
     members = db.relationship('Member', backref='group', lazy=True)
+    paylist = db.relationship('Paylist', backref='group', lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, group_name, group_admin, group_members, member_limit, group_target, current_contribution, user_id):
@@ -42,22 +64,16 @@ class Group(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return f"Group('{self.group_name}', '{self.group_admin}', '{self.group_members}', '{self.member_limit}', '{self.group_target}', '{self.current_contribution}')"
+        return f"['{self.group_name}']"
 
-class Member(db.Model):
-
+class Paylist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    weekly_target = db.Column(db.Integer)
-    monthly_target = db.Column(db.Integer)
-    group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    payee_list = db.Column(ARRAY(db.Integer), default=None)
+    start_tenure = db.Column(db.Boolean, default=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 
-
-    def __init__(self, weekly_target, monthly_target, group_id, user_id):
-        self.weekly_target = weekly_target
-        self.monthly_target = monthly_target
+    def __init_(self, group_id):
         self.group_id = group_id
-        self.user_id = user_id
 
     def __repr__(self):
-        return f"Member('{self.weekly_target}', '{self.monthly_target}', '{self.group_id}', '{self.user_id}')"
+        return f"[{self.payee_list}]"

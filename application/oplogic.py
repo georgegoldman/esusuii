@@ -1,7 +1,9 @@
+import random
+from random import shuffle
 from flask import Blueprint, flash, redirect, url_for, request, render_template, Markup
 from flask_login import login_required, current_user
 from .web_forms import AdminForm, GroupForm, ChangeAdminForm
-from .models import User, Group, Member
+from .models import User, Group, Member, Paylist
 from . import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.sql import text
@@ -51,15 +53,20 @@ def create_group():
         member_limit = int(form.member_limit.data)
         group_target = int(form.group_target.data)
 
+
         group = Group(group_name=group_name, group_admin=current_user.id, group_members=1, member_limit=member_limit, group_target=group_target, current_contribution=0, user_id=current_user.id)
         db.session.add(group)
         db.session.commit()
 
         group = Group.query.filter_by(group_name=group_name).first()
 
+        paylist = Paylist(group_id=group.id)
+        db.session.add(paylist)
+        db.session.commit()
+
         weekly_target = (group_target/member_limit)/4
         monthly_target = group_target/member_limit
-        member = Member(weekly_target=weekly_target, monthly_target=monthly_target, group_id=group.id, user_id=current_user.id)
+        member = Member(username=current_user.username,weekly_target=weekly_target, monthly_target=monthly_target, group_id=group.id, user_id=current_user.id)
         db.session.add(member)
         db.session.commit()
 
@@ -88,7 +95,7 @@ def join_group():
         else:
             weekly_target = (group.group_target/group.member_limit)/4
             monthly_target = group.group_target/group.member_limit
-            new_member = Member(weekly_target=weekly_target,monthly_target=0,group_id=group_id,user_id=current_user.id)
+            new_member = Member(username=current_user.username, weekly_target=weekly_target,monthly_target=0,group_id=group_id,user_id=current_user.id)
             db.session.add(new_member)
             db.session.commit()
 
@@ -133,6 +140,52 @@ def remove_user():
 @login_required
 def start_tenure():
 
-    group_id  = rquest.args.get()
-    member = Member.query.filter_by()
-    return 'tenure started'
+    group_id  = request.args.get('group_id')
+    member = Member.query.filter_by(group_id=group_id).all()
+    payee_list = Paylist.query.filter_by(group_id=group_id).first()
+    users = User.query.all()
+    paylist = list()
+
+    shuffle(member)
+    print(member)
+    i = 0
+    for y in member:
+        for user in users:
+            if y.user_id == user.id:
+                i += 1
+                #paylist.append(f'{i}.{user.username}')
+                paylist.append(user.id)
+                if len(member) == i:
+                    #payee_listToStr = ' '.join([str(elem) for elem in payee_list])
+                    payee_list.payee_list = paylist
+                    payee_list.start_tenure = True
+                    db.session.commit()
+
+                    print(paylist)
+
+    flash('tenure has started go to the go to payee list to see who takes the money first')
+    return render_template('account_home.html')
+
+@oplogic.route('/change_admin', methods=['GET', 'POST'])
+@login_required
+def change_admin():
+    form  = ChangeAdminForm()
+    group_id = request.args.get('group_id')
+    if form.validate_on_submit:
+        member_id = form.members_id.data
+        member = Member.query.get(member_id)
+        if int(member.group_id) == int(group_id):
+            group = Group.query.get(group_id)
+            if member.user_id == group.group_admin:
+                flash(f"You are already the group administrator ")
+                return render_template('account_home.html')
+            group.group_admin = member.user_id
+            db.session.commit()
+            flash(f"This user is now the administrator of this group ")
+            return render_template('account_home.html')
+        elif int(member.group_id) == None:
+            flash(f"This user is not a member to this group ")
+            return render_template('account_home.html')
+        else:
+            flash(f"This user is not a member to this group ")
+            return render_template('account_home.html')

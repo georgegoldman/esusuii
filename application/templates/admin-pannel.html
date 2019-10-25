@@ -8,30 +8,41 @@
 
 <div class="">
 
+{% if current_user.id == group.group_admin %}
+  {% if not paylist.start_tenure %}
   <h2>Start tenure</h2>
   <hr>
-    <a href="#"> <button class="btn btn-success btn-lg "type="button" name="button">
+    <a href="/start_tenure?group_id={{group.id}}"> <button class="btn btn-success btn-lg "type="button" name="button">
       Click to start tenure
     </button> </a>
-
 </div><br>
+{% endif %}
 
 <div class="">
 
   <h2>Change admin</h2>
   <hr>
 
-  <form class="" action="index.html" method="post">
+  <form class="" action="/change_admin?group_id={{group.id}}" method="post">
 
     <div class="input-group">
 
-      {{form.search(class='form-control input-lg', placeholder='Search member name')}}
+      {{ form.members_id(class="input-sm form-con", placeholder="enter member id") }}
+
+    </div><br>
+
+    <div class="input-group">
+
+      {{ form.change(class="btn btn-lg btn-warning")}}
 
     </div>
+
+    {{form.csrf_token }}
 
   </form>
 
 </div>
 
+{% endif %}
 
 {% endblock %}

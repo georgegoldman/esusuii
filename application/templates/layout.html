@@ -8,7 +8,8 @@
 			<title> esusu </title>
 		{% endif %}
 
-		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 
 	</head>
 	<body>
@@ -19,7 +20,7 @@
 
 				<div class="col-lg-2">
 
-					<ul class="nav nav-pills nav-stacked">
+					<ul class="nav nav-pills nav-stacked navbar-static-top" role="navigation">
 
 						<li><a href="{{ url_for('view.home')}}">home</a></li>
 						{% if not current_user.is_authenticated%}

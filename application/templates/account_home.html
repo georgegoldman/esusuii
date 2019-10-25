@@ -2,6 +2,25 @@
 
 {% block content %}
 
-<h1>{{username}}</h1>
+<h1>{{current_user.username}}</h1><hr>
+
+<div class="">
+
+  <b>
+
+    <h3>Group in </h3>
+    <p>{{current_user.group_in}}</p>
+
+    {% for mem in member%}
+
+      {{mem.group.group_name}}<br>
+
+    {% endfor%}
+
+
+  </b>
+
+</div>
+
 
 {% endblock %}

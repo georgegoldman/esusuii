@@ -1,0 +1,49 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+
+{% include 'group-navigator.html'%}
+
+<h2>Random pay list</h2>
+{% if not paylist.start_tenure %}
+
+  <p><b>The list will be available when the tenure commerce.</b> </p>
+
+{% else %}
+
+    <b>
+
+      {% for elem in member %}
+
+
+        {% for user_id in paylist.payee_list %}
+
+          {% if elem.user_id == user_id %}
+
+            {{elem.user.username}} {{i}}<br>
+
+          {% endif %}
+
+        {% endfor %}
+
+      {% endfor %}
+
+    </b>
+
+{% endif %}
+
+
+<br>
+<h3>Members available for pay</h3><hr>
+{% for mem in member %}
+
+  <b>{{mem.username}}.</b><br>
+
+{% endfor %}
+
+{% endblock %}
+
+{% block side %}
+
+
+{% endblock %}
