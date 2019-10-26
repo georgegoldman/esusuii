@@ -1,0 +1,36 @@
+#esusu-heading{
+  color: black ;
+  font-weight: bold !important;
+  font-stretch: expanded;
+  text-align: center;
+  font-size: 7mm;
+  font-family: Impact fantasy;
+}
+#navbar{
+  color: darkcyan !important;
+}
+a{
+  color: black !important;
+  font-size: 6mm;
+  font-weight: bold !important;
+  word-spacing: 2mm;
+  margin-top: 27% !important;
+}
+a:hover{
+  text-decoration: none;
+  color: darkcyan !important;
+}
+
+#btn{
+  border: none;
+  background: none;
+  height: 2em;
+}
+
+#link-box :hover #btn{
+  background: whitesmoke;
+  border-radius: 7px;
+}
+btn > p {
+  text-align: left !important;
+}

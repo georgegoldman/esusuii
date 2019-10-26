@@ -1,3 +1,4 @@
+from flask import Markup
 from flask_wtf import FlaskForm
 from flask_wtf.html5 import NumberInput
 from wtforms import TextField, PasswordField, SubmitField, StringField, IntegerField, SelectField
@@ -24,7 +25,7 @@ class LoginForm(FlaskForm):
 
     email = EmailField('email',  validators=[DataRequired(message='email required'), Email()])
     password = PasswordField('password',  validators=[DataRequired()])
-    submit_button = SubmitField('Log in')
+    submit_button = SubmitField(f'login')
 
 class AdminForm(FlaskForm):
 

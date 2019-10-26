@@ -1,36 +1,53 @@
-{% extends 'layout.html' %}
+{% extends 'auth-layout.html'%}
 
 {% block content %}
 
 
-	<form class="" action="/login" method="POST">
+							<form class="color" action="/login" method="POST" >
 
-		<legend>Login</legend>
+								<legend>Login</legend>
 
-		<fieldset>
+								<fieldset>
 
-			<div class="input-group">
+									<div class=" input-group" id='box-input'>
 
-				{{form.email(class_='form-control input-lg', placeholder='Email')}}
+										{{form.email(class_='house form-control input-lg', placeholder='Email')}}
 
-			</div><br>
+									</div><br>
 
-			<div class="input-group">
+									<div class=" input-group" id='box-input'>
 
-				{{ form.password(class='form-control input-lg', placeholder='Password')}}
+										{{ form.password(class='house form-control input-lg', placeholder='Password')}}
 
-			</div><br>
+									</div><br>
 
-			<div class="input-group">
+									<div class="input-group" id="box-input-btn">
 
-				{{form.submit_button(class='btn btn-lg')}}
+								<button  class="btn btn-lg" type="submit" name="button">	<i class="fas fa-unlock"></i> login </button>
 
-			</div>
+									</div>
 
-			{{ form.csrf_token }}
+									{{ form.csrf_token }}
 
-		</fieldset>
+								</fieldset>
 
-	</form>
+							</form>
+
+
+
+
+{% endblock %}
+
+{% block signup %}
+
+<div class="" id="box-access">
+
+	<a href="{{url_for('view.signup')}}">
+
+		<button class="btn btn-lg" type="button" name="button"> <i class="fas fa-user-plus"></i> signup</button>
+
+	</a>
+
+</div>
 
 {% endblock %}

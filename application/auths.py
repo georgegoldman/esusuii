@@ -58,4 +58,4 @@ def login():
 def logout():
 
     logout_user()
-    return redirect(url_for('view.home'))
+    return redirect(url_for('view.login'))

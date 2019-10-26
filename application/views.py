@@ -1,5 +1,5 @@
 import random
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm
 from flask_login import login_required, current_user
 from .models import Group, Member, User, Paylist
@@ -16,23 +16,24 @@ connection  = engine.connect()
 
 @view.route('/')
 @view.route('/home')
-def home():
-    return render_template('home.html', title='esusu-home')
+def login():
+    form = LoginForm()
+    if current_user.is_authenticated:
+        flash('you need to sign out to access that page')
+        return redirect(url_for('view.account_home'))
+    else:
+        return render_template('login.html', form=form, title='esusu-login')
 
 
 @view.route('/signup')
 def signup():
 
     form = RegistrationForm()
-
-    return render_template('signup.html', form=form, title='esusu-signup')
-
-
-@view.route('/login')
-def login():
-    form = LoginForm()
-
-    return render_template('login.html', form=form, title='esusu-login')
+    if current_user.is_authenticated:
+        flash('you need to sign out to access that page')
+        return redirect(url_for('view.account_home'))
+    else:
+        return render_template('signup.html', form=form, title='esusu-signup')
 
 @view.route('/account_home')
 @login_required

@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'auth-layout.html' %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
 
 		<fieldset>
 
-			<div class="input-group">
+			<div class="input-group" id='box-input'>
 
 				{{ form.username(class_='form-control input-lg', placeholder='username', autofocus=True)}}
 
@@ -30,7 +30,7 @@
 
 			</div><br>
 
-			<div class="input-group">
+			<div class="input-group" id='box-input'>
 
 				{{ form.email(class_='form-control input-lg', placeholder='Email', autofocus=True)}}
 
@@ -51,7 +51,7 @@
 
 			</div><br>
 
-			<div class="input-group">
+			<div class="input-group" id='box-input'>
 
 				{{ form.password(class_='form-control input-lg', placeholder='Password')}}
 
@@ -72,7 +72,7 @@
 
 			</div><br>
 
-			<div class="input-group">
+			<div class="input-group" id='box-input'>
 
 				{{ form.confirm_pwd(class_='form-control input-lg', placeholder='Retype password')}}
 
@@ -93,9 +93,9 @@
 
 			</div><br>
 
-			<div class="input-group">
+			<div class="input-group" id="box-input-btn">
 
-				{{ form.submit_button(class_='btn btn-lg') }}
+				<button class="btn btn-lg"type="submit" name="button"> <i class="fas fa-user-plus"></i> signup</button>
 
 			</div>
 
@@ -104,5 +104,20 @@
 		</fieldset>
 
 	</form>
+
+{% endblock %}
+
+{% block login %}
+
+<div class="" id="box-access">
+
+	<a href="{{ url_for('view.login')}}">
+
+			<button class="btn btn-lg" type="button" name="button"> <i class="fas fa-unlock"></i> login</button>
+
+	</a>
+
+
+</div>
 
 {% endblock %}

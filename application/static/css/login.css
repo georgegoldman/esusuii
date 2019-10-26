@@ -1,0 +1,31 @@
+#box-form{
+  position: absolute;
+  left: 35%;
+  top: 21em;
+  color: black;
+}
+#box-input > input{
+    border-radius: 7px;
+}
+
+#box-input-btn > button{
+  width: 2.83in;
+}
+#box-i{
+  position: absolute;
+  left: 37%;
+  top: 10em;
+  color: darkcyan;
+}
+#box-i > p{
+  font-size: 77px;
+}
+#box-i > i{
+  margin-left: 2cm;
+}
+
+#box-access > a > button{
+  width: 2.83in;
+  color: darkcyan;
+
+}
