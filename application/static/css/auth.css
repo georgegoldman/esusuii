@@ -11,6 +11,13 @@
 #box-input-btn > button{
   width: 2.83in;
 }
+#box-input-btn :hover, #box-access > a :hover{
+  background-color: darkcyan !important;
+}
+
+#box-input-btn > button, #box-access > a > button{
+  background-color: rgb(243, 243, 243) !important;
+}
 #box-i{
   position: absolute;
   left: 37%;
@@ -26,6 +33,6 @@
 
 #box-access > a > button{
   width: 2.83in;
-  color: darkcyan;
+  color: black;
 
 }

@@ -38,6 +38,11 @@ def signup():
 @view.route('/account_home')
 @login_required
 def account_home():
+    return render_template('home.html')
+
+@view.route('/account_profile')
+@login_required
+def account_profile():
 
     member = Member.query.filter_by(user_id=current_user.id).all()
     return render_template('account_home.html', current_user=current_user, member=member)

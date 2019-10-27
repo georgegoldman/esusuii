@@ -21,7 +21,7 @@ def signup():
         user = User.query.filter_by(email=email).first()
 
         if user:
-            flash('user already exist!')
+            flash('user already exist please login !')
             return render_template('signup.html', form=form)
 
 

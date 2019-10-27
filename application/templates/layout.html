@@ -20,11 +20,11 @@
 
 				<div class="row">
 
-					<div class="col-lg-4">
+					<div class="col-lg-3">
 
 						<i class="fas fa-handshake fa-3x"></i><br>
 
-								<a id="link-box" href="{{ url_for('view.account_home')}}">
+								<a id="link-box" href="account_home">
 
 									<div id="box-btn" class="nav-button">
 
@@ -44,7 +44,7 @@
 								<br>
 							{% if current_user.is_authenticated%}
 
-								<a id="link-box" href="/account_home">
+								<a id="link-box" href="/account_profile">
 
 									<div id="box-btn" class="nav-button">
 
@@ -124,7 +124,7 @@
 
 					</div>
 
-					<div class="col-lg-8">
+					<div class="col-lg-9">
 
 						<div>
 

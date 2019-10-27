@@ -180,6 +180,7 @@ def change_admin():
                 flash(f"You are already the group administrator ")
                 return render_template('account_home.html')
             group.group_admin = member.user_id
+            group.user_id = member.user_id
             db.session.commit()
             flash(f"This user is now the administrator of this group ")
             return render_template('account_home.html')

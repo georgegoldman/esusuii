@@ -1,12 +1,26 @@
-#esusu-heading{
+#esusu-heading {
   color: black ;
   font-weight: bold !important;
-  font-stretch: expanded;
-  text-align: center;
-  font-size: 7mm;
-  font-family: Impact fantasy;
+  font-size: 1.3em;
+  font-family: Impact;
+  /* background: darkcyan; */
+  height: 8in ;
+  position: relative;
+  left: -3mm;
+
 }
-#navbar{
+#box-p{
+  height: 2em;
+  /* background-color: inherit; */
+  border: 1px solid darkcyan;
+  position: relative;
+  left: -4mm;
+}
+#box-groups{
+  position: relative;
+  left: -4mm;
+}
+.fa-handshake{
   color: darkcyan !important;
 }
 a{
