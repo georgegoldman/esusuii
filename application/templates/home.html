@@ -8,15 +8,24 @@
 
       <div class="col-lg-6">
 
-        <div class="" id="box-p">
+        <div class="" id="box-heading">
 
           <p>home</p>
 
         </div>
 
-        <div class="" id="box-groups">
+        <div class="mother-group-box" >
 
-          <p>trending groups</p>
+          {% for group in groups%}
+
+          <div class="" id="box-groups">
+
+            {{group.group_name}}
+
+          </div>
+
+          {% endfor %}
+
 
         </div>
 

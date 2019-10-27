@@ -38,7 +38,8 @@ def signup():
 @view.route('/account_home')
 @login_required
 def account_home():
-    return render_template('home.html')
+    groups = Group.query.all()
+    return render_template('home.html', groups=groups)
 
 @view.route('/account_profile')
 @login_required

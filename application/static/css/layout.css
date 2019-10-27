@@ -9,17 +9,28 @@
   left: -3mm;
 
 }
-#box-p{
+#box-heading{
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 5.1in;
   height: 2em;
+  width: 4.26in;
   /* background-color: inherit; */
-  border: 1px solid darkcyan;
-  position: relative;
-  left: -4mm;
+  border: 1px solid lightgray;
 }
 #box-groups{
   position: relative;
   left: -4mm;
+  color: black;
+  height: 3in;
+  border: thin solid lightgray;
 }
+
+.mother-group-box{
+  margin-top: 1.3cm;
+}
+
 .fa-handshake{
   color: darkcyan !important;
 }
