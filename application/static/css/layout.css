@@ -21,7 +21,7 @@
 }
 #box-groups{
   position: relative;
-  left: -4mm;
+  left: 7.35cm;
   color: black;
   height: 3in;
   border: thin solid lightgray;
@@ -58,4 +58,7 @@ a:hover{
 }
 btn > p {
   text-align: left !important;
+}
+#navbar{
+
 }
