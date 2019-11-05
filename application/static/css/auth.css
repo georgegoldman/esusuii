@@ -1,38 +1,32 @@
-#box-form{
-  position: absolute;
-  left: 35%;
-  top: 21em;
-  color: black;
+*{
+  font-family: 'Cabin', sans-serif;
 }
-#box-input > input{
-    border-radius: 7px;
+#box-auth {
+  border: thin solid darkcyan;
+  background-color: darkcyan;
 }
 
-#box-input-btn > button{
-  width: 2.83in;
+#sub-box-auth{
+  border: thin solid darkcyan;
+  margin-top: 1.3cm;
+  margin-left: 7cm;
 }
-#box-input-btn :hover, #box-access > a :hover{
-  background-color: darkcyan !important;
-}
-
-#box-input-btn > button, #box-access > a > button{
-  background-color: rgb(243, 243, 243) !important;
-}
-#box-i{
-  position: absolute;
-  left: 37%;
-  top: 10em;
-  color: darkcyan;
-}
-#box-i > p{
-  font-size: 77px;
-}
-#box-i > i{
-  margin-left: 2cm;
+form legend, form fieldset div, #sign-btn, #login-btn{
+  margin-left: 1.53in;
 }
 
-#box-access > a > button{
-  width: 2.83in;
-  color: black;
+#sign-btn, #login-btn{
+  margin-bottom: 1em;
+}
 
+#box-input-btn :hover , #login-btn :hover{
+  background-color: darkcyan;
+}
+
+#sign-btn :hover{
+  background-color: green;
+}
+
+#f-msg{
+  margin-left: 4.3cm;
 }

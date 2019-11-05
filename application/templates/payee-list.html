@@ -4,42 +4,46 @@
 
 {% include 'group-navigator.html'%}
 
-<h2>Random pay list</h2>
-{% if not paylist.start_tenure %}
+  <div class="" id="mem-dtls">
 
-  <p><b>The list will be available when the tenure commerce.</b> </p>
+    <h2>Random pay list</h2>
+    {% if not paylist.start_tenure %}
 
-{% else %}
+      <h3><b>The list will be available when the tenure commerce.</b></h3>
 
-    <b>
+    {% else %}
 
-      {% for elem in member %}
+        <b>
 
-
-        {% for user_id in paylist.payee_list %}
-
-          {% if elem.user_id == user_id %}
-
-            {{elem.user.username}} {{i}}<br>
-
-          {% endif %}
-
-        {% endfor %}
-
-      {% endfor %}
-
-    </b>
-
-{% endif %}
+          {% for elem in member %}
 
 
-<br>
-<h3>Members available for pay</h3><hr>
-{% for mem in member %}
+            {% for user_id in paylist.payee_list %}
 
-  <b>{{mem.username}}.</b><br>
+              {% if elem.user_id == user_id %}
 
-{% endfor %}
+                {{elem.user.username}} {{i}}<br>
+
+              {% endif %}
+
+            {% endfor %}
+
+          {% endfor %}
+
+        </b>
+
+    {% endif %}
+
+
+    <br>
+    <h3>Members available for pay</h3><hr>
+    {% for mem in member %}
+
+      <b>{{mem.username}}.</b><br>
+
+    {% endfor %}
+
+  </div>
 
 {% endblock %}
 

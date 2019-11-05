@@ -1,53 +1,50 @@
 {% extends 'auth-layout.html'%}
 
-{% block content %}
 
+	{% block content %}
 
-							<form class="color" action="/login" method="POST" >
+		<div class="col-lg-6">
 
-								<legend>Login</legend>
+			<form class="color" action="/login" method="POST" >
 
-								<fieldset>
+				<legend class="">Login</legend>
 
-									<div class=" input-group" id='box-input'>
+				<fieldset>
 
-										{{form.email(class_='house form-control input-lg', placeholder='Email')}}
+					<div class="col-lg-12 input-group" id='box-input'>
 
-									</div><br>
+						{{form.email(class_=' form-control input-lg ', placeholder='Email')}}
 
-									<div class=" input-group" id='box-input'>
+					</div><br>
 
-										{{ form.password(class='house form-control input-lg', placeholder='Password')}}
+					<div class=" input-group col-lg-12" id='box-input'>
 
-									</div><br>
+						{{ form.password(class=' form-control input-lg', placeholder='Password')}}
 
-									<div class="input-group" id="box-input-btn">
+					</div><br>
 
-								<button  class="btn btn-lg" type="submit" name="button">	<i class="fas fa-unlock"></i> login </button>
+					<div class="input-group col-lg-12" id="box-input-btn">
 
-									</div>
+						<button  class=" col-lg-12 btn  btn-lg" type="submit" name="button">	<i class="fas fa-sign-in-alt"></i> login </button>
 
-									{{ form.csrf_token }}
+					</div>
 
-								</fieldset>
+					{{ form.csrf_token }}
 
-							</form>
+				</fieldset>
 
+			</form><br>
 
+			<div class="col-lg-12" id="sign-btn">
 
+				<a href="{{url_for('view.signup')}}">
 
-{% endblock %}
+					<button class=" col-lg-12 btn btn-lg" type="button" name="button"> <i class="fas fa-user-plus"></i> signup</button>
 
-{% block signup %}
+				</a>
 
-<div class="" id="box-access">
+			</div>
 
-	<a href="{{url_for('view.signup')}}">
+		</div>
 
-		<button class="btn btn-lg" type="button" name="button"> <i class="fas fa-user-plus"></i> signup</button>
-
-	</a>
-
-</div>
-
-{% endblock %}
+	{% endblock %}

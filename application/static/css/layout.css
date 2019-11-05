@@ -1,64 +1,35 @@
-#esusu-heading {
-  color: black ;
-  font-weight: bold !important;
-  font-size: 1.3em;
-  font-family: Impact;
-  /* background: darkcyan; */
-  height: 8in ;
-  position: relative;
-  left: -3mm;
-
+*{
+  font-family: 'Cabin', sans-serif;
 }
-#box-heading{
-  overflow: hidden;
+.main-box{
+  /* background-color: whitesmoke; */
+}
+
+#nav {
+  font-size: 6.3mm;
+  font-weight: normal;
+  /* border: red thin solid; */
+  width: 2.6in;
   position: fixed;
   top: 0;
-  left: 5.1in;
-  height: 2em;
-  width: 4.26in;
-  /* background-color: inherit; */
-  border: 1px solid lightgray;
+
+
 }
-#box-groups{
-  position: relative;
-  left: 7.35cm;
+
+#nav > li > a{
   color: black;
-  height: 3in;
-  border: thin solid lightgray;
 }
 
-.mother-group-box{
-  margin-top: 1.3cm;
+#admin-sub-nav{
+  display: none;
+
 }
 
-.fa-handshake{
-  color: darkcyan !important;
-}
-a{
-  color: black !important;
-  font-size: 6mm;
-  font-weight: bold !important;
-  word-spacing: 2mm;
-  margin-top: 27% !important;
-}
-a:hover{
-  text-decoration: none;
-  color: darkcyan !important;
+#admin-sub-nav li a{
+  margin-left: 10mm;
 }
 
-#btn{
-  border: none;
-  background: none;
-  height: 2em;
-}
-
-#link-box :hover #btn{
-  background: whitesmoke;
-  border-radius: 7px;
-}
-btn > p {
-  text-align: left !important;
-}
-#navbar{
-
+ul li#admin-nav:hover ul#admin-sub-nav {
+  display: block;
+  font-size: 4mm;
 }

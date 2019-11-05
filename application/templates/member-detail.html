@@ -4,22 +4,26 @@
 {% include 'group-navigator.html'%}
 
 
-<p >Group strenght</p>
-<p >{{group.group_members}}</p>
-<hr>
+<div class="" id="mem-dtls">
+
+  <p >Group strenght</p>
+  <p >{{group.group_members}}</p>
+  <hr>
 
 
-{% for member in members_in_group %}
+  {% for member in members_in_group %}
 
-  <div class="">
+    <div class="">
 
-    <h1>{{member.user.username}}</h1>
-    <h3>weekly target</h3>
-    <p>{{member.weekly_target}}</p>
-    <h3>Group in</h3>
-    <p>{{member.user.group_in}}</p>
+      <h1>{{member.user.username}}</h1>
+      <h3>weekly target</h3>
+      <p>{{member.weekly_target}}</p>
+      <h3>Group in</h3>
+      <p>{{member.user.group_in}}</p>
 
-  </div><hr>
+    </div><hr>
+
+</div>
 
 {% endfor %}
 

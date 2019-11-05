@@ -1,7 +1,7 @@
 import random
 from random import shuffle
 from flask import Blueprint, flash, redirect, url_for, request, render_template, Markup
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, login_required
 from .web_forms import AdminForm, GroupForm, ChangeAdminForm
 from .models import User, Group, Member, Paylist
 from . import db
@@ -77,7 +77,7 @@ def create_group():
         return redirect(url_for('view.group'))
 
 '''adding a member to a group '''
-@oplogic.route('/join_group', methods=['GET','POST'])
+@oplogic.route('/join_group')
 @login_required
 def join_group():
     group_id = request.args.get('group_id')
@@ -86,12 +86,24 @@ def join_group():
     group = Group.query.get(group_id)
 
     if group.member_limit == members_in_group:
-        flash(f'{group.group_name} has reached it limit')
-        return render_template('account_home.html')
+        res = {
+            'error' : '0',
+            'message': f'{group.group_name} has reached it limit'
+        }
+        # flash(f'{group.group_name} has reached it limit')
+        # return redirect(url_for('view.group_details', group_id=group.id))
+        return res
+
     else:
         if member:
-            flash('You are already a member to this group')
-            return render_template('account_home.html')
+            res = {
+                'error' : '0',
+                'message': 'You are already a member to this group'
+            }
+            # flash('You are already a member to this group')
+            # return redirect(url_for('view.group_details', group_id=group.id))
+            return res
+
         else:
             weekly_target = (group.group_target/group.member_limit)/4
             monthly_target = group.group_target/group.member_limit
@@ -106,8 +118,12 @@ def join_group():
             group.group_members += 1
             db.session.commit()
 
-            flash('You have been added successfully.')
-            return render_template('account_home.html')
+            res = {
+                'error' : '0',
+                'message': f'{current_user.username} you have been successfully added to {group.group_name} Group'
+            }
+
+            return res
 
 
 #Remove a member route
@@ -129,12 +145,18 @@ def remove_user():
         group.group_members -= 1
         db.session.commit()
 
-        flash(f'You have been removed successfully {group.group_name}.')
-        return render_template('account_home.html')
+        res = {
+            'error' : '0',
+            'message' : f'{current_user.username} you have been successfully removed from this group                                    '
+        }
+        return res
     else:
 
-        flash(f'You are not a member to this {group.group_name}')
-        return render_template('account_home.html')
+        res = {
+            'error' : '0',
+            'message' : f'You are not a member to this {group.group_name}'
+        }
+        return res
 
 @oplogic.route('/start_tenure')
 @login_required

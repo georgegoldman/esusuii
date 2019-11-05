@@ -6,40 +6,54 @@
 
 {% include 'group-navigator.html'%}
 
-<div class="">
 
 {% if current_user.id == group.group_admin %}
-  {% if not paylist.start_tenure %}
-  <h2>Start tenure</h2>
-  <hr>
-    <a href="/start_tenure?group_id={{group.id}}"> <button class="btn btn-success btn-lg "type="button" name="button">
-      Click to start tenure
-    </button> </a>
-</div><br>
-{% endif %}
 
-<div class="">
+<div class="" id="mem-dtls">
 
-  <h2>Change admin</h2>
-  <hr>
+  <div class="">
 
-  <form class="" action="/change_admin?group_id={{group.id}}" method="post">
+    <h2>Create group</h2>
+    <hr>
 
-    <div class="input-group">
+    <a id="crt-grp" href="#"> <button class="btn btn-lg"  type="button" name="button">Create-group</button> </a>
 
-      {{ form.members_id(class="input-sm form-con", placeholder="enter member id") }}
+  </div>
 
-    </div><br>
+  <div class="">
+    {% if not paylist.start_tenure %}
+    <h2>Start tenure</h2>
+    <hr>
+      <a href="/start_tenure?group_id={{group.id}}" id="crt-grp"> <button class="btn  btn-lg "type="button" name="button">
+        Click to start tenure
+      </button> </a>
+    {% endif %}
+  </div><br>
 
-    <div class="input-group">
+  <div class="">
 
-      {{ form.change(class="btn btn-lg btn-warning")}}
+    <h2>Change admin</h2>
+    <hr>
 
-    </div>
+    <form class="" action="/change_admin?group_id={{group.id}}" method="post">
 
-    {{form.csrf_token }}
+      <div class="input-group">
 
-  </form>
+        {{ form.members_id(class="input-sm form-con", placeholder="enter member id") }}
+
+      </div><br>
+
+      <div class="input-group" id="chng-adm-btn">
+
+        {{ form.change(class="btn btn-default btn-lg")}}
+
+      </div>
+
+      {{form.csrf_token }}
+
+    </form>
+
+  </div>
 
 </div>
 

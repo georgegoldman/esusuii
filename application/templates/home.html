@@ -1,43 +1,46 @@
-{% extends 'layout.html' %}
+{% extends 'layout.html'%}
 
 {% block content %}
 
-<div id="esusu-heading"
+    <div class="col-lg-9" id="main-home">
 
-    <div class="row">
+          <h3>Home</h3>
+          <hr>
+          {% for group in groups %}
 
-      <div class="col-lg-6">
+          <div class="" id="group-box">
 
-        <div class="" id="box-heading">
+            <div class="" id="grp-box-main-dtl">
 
-          <p>home</p>
+              <h1>{{group.group_name}}</h1>
+              <hr>
 
-        </div>
 
-        <div class="mother-group-box" >
+            </div>
 
-          {% for group in groups%}
+            <div class="" id="grp-box-footer-dtl">
 
-          <div class="" id="box-groups">
+              <p> <i class="fa fa-users"></i> {{group.group_members}}</p>
 
-            {{group.group_name}}
+              <p><i class="fas fa-funnel-dollar"></i> {{group.group_target}}</p>
+
+            </div>
+
+            <div class="view-grp-box">
+
+              <a href="/group_details?group_id={{group.id}}"> <button type="button" class="btn btn-default btn-lg" name="button">View group details</button> </a>
+
+            </div>
 
           </div>
 
           {% endfor %}
 
 
-        </div>
-
-      </div>
-
-      <div class="col-lg-6">
-
-      </div>
-
     </div>
 
-</div>
+    <div class="col-lg-3">
 
+    </div>
 
 {% endblock %}

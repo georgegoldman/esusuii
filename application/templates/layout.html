@@ -10,155 +10,87 @@
 		{% endif %}
 
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/group-details.css') }}">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/account-home.css') }}">
+		<link href="https://fonts.googleapis.com/css?family=Cabin&display=swap" rel="stylesheet">
+		<script type="text/javascript" src="{{url_for('static', filename='js/pop-up.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
+
+
 
 	</head>
 	<body>
 
-		<div>
+		<div class="main-box">
+
 			<div class="container">
 
 				<div class="row">
 
-					<nav id="navbar">
 					<div class="col-lg-3">
 
-						<i class="fas fa-handshake fa-3x"></i><br>
+						<ul class="nav nav-pills nav-stacked " id="nav" >
 
-								<a id="link-box" href="account_home">
+							<li><i class="fas fa-hand-holding-usd fa-3x"></i> esusu</li>
 
-									<div id="box-btn" class="nav-button">
+							<li> <a href="/account_home"> <i class="fas fa-home "></i> Home </a> </li>
 
-										<button id="btn" class="" type="button" name="button">
+							<li> <a href="/account_profile"> <i class="fas fa-user"></i>  Profile </a> </li>
 
-											<div class="btn-box">
+						{% if current_user.is_admin %}
+							<li id="admin-nav"> <a href="/admin"><i class="fas fa-user-cog"></i> admin </a>
 
-												<i class="fas fa-home"></i> home
+								<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
 
-											</div>
+									{% for group in current_user.group %}
 
-										</button>
+									<li> <a href="/admin_pannel?group_id={{group.id}}">{{group.group_name}}</a> </li>
 
-									</div>
-								</a>
+								</ul>
 
-								<br>
-							{% if current_user.is_authenticated%}
+								{% endfor %}
 
-								<a id="link-box" href="/account_profile">
+							 </li>
+						{% endif %}
 
-									<div id="box-btn" class="nav-button">
-
-										<button id="btn" type="button" name="button">
-
-											<div class="btn-box">
-
-											<i class="fas fa-user"></i>	profile
-
-											</div>
-
-										</button>
-
-									</div>
-									</a>
- 							<br>
-
-								<a id="link-box" href="/group">
-
-									<div id="box-btn" class="nar-button">
-
-										<button id="btn" type="button" name="button">
-
-											<div class="btn-box">
-
-											<i class="fas fa-users"></i> groups
-
-											</div>
+							<li> <a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log-out </a> </li>
 
 
-										</button>
-
-									</div>
-
-								</a>
-
-							<br>
-
-
-								<a id="link-box" href="/admin_signup">
-
-									<div id="box-btn" class="nav-button">
-
-										<button id="btn" type="button" name="button">
-
-											<div class="btn-box">
-
-											<i class="fas fa-wrench"></i>	create-group
-
-
-											</div>
-
-										</button>
-
-									</div>
-
-								</a><br>
-
-								<a id="link-box" href="{{url_for('auth.logout')}}">
-
-									<div id="box-btn" class="nav-button">
-										<button id="btn" type="button" name="button">
-
-										<div class="btn-box">
-
-										<i class="fas fa-lock"></i>	logout
-
-										</div>
-
-										</button>
-									</div>
-
-								</a>
-
-							<br>
-							{% endif %}
+						</ul>
 
 					</div>
-				</nav>
+
+
 
 					<div class="col-lg-9">
 
-						<div>
+						<div class="row">
 
 							{% with messages = get_flashed_messages() %}
 
-						    {% if messages %}
+							{% if messages %}
 
-						      {{ messages[0] }}
+								{{messages[0]}}
 
-						    {% endif %}
+							{% endif%}
 
-						  {% endwith%}
+							{% endwith%}
 
 						</div>
 
+						<div class="row">
 
-						{% block content %}
+							{% block content %}{% endblock %}
 
-						{% endblock %}
-
-						{% block side %}
-
-
-						{% endblock %}
+						</div>
 
 					</div>
-
-
 
 				</div>
 
 			</div>
+
 		</div>
 
 	</body>

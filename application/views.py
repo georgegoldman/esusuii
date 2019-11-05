@@ -1,7 +1,7 @@
 import random
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm, UpdateAccountInfoForm
+from flask_login import login_required, current_user, login_required
 from .models import Group, Member, User, Paylist
 import datetime
 from datetime import date
@@ -39,14 +39,18 @@ def signup():
 @login_required
 def account_home():
     groups = Group.query.all()
+
     return render_template('home.html', groups=groups)
 
 @view.route('/account_profile')
 @login_required
 def account_profile():
 
-    member = Member.query.filter_by(user_id=current_user.id).all()
-    return render_template('account_home.html', current_user=current_user, member=member)
+    form = UpdateAccountInfoForm()
+    form.username.data = current_user.username
+    form.email.data = current_user.email
+    profile_pix = url_for('static', filename=f'images/{current_user.profil_pix}')
+    return render_template('account_home.html', form=form, current_user=current_user, profile_pix=profile_pix)
 
 @view.route('/admin_signup')
 @login_required
@@ -66,10 +70,30 @@ def group_creation():
 @view.route('/group')
 @login_required
 def group():
-    members = Member.query.all()
+    groups_in = connection.execute(
+        text(f'select * from public.member full join public.group on public.member.group_id = public.group.id where public.member.user_id = {current_user.id}')
+    )
     groups = Group.query.all()
-    return render_template('group.html', members=members, groups=groups)
+    return render_template('group.html', groups_in=groups_in, groups=groups)
 
+@view.route('/group_details')
+@login_required
+def group_details():
+
+    group_id = request.args.get('group_id')
+
+    group = Group.query.get(group_id)
+    member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
+
+    return render_template('group-details.html', group=group, current_user=current_user, group_id=group_id, member=member)
+
+@view.route('/admin')
+@login_required
+def admin():
+    if current_user.is_admin:
+        return 'welcome admin.'
+    else:
+        return abort(404)
 
 @view.route('/member')
 @login_required
@@ -79,7 +103,11 @@ def member():
 
     group = Group.query.get(group_id)
     members_in_group = Member.query.filter_by(group_id=group_id).all()
-    return render_template('member-detail.html', members_in_group=members_in_group, group=group, group_id=group_id)
+
+    if current_user.is_authenticated and current_user.is_admin:
+        return render_template('member-detail.html', members_in_group=members_in_group, group=group, group_id=group_id)
+    else:
+        return abort(404)
 
 @view.route('/busery')
 @login_required
@@ -88,28 +116,10 @@ def busery():
     group = Group.query.get(group_id)
     members_in_group = Member.query.filter_by(group_id=group_id).all()
 
-    return render_template('busery.html', group=group, members_in_group=members_in_group, group_id=group_id)
-
-@view.route('/group_details')
-@login_required
-def group_details():
-
-    group_id = request.args.get('group_id')
-
-    datas = connection.execute(
-        text(f" select * from public.user inner join public.member on public.member.user_id = public.user.id  where public.member.group_id = {group_id}")
-    )
-    group = Group.query.filter_by(id=group_id).first()
-    members_in_group = Member.query.filter_by(group_id=group.id).all()
-
-    user = User.query.all()
-
-    members = connection.execute(
-        text(f"select * from  public.user full join public.member on public.user.id = public.member.user_id	")
-    )
-
-    return render_template('group-details.html', datas=datas, members=members, group=group, current_user=current_user, members_in_group=members_in_group, group_id=group_id)
-
+    if current_user.is_authenticated and current_user.is_admin:
+        return render_template('busery.html', group=group, members_in_group=members_in_group, group_id=group_id)
+    else:
+        return abort(404)
 
 
 @view.route('/admin_pannel')
@@ -120,7 +130,10 @@ def admin_pannel():
     group = Group.query.get(group_id)
     paylist = Paylist.query.filter_by(group_id=group_id).first()
 
-    return render_template('admin-pannel.html', group=group, group_id=group_id, form=form, paylist=paylist)
+    if current_user.is_authenticated and current_user.is_admin:
+        return render_template('admin-pannel.html', group=group, group_id=group_id, form=form, paylist=paylist)
+    else:
+        return abort(404)
 
 @view.route('/payee_list')
 @login_required
@@ -129,4 +142,8 @@ def payee_list():
     group = Group.query.get(group_id)
     member = Member.query.filter_by(group_id=group_id).all()
     paylist = Paylist.query.filter_by(group_id=group_id).first()
-    return render_template('payee-list.html', group_id=group_id, group=group, member=member, paylist=paylist)
+
+    if current_user.is_authenticated and current_user.is_admin:
+        return render_template('payee-list.html', group_id=group_id, group=group, member=member, paylist=paylist)
+    else:
+        return abort(404)

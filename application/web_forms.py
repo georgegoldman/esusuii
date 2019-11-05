@@ -1,5 +1,7 @@
 from flask import Markup
+from flask_login import current_user
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from flask_wtf.html5 import NumberInput
 from wtforms import TextField, PasswordField, SubmitField, StringField, IntegerField, SelectField
 from wtforms.fields.html5 import EmailField
@@ -47,3 +49,21 @@ class GroupForm(FlaskForm):
 class ChangeAdminForm(FlaskForm):
     members_id = IntegerField(widget=NumberInput(), validators=[DataRequired()])
     change = SubmitField('Change')
+
+class UpdateAccountInfoForm(FlaskForm):
+    username = TextField('text', validators=[DataRequired()])
+    email = EmailField('email', validators=[DataRequired()])
+    picture = FileField('Edit your profile picture', validators=[FileAllowed(['jpg', 'png', 'jpeg'])])
+    submit = SubmitField('Update')
+
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError('This username is already taken')
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            email = User.query.filter_by(email=email.data).first()
+            if email:
+                raise ValidationError('Email already taken')

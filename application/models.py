@@ -10,6 +10,7 @@ class User(db.Model, UserMixin, AnonymousUserMixin):
     password = db.Column(db.String(80))
     group_in = db.Column(db.Integer, default = 0)
     is_admin = db.Column(db.Boolean, default=False)
+    profil_pix = db.Column(db.Text, default='default.jpg')
     group = db.relationship('Group', backref='user', lazy='dynamic')
     member = db.relationship('Member', backref='user', lazy='dynamic')
 
