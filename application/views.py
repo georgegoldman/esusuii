@@ -70,11 +70,9 @@ def group_creation():
 @view.route('/group')
 @login_required
 def group():
-    groups_in = connection.execute(
-        text(f'select * from public.member full join public.group on public.member.group_id = public.group.id where public.member.user_id = {current_user.id}')
-    )
-    groups = Group.query.all()
-    return render_template('group.html', groups_in=groups_in, groups=groups)
+
+    return render_template('group.html', current_user=current_user)
+
 
 @view.route('/group_details')
 @login_required
@@ -87,13 +85,13 @@ def group_details():
 
     return render_template('group-details.html', group=group, current_user=current_user, group_id=group_id, member=member)
 
-@view.route('/admin')
-@login_required
-def admin():
-    if current_user.is_admin:
-        return 'welcome admin.'
-    else:
-        return abort(404)
+# @view.route('/admin')
+# @login_required
+# def admin():
+#     if current_user.is_admin:
+#         return 'welcome admin.'
+#     else:
+#         return abort(404)
 
 @view.route('/member')
 @login_required

@@ -52,9 +52,10 @@ def create_group():
         group_name = str(form.group_name.data)
         member_limit = int(form.member_limit.data)
         group_target = int(form.group_target.data)
+        target = (group_target/member_limit)/4
 
 
-        group = Group(group_name=group_name, group_admin=current_user.id, group_members=1, member_limit=member_limit, group_target=group_target, current_contribution=0, user_id=current_user.id)
+        group = Group(group_name=group_name, group_admin=current_user.id, group_members=1, member_limit=member_limit, member_target = target, group_target=group_target, current_contribution=0, user_id=current_user.id)
         db.session.add(group)
         db.session.commit()
 
@@ -64,9 +65,8 @@ def create_group():
         db.session.add(paylist)
         db.session.commit()
 
-        weekly_target = (group_target/member_limit)/4
         monthly_target = group_target/member_limit
-        member = Member(username=current_user.username,weekly_target=weekly_target, monthly_target=monthly_target, group_id=group.id, user_id=current_user.id)
+        member = Member(member_target=target, monthly_target=monthly_target, group_id=group.id, user_id=current_user.id)
         db.session.add(member)
         db.session.commit()
 
@@ -74,7 +74,7 @@ def create_group():
         db.session.commit()
 
         flash(f'{group.group_name} have been successfully created')
-        return redirect(url_for('view.group'))
+        return redirect(url_for('view.group_creation'))
 
 '''adding a member to a group '''
 @oplogic.route('/join_group')
@@ -105,9 +105,9 @@ def join_group():
             return res
 
         else:
-            weekly_target = (group.group_target/group.member_limit)/4
+            member_target = (group.group_target/group.member_limit)/4
             monthly_target = group.group_target/group.member_limit
-            new_member = Member(username=current_user.username, weekly_target=weekly_target,monthly_target=0,group_id=group_id,user_id=current_user.id)
+            new_member = Member(username=current_user.username, member_target=member_target,monthly_target=monthly_target,group_id=group_id,user_id=current_user.id)
             db.session.add(new_member)
             db.session.commit()
 

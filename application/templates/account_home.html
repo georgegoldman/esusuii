@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <div class="col-lg-9">
+  <div class="col-lg-9  col-sm-9 col-xs-12">
 
     <h3>User account profile</h3>
     <hr>
@@ -25,7 +25,7 @@
 
           {% for member in current_user.member %}
 
-            <li> <a href="/group_details?group_id={{member.group.id}}"> <button type="button" name="button" class="btn btn-lg btn-primary" >{{member.group.group_name}}</button> </a> </li>
+            <li> <a href="/group_details?group_id={{member.group.id}}"> <button type="button" name="button" class="btn btn-lg btn-xs btn-primary" >{{member.group.group_name}}</button> </a> </li><br>
 
           {% endfor %}
 
@@ -34,13 +34,13 @@
 
         <div class="" id="updt-caller">
 
-          <button type="button" class="btn btn-lg btn-default" name="button" onclick="pop('#upd-acct-dtls')" >Update account info</button>
+          <button type="button" class="btn btn-lg btn-xs btn-default" name="button" onclick="pop('#upd-acct-dtls')" >Update account info</button>
 
         </div><br>
 
         <div class="" id="crt-grp">
 
-          <a href="/admin_signup"> <button type="button" class="btn btn-lg btn-default" name="button">Create Group</button> </a>
+          <a href="/admin_signup"> <button type="button" class="btn btn-xs btn-lg btn-default" name="button">Create Group</button> </a>
         </div>
 
       </div>
@@ -52,13 +52,13 @@
 
       <div class="" id="closepop">
 
-        <span><button class="btn btn-danger btn-md pull-right" type="button" name="button" onclick="closepop('#upd-acct-dtls')">x</button></span>
+        <span><button class="btn btn-danger btn-xs btn-md pull-right" type="button" name="button" onclick="closepop('#upd-acct-dtls')">x</button></span>
 
       </div>
 
       <form class="" action="/upd_acct_info" method="post" enctype="multipart/form-data">
 
-        <div class="input-group col-lg-12">
+        <div class="input-group col-lg-12  col-sm-12 col-xs-12">
 
           {{form.username(class='form-control form-control-lg input-lg', placeholder='Enter username')}}
 
@@ -74,7 +74,7 @@
 
         </div><br>
 
-        <div class="input-group col-lg-12">
+        <div class="input-group col-lg-12 col-xs-12  col-md-12 col-sm-12">
 
           {{form.email(class='form-control form-control-lg input-lg', placeholder='Enter email')}}
 
@@ -94,7 +94,7 @@
 
         </div><br>
 
-        <div class="input-group col-lg-12" id="pix-upld">
+        <div class="input-group col-lg-12 col-sm-12 col-xs-12" id="pix-upld">
           {{form.picture.label}}
           {{form.picture(class='form-control-file input-lg', placeholder='upload your pix')}}
 
@@ -110,7 +110,7 @@
 
         </div><br>
 
-        <div class="input-group col-lg-12">
+        <div class="input-group col-lg-12 col-sm-12 col-xs-12">
 
           {{form.submit(class='btn btn-lg btn-success col-lg-12 ')}}
 

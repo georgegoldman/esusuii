@@ -1,30 +1,15 @@
 {% extends 'layout.html' %}
 {%block content %}
 
-<!-- {% for group in groups%}
-
-  <div>
-
-        <h1>
-
-          <a href="/group_details?group_id={{group.id}}">{{group.group_name}}</a>
-
-        </h1>
 
 
-  </div>
 
-{% endfor %} -->
-
-{% for group_in in groups_in %}
-
-  <a href="/group_details?group_id={{group_in.group_id}}">
     <div class="">
 
-    {{group_in.group_name}}
+    {% for group in current_user.group %}
+<a href="/admin_pannel?group_id={{group.id}}">{{group.group_name}}</a>
+    {% endfor %}
 
   </div>
-</a>
 
-{% endfor %}
 {% endblock %}

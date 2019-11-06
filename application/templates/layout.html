@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		{{ fontawesome_html() }}
 		{% if title %}
 			<title>{{ title }}</title>
@@ -28,7 +29,7 @@
 
 				<div class="row">
 
-					<div class="col-lg-3">
+					<div class="col-lg-3 col-xs-9 col-sm-3">
 
 						<ul class="nav nav-pills nav-stacked " id="nav" >
 
@@ -39,7 +40,7 @@
 							<li> <a href="/account_profile"> <i class="fas fa-user"></i>  Profile </a> </li>
 
 						{% if current_user.is_admin %}
-							<li id="admin-nav"> <a href="/admin"><i class="fas fa-user-cog"></i> admin </a>
+							<li id="admin-nav"> <a href=""><i class="fas fa-user-cog"></i> admin </a>
 
 								<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
 
@@ -47,11 +48,13 @@
 
 									<li> <a href="/admin_pannel?group_id={{group.id}}">{{group.group_name}}</a> </li>
 
+									{% endfor %}
 								</ul>
 
-								{% endfor %}
 
 							 </li>
+
+							 <li id="mbl"> <a href="/group"><i class="fas fa-user-cog"></i> admin </a> </li>
 						{% endif %}
 
 							<li> <a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log-out </a> </li>
@@ -63,9 +66,9 @@
 
 
 
-					<div class="col-lg-9">
+					<div class="col-lg-9 col-sm-9 col-xs-12">
 
-						<div class="row">
+						<div >
 
 							{% with messages = get_flashed_messages() %}
 
@@ -79,7 +82,7 @@
 
 						</div>
 
-						<div class="row">
+						<div>
 
 							{% block content %}{% endblock %}
 

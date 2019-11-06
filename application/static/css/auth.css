@@ -6,18 +6,31 @@
   background-color: darkcyan;
 }
 
-#sub-box-auth{
-  border: thin solid darkcyan;
-  margin-top: 1.3cm;
-  margin-left: 7cm;
-}
-form legend, form fieldset div, #sign-btn, #login-btn{
-  margin-left: 1.53in;
+@@media (min-width: 900) {
+
+  #sub-box-auth{
+
+    margin-top: 1.3cm;
+    margin-left: 7cm;
+  }
+
+  form legend, form fieldset div, #sign-btn, #login-btn{
+    margin-left: 1.53in;
+  }
+
+  #sign-btn, #login-btn{
+    margin-bottom: 1em;
+  }
+
+  #f-msg{
+    margin-left: 4.3cm;
+  }
 }
 
-#sign-btn, #login-btn{
-  margin-bottom: 1em;
+#sub-box-auth{
+  border: thin solid darkcyan;
 }
+
 
 #box-input-btn :hover , #login-btn :hover{
   background-color: darkcyan;
@@ -27,6 +40,7 @@ form legend, form fieldset div, #sign-btn, #login-btn{
   background-color: green;
 }
 
-#f-msg{
-  margin-left: 4.3cm;
+#sign-btn, #login-btn{
+  background-color: whitesmoke;
+  border-radius: 7px;
 }

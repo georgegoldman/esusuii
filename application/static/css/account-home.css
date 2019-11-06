@@ -13,6 +13,15 @@
   /* border: thin red solid; */
 }
 
+@media (max-width: 900px) {
+  #upd-acct-dtls{
+
+    width: 3in !important;
+    height: 70% !important;
+    margin-bottom: 6cm !important;
+  }
+}
+
 #upd-acct-dtls{
   position: absolute;
   top: 60%;

@@ -3,7 +3,7 @@
 {% block content %}
 
 
-	<div class="col-lg-6">
+	<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 
 		<form class="" action="/signup" method="post">
 
@@ -11,7 +11,7 @@
 
 			<fieldset>
 
-				<div class="input-group col-lg-12" id='box-input'>
+				<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id='box-input'>
 
 					{{ form.username(class_='form-control input-lg', placeholder='username', autofocus=True)}}
 
@@ -32,7 +32,7 @@
 
 				</div><br>
 
-				<div class="input-group col-lg-12" id='box-input'>
+				<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id='box-input'>
 
 					{{ form.email(class_='form-control input-lg', placeholder='Email', autofocus=True)}}
 
@@ -53,7 +53,7 @@
 
 				</div><br>
 
-				<div class="input-group col-lg-12" id='box-input'>
+				<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id='box-input'>
 
 					{{ form.password(class_='form-control input-lg', placeholder='Password')}}
 
@@ -74,7 +74,7 @@
 
 				</div><br>
 
-				<div class="input-group col-lg-12" id='box-input'>
+				<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id='box-input'>
 
 					{{ form.confirm_pwd(class_='form-control input-lg', placeholder='Retype password')}}
 
@@ -95,7 +95,7 @@
 
 				</div><br>
 
-				<div class="input-group col-lg-12" id="sign-btn">
+				<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="sign-btn">
 
 					<button class="col-lg-12 btn btn-lg"type="submit" name="button"> <i class="fas fa-user-plus"></i> signup</button>
 
@@ -107,14 +107,13 @@
 
 		</form><br>
 
-		<div class="col-lg-12" id="login-btn">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="login-btn">
 
-			<a href="{{ url_for('view.login')}}">
+			<a href="{{ url_for('view.login')}}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-lg" >
 
-				<button class="col-lg-12 btn btn-lg" type="button" name="button"> <i class="fas fa-unlock"></i> login</button>
+				<i class="fas fa-unlock"></i> login
 
 			</a>
-
 
 		</div>
 

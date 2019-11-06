@@ -25,16 +25,14 @@ class User(db.Model, UserMixin, AnonymousUserMixin):
 class Member(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.Text)
-    weekly_target = db.Column(db.Integer)
+    member_target = db.Column(db.Integer)
     monthly_target = db.Column(db.Integer)
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 
-    def __init__(self, username, weekly_target, monthly_target, group_id, user_id):
-        self.username = username
-        self.weekly_target = weekly_target
+    def __init__(self, member_target, monthly_target, group_id, user_id):
+        self.member_target = member_target
         self.monthly_target = monthly_target
         self.group_id = group_id
         self.user_id = user_id
@@ -50,16 +48,18 @@ class Group(db.Model):
     group_members = db.Column(db.Integer)
     member_limit = db.Column(db.Integer)
     group_target = db.Column(db.Integer)
+    member_target = db.Column(db.Float)
     current_contribution = db.Column(db.Integer)
     members = db.relationship('Member', backref='group', lazy=True)
     paylist = db.relationship('Paylist', backref='group', lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, group_name, group_admin, group_members, member_limit, group_target, current_contribution, user_id):
+    def __init__(self, group_name, group_admin, group_members, member_limit, member_target, group_target, current_contribution, user_id):
         self.group_name = group_name
         self.group_admin = group_admin
         self.group_members = group_members
         self.member_limit = member_limit
+        self.member_target = member_target
         self.group_target = group_target
         self.current_contribution = current_contribution
         self.user_id = user_id

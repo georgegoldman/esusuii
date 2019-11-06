@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div class="col-lg-9" id="main-home">
+    <div class="col-lg-9 col-xs-12 col-sm-9" id="main-home">
 
           <h3>Home</h3>
           <hr>
@@ -22,13 +22,15 @@
 
               <p> <i class="fa fa-users"></i> {{group.group_members}}</p>
 
+              <p> <i class="fas fa-wallet"></i> <i class="fas fa-user"></i> {{group.member_target}}</p>
+
               <p><i class="fas fa-funnel-dollar"></i> {{group.group_target}}</p>
 
             </div>
 
             <div class="view-grp-box">
 
-              <a href="/group_details?group_id={{group.id}}"> <button type="button" class="btn btn-default btn-lg" name="button">View group details</button> </a>
+              <a href="/group_details?group_id={{group.id}}"> <button type="button" class="btn btn-default btn-sm btn-xs btn-lg" name="button">View group details</button> </a>
 
             </div>
 
@@ -39,7 +41,7 @@
 
     </div>
 
-    <div class="col-lg-3">
+    <div class="col-lg-3 col-sm-3 col-xs-12">
 
     </div>
 
