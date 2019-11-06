@@ -31,7 +31,7 @@ def signup():
 
         db.session.add(user)
         db.session.commit()
-        flash('your acount have been created.\nThank you for dealing with esusu')
+        flash('your acount have been created.\nThank you for dealing with tukata')
         return redirect(url_for('view.login'))
 
     flash('check your email or passwords if they\'re correct !')

@@ -5,43 +5,47 @@
 
 		<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
 
-			<form class="color" action="/login" method="POST" >
+			<div id="log">
 
-				<legend class="">Login</legend>
+				<form class="color" action="/login" method="POST" >
 
-				<fieldset>
+					<legend class="">Login</legend>
 
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 input-group" id='box-input'>
+					<fieldset>
 
-						{{form.email(class_=' form-control input-lg ', placeholder='Email')}}
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 input-group" id='box-input'>
 
-					</div><br>
+							{{form.email(class_=' form-control input-lg ', placeholder='Email')}}
 
-					<div class=" input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id='box-input'>
+						</div><br>
 
-						{{ form.password(class=' form-control input-lg', placeholder='Password')}}
+						<div class=" input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id='box-input'>
 
-					</div><br>
+							{{ form.password(class=' form-control input-lg', placeholder='Password')}}
 
-					<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="box-input-btn">
+						</div><br>
 
-						<button  class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 btn  btn-lg" type="submit" name="button">	<i class="fas fa-sign-in-alt"></i> login </button>
+						<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="box-input-btn">
 
-					</div>
+							<button  class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 btn  btn-lg" type="submit" name="button">	<i class="fas fa-sign-in-alt"></i> login </button>
 
-					{{ form.csrf_token }}
+						</div>
 
-				</fieldset>
+						{{ form.csrf_token }}
 
-			</form><br>
+					</fieldset>
 
-			<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="sign-btn">
+				</form><br>
 
-				<a href="{{url_for('view.signup')}}" class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-lg" >
+				<div class="input-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="sign-btn">
 
-					 <i class="fas fa-user-plus"></i> signup
+					<a href="{{url_for('view.signup')}}" class=" col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-lg" >
 
-				</a>
+						 <i class="fas fa-user-plus"></i> signup
+
+					</a>
+
+			</div>
 
 			</div>
 

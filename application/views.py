@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 
 view = Blueprint('view', __name__)
 
-engine = create_engine('postgresql://postgres:password@localhost/esusu', convert_unicode=True)
+engine = create_engine('postgresql://postgres:password@localhost/tukata', convert_unicode=True)
 connection  = engine.connect()
 
 @view.route('/')
@@ -22,7 +22,7 @@ def login():
         flash('you need to sign out to access that page')
         return redirect(url_for('view.account_home'))
     else:
-        return render_template('login.html', form=form, title='esusu-login')
+        return render_template('login.html', form=form, title='tukata-login')
 
 
 @view.route('/signup')
@@ -33,7 +33,7 @@ def signup():
         flash('you need to sign out to access that page')
         return redirect(url_for('view.account_home'))
     else:
-        return render_template('signup.html', form=form, title='esusu-signup')
+        return render_template('signup.html', form=form, title='tukata-signup')
 
 @view.route('/account_home')
 @login_required

@@ -6,29 +6,24 @@
   background-color: darkcyan;
 }
 
-@@media (min-width: 900) {
-
-  #sub-box-auth{
-
-    margin-top: 1.3cm;
-    margin-left: 7cm;
-  }
+@media only screen and (max-width: 850px){
 
   form legend, form fieldset div, #sign-btn, #login-btn{
-    margin-left: 1.53in;
+    margin-left: 2% !important;
   }
 
-  #sign-btn, #login-btn{
-    margin-bottom: 1em;
+  #sub-box-auth{
+    border: 3px solid white !important;
+    margin-left: 7% !important;
   }
 
-  #f-msg{
-    margin-left: 4.3cm;
-  }
+
 }
 
 #sub-box-auth{
-  border: thin solid darkcyan;
+  border: 3px solid darkcyan;
+  margin-top: 10%;
+  margin-left: 25%;
 }
 
 
@@ -41,6 +36,11 @@
 }
 
 #sign-btn, #login-btn{
+  margin-bottom: 3%;
   background-color: whitesmoke;
   border-radius: 7px;
+}
+
+form legend, form fieldset div, #sign-btn, #login-btn{
+  margin-left: 50%;
 }

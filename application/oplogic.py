@@ -10,7 +10,7 @@ from sqlalchemy.sql import text
 from sqlalchemy import create_engine
 
 oplogic = Blueprint('oplogic', __name__)
-engine = create_engine('postgresql://postgres:password@localhost/esusu', convert_unicode=True)
+engine = create_engine('postgresql://postgres:password@localhost/tukata', convert_unicode=True)
 connection = engine.connect()
 
 '''admin creation and group route'''
