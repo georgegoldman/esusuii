@@ -1,4 +1,4 @@
-from application import  manager, app
+from application import app
 
 
 
