@@ -14,7 +14,6 @@ cffi==1.12.3
 chardet==3.0.4
 Click==7.0
 colorama==0.3.7
-command-not-found==0.3
 configparser==3.5.0b2
 constantly==15.1.0
 cryptography==2.6.1
