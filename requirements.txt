@@ -168,5 +168,4 @@ wrapt==1.11.2
 WTForms==2.2.1
 wtforms-html5==0.2.2
 WTForms-SQLAlchemy==0.1
-xkit==0.0.0
 zope.interface==4.6.0
