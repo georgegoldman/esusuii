@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+
+  <div>
+
+    <form action="/create_admin" method="post">
+
+      {% if current_user.is_admin == False %}
+
+        <legend>Ugrade to an Admin account to enable group creation </legend>
+
+      {% elif current_user.is_admin == True %}
+
+        <legend>Your Admin logs are required </legend>
+
+      {% endif %}
+
+      <fieldset class="form-group">
+
+
+            <div class="input-group">
+
+              {{ form.email(class_='form-control input-lg', placeholder='Email') }}
+
+            </div><br>
+
+            <div class="input-group">
+
+              {{ form.password(class_='form-control input-lg', placeholder='Password') }}
+
+            </div><br>
+
+            <div class="input-group">
+
+              {{ form.submit_button(class_='btn btn-default btn-lg') }}
+
+            </div>
+
+            {{ form.csrf_token }}
+
+      </fieldset>
+
+
+    </form>
+
+  </div>
+
+{% endblock %}

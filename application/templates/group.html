@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{%block content %}
+
+
+
+
+    <div class="">
+
+    {% for group in current_user.group %}
+<a href="/admin_pannel?group_id={{group.id}}">{{group.group_name}}</a>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}

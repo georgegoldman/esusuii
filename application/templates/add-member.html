@@ -1,0 +1,72 @@
+{% extends 'layout.html'%}
+{% block content %}
+
+
+
+
+
+
+{% for member in members %}
+
+  {% if member.group_id == group.id %}
+
+  <table>
+
+    <tr>
+
+      <td>
+
+
+
+          <blockquote>
+
+             member id <br>{{ member.id }}
+
+          </blockquote>
+
+      </td>
+
+
+
+      <td>
+
+      {% for user in users%}
+
+        {% if user.id == member.user_id%}
+
+            <blockquote>
+
+              user email <br> {{user.email}}
+
+            </blockquote>
+
+            {% endif%}
+
+          {% endfor %}
+
+      {% if current_user.id == group.group_admin %}
+
+      {% if member.user_id != current_user.id %}
+        <a href="/remove_user?member_id={{member.id}}">
+
+          <button class="btn btn-sm" >remove</button>
+
+        </a>
+      {% endif %}
+
+      {% endif %}
+
+
+
+      </td><br>
+
+    </tr>
+
+  </table>
+
+  {% endif %}
+
+{% endfor%}
+
+
+{% endblock%}

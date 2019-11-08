@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+  <div class="col-lg-9" id="main-home">
+
+    <h3>Group details</h3>
+    <hr>
+
+    <div class="" id="group-box">
+
+      <h1>{{group.group_name}}</h1>
+      <hr>
+
+      <p>Group admin: {{group.user.username}} </p>
+
+      <p>Group members: {{group.group_members}}</p>
+
+      <ol>
+
+        {% for members in group.members %}
+
+          <li>{{members.user.username}}</li>
+
+        {% endfor %}
+
+      </ol>
+
+      <p>Membership limit: {{group.member_limit}}</p>
+
+      <p>member target: {{group.member_target}}</p>
+
+      <p> Group Target: {{group.group_target}} </p>
+
+      <p> current contribution: {{group.current_contribution}} </p>
+
+    </div>
+
+    <button class="btn btn-success btn-lg col-lg-5" type="button" onclick="joinGroup({{group.id}})" name="button" >join</button>
+    <button class="btn btn-warning btn-lg col-lg-5 pull-right " type="button" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})" name="button">leave</button>
+
+  </div>
+
+{% endblock %}

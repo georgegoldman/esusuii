@@ -1,0 +1,19 @@
+
+
+  <div class="row">
+
+    <div class="col-lg-10 col-sm-12 col-xs-12 ">
+
+      <ul class="nav nav-tabs navbar-static-top col-sm-12 col-xs-12 col-lg-4   col-lg-offset-4">
+
+          <li> <a href="/member?group_id={{group_id}}">Members</a> </li>
+          <li> <a href="/busery?group_id={{group_id}}">Finance</a> </li>
+          {%if current_user.id == group.group_admin %}
+          <li> <a href="/admin_pannel?group_id={{group_id}}">admin panel</a> </li>
+          {% endif %}
+          <li> <a href="/payee_list?group_id={{group_id}}">Payee list</a> </li>
+      </ul>
+
+    </div>
+
+  </div>

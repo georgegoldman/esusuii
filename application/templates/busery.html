@@ -1,0 +1,20 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+
+{% include 'group-navigator.html'%}
+
+  <div class="" id="mem-dtls">
+
+    <h1>Group target</h1>
+    <h3>{{group.member_target}}</h3>
+    <h1>Curent contribution </h1>
+    <h3>{{group.current_contribution}}</h3>
+
+  </div>
+
+{% endblock %}
+
+{% block side %}
+
+{% endblock %}

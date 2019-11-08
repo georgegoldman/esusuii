@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content%}
+
+
+
+  <form class="" action="/create_group" method="post">
+
+    <br>
+    <legend>Create Group</legend>
+
+    <div class="input-group">
+
+      {{ form.group_name(class="form-control input-lg", placeholder="Group name")}}
+
+    </div><br>
+
+
+
+    <div class="input-group">
+
+      {{ form.group_target(class="form-control input-lg", placeholder="Group target")}}
+
+    </div><br>
+
+    <div class="input-group">
+
+      {{ form.member_limit(class="form-control input-lg", placeholder="Number of members")}}
+
+    </div><br>
+
+    <div class="input-group">
+
+      {{ form.submit_button(class="btn btn-default btn-lg")}}
+
+    </div>
+
+
+    {{ form.csrf_token }}
+
+  </form>
+
+{% endblock %}

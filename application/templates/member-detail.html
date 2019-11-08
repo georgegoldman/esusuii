@@ -1,0 +1,33 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+{% include 'group-navigator.html'%}
+
+
+<div class="" id="mem-dtls">
+
+  <p >Group strenght</p>
+  <p >{{group.group_members}}</p>
+  <hr>
+
+
+  {% for member in members_in_group %}
+
+    <div class="">
+
+      <h1>{{member.user.username}}</h1>
+      <h3>weekly target</h3>
+      <p>{{member.member_target}}</p>
+      <h3>Group in</h3>
+      <p>{{member.user.group_in}}</p>
+
+    </div><hr>
+
+</div>
+
+{% endfor %}
+
+{% endblock%}
+
+{% block side %}
+{% endblock %}
