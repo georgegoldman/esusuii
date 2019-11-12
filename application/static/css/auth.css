@@ -6,28 +6,46 @@
   background-color: darkcyan;
 }
 
-@media (max-width: 850px){
-
-  /* form legend, form fieldset div, #sign-btn, #login-btn{
-    margin-left: ;
-  } */
+@media (max-width: 900px){
 
   #sub-box-auth{
     border: 3px solid white !important;
-    /* margin-left: 7% !important; */
+  }
+  form , #sign-btn, #login-btn{
+    margin-left: 0%;
   }
 
+  #log-box > div > form{
+    margin-top: 23%;
+    margin-bottom: 3% !important;
+  }
 
+}
+
+@media(min-width: 850px){
+
+  form legend,form div input, #box-input-btn, form fieldset div, #sign-btn, #login-btn{
+    margin-left: 0%;
+  }
+
+  #sub-box-auth{
+
+  margin-top: 10%;
+  margin-left: 25%;
+  }
+
+  #sign-btn, #login-btn{
+
+  margin-bottom: 3%;
+  }
 }
 
 #sub-box-auth{
   border: 3px solid darkcyan;
-  margin-top: 10%;
-  margin-left: 25%;
 }
 
 
-#box-input-btn :hover , #login-btn :hover{
+#box-input-btn button:hover , #login-btn:hover{
   background-color: darkcyan;
 }
 
@@ -36,11 +54,7 @@
 }
 
 #sign-btn, #login-btn{
-  margin-bottom: 3%;
   background-color: whitesmoke;
   border-radius: 7px;
 }
 
-form legend, form fieldset div, #sign-btn, #login-btn{
-  margin-left: 50%;
-}

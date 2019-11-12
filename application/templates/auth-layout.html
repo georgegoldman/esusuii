@@ -22,7 +22,7 @@
 
 				</div>
 
-				<div class="col-lg-6 col-xs-10 col-sm-12" id="sub-box-auth">
+				<div class="col-lg-6 col-xs-12 col-sm-12" id="sub-box-auth">
 
 					<div class="" id="f-msg">
 						{% with messages = get_flashed_messages() %}
@@ -36,7 +36,11 @@
 						{% endwith %}
 					</div>
 
+					<div id="log-box">
+
 						{% block content %}{% endblock %}
+
+					</div>
 
 
 				</div>
