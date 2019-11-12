@@ -6,11 +6,11 @@
   background-color: darkcyan;
 }
 
-@media only screen and (max-width: 850px){
+@media (max-width: 850px){
 
-  form legend, form fieldset div, #sign-btn, #login-btn{
-    margin-left: 2% !important;
-  }
+  /* form legend, form fieldset div, #sign-btn, #login-btn{
+    margin-left: ;
+  } */
 
   #sub-box-auth{
     border: 3px solid white !important;
