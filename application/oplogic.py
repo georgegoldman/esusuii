@@ -1,3 +1,4 @@
+import os
 import random
 from random import shuffle
 from flask import Blueprint, flash, redirect, url_for, request, render_template, Markup
@@ -10,7 +11,7 @@ from sqlalchemy.sql import text
 from sqlalchemy import create_engine
 
 oplogic = Blueprint('oplogic', __name__)
-engine = create_engine('postgresql://postgres:password@localhost/tukata', convert_unicode=True)
+engine = create_engine(os.environ.get('DATABASE_URL'), convert_unicode=True)
 connection = engine.connect()
 
 '''admin creation and group route'''

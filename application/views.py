@@ -1,3 +1,4 @@
+import os
 import random
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm, UpdateAccountInfoForm
@@ -11,7 +12,7 @@ from sqlalchemy import create_engine
 
 view = Blueprint('view', __name__)
 
-engine = create_engine('postgresql://postgres:password@localhost/tukata', convert_unicode=True)
+engine = create_engine(os.environ.get('DATABASE_URL'), convert_unicode=True)
 connection  = engine.connect()
 
 @view.route('/')
