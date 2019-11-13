@@ -16,11 +16,12 @@
   }
   
   #sub-box-auth{
-    border: 3px solid darkcyan;
     margin-top: 10%;
+  }
+  #sub-box-auth > form{
+    border: 3px solid darkcyan;
     height: auto;
   }
-  
   #sign-btn, #login-btn{
     margin-bottom: 3%;
   }
