@@ -18,18 +18,13 @@
   #sub-box-auth{
     margin-top: 10%;
   }
-  #sub-box-auth > div{
+  #sub-box-auth > div:last-child{
     border: 3px solid darkcyan;
     height: auto;
   }
   #sign-btn, #login-btn{
     margin-bottom: 3%;
   }
-}
-
-#sub-box-auth{
-  height: inherit !important;
-  width: inherit;
 }
 
 
