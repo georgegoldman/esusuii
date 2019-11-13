@@ -26,7 +26,8 @@
 
   #sub-box-auth{
     margin-top: 10%;
-    margin-left: 23mm;
+    position: relative;
+    left: 25%;
   }
 
   #sign-btn, #login-btn{
