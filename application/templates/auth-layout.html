@@ -22,23 +22,33 @@
 
 				</div>
 
-				<div class="col-lg-6 col-xs-12 col-sm-12" id="sub-box-auth">
+				<div class="col-lg-6 col-xs-12 col-sm-12">
 
-					<div class="" id="f-msg">
-						{% with messages = get_flashed_messages() %}
+					<div id="sub-box-auth">
 
-							{% if messages %}
+						<div class="" >
+							
+							<div id="f-msg">
 
-								{{messages[0]}}
+								{% with messages = get_flashed_messages() %}
+	
+								{% if messages %}
+	
+									{{messages[0]}}
+	
+								{% endif %}
+	
+							{% endwith %}
 
-							{% endif %}
+							</div>
 
-						{% endwith %}
-					</div>
-
-					<div>
-
-						{% block content %}{% endblock %}
+						</div>
+	
+						<div>
+	
+							{% block content %}{% endblock %}
+	
+						</div>
 
 					</div>
 
