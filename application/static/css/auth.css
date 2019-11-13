@@ -26,8 +26,7 @@
 
   #sub-box-auth{
     border: 3px solid white !important;
-    margin-right: 6in !important;
-    margin-left: 20% !important;
+    margin-top: 20%;
   }
   form,#sign-btn,#login-btn{
     margin-left: 0%;
