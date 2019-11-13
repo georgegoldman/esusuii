@@ -13,7 +13,7 @@
     margin-left: -1in !important;
   }
   form,#sign-btn,#login-btn{
-    margin-left: -34%;
+    margin-left: 0%;
   }
 
   #log-box > div > form{
@@ -23,7 +23,7 @@
 
 }
 
-@media (min-width: 850px){
+@media (min-width: 900px){
 
   form legend,form div input, #box-input-btn, form fieldset div, #sign-btn, #login-btn{
     margin-left: 0%;
