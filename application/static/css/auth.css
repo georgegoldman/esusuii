@@ -6,7 +6,7 @@
   background-color: darkcyan;
 }
 
-@media (max-width: 900px){
+@media (max-width: 850px){
 
   #sub-box-auth{
     border: 3px solid white !important;
