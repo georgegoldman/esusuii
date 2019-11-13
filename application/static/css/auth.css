@@ -5,7 +5,7 @@
 @media(max-height: 800px){
 
   #sub-box-auth {
-    margin-top: 7cm;
+    margin-top: 25% !important;
   }
 }
 
