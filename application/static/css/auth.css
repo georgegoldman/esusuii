@@ -12,8 +12,8 @@
     border: 3px solid white !important;
     margin-left: -1in !important;
   }
-  form , #sign-btn, #login-btn{
-    margin-left: 0%;
+  form,#sign-btn,#login-btn{
+    margin-left: -34%;
   }
 
   #log-box > div > form{
