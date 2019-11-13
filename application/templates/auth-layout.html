@@ -26,21 +26,21 @@
 
 					<div id="sub-box-auth">
 							
-							<div id="f-msg">
+						<div id="f-msg">
 
-								{% with messages = get_flashed_messages() %}
-	
-								{% if messages %}
-	
-									{{messages[0]}}
-	
-								{% endif %}
-	
-							{% endwith %}
+							{% with messages = get_flashed_messages() %}
 
-							</div>
-	
-							{% block content %}{% endblock %}
+							{% if messages %}
+
+								{{messages[0]}}
+
+							{% endif %}
+
+						{% endwith %}
+
+						</div>
+
+						{% block content %}{% endblock %}
 	
 
 					</div>
