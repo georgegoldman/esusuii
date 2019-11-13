@@ -18,7 +18,7 @@
   #sub-box-auth{
     margin-top: 10%;
   }
-  #sub-box-auth > div > form{
+  #sub-box-auth > div{
     border: 3px solid darkcyan;
     height: auto;
   }
