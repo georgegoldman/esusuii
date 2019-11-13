@@ -19,9 +19,6 @@
     margin-top: 23%;
     margin-bottom: 3% !important;
   }
-  #log-box{
-    margin-left: 3cm; 
-  }
 
 }
 
@@ -40,6 +37,9 @@
   #sign-btn, #login-btn{
 
   margin-bottom: 3%;
+  }
+  #log-box{
+    margin-left: 3cm; 
   }
 }
 
