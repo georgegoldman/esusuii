@@ -37,7 +37,7 @@
 
 #sub-box-auth{
   border: 3px solid darkcyan;
-  height: auto;
+  height: inherit;
   width: inherit;
 }
 
