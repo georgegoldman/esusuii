@@ -22,7 +22,7 @@
 
 }
 
-@media(min-width: 850px){
+@media (min-width: 850px){
 
   form legend,form div input, #box-input-btn, form fieldset div, #sign-btn, #login-btn{
     margin-left: 0%;
