@@ -6,12 +6,12 @@
   background-color: darkcyan;
 }
 
-@media (max-width: 850px){
+@media (max-width: 900px){
 
   #sub-box-auth{
     border: 3px solid white !important;
     margin-right: 6in !important;
-    margin-left: 20%;
+    margin-left: 20% !important;
   }
   form,#sign-btn,#login-btn{
     margin-left: 0%;
