@@ -9,7 +9,7 @@
   }
 }
 
-@media(min-width: 900px){
+@media screen and (min-width: 900px){
   
   form legend,form div input, #box-input-btn, form fieldset div, #sign-btn, #login-btn{
     margin-left: 0%;
@@ -18,6 +18,7 @@
   #sub-box-auth{
     border: 3px solid darkcyan;
     margin-top: 10%;
+    height: auto;
   }
   
   #sign-btn, #login-btn{
