@@ -23,7 +23,7 @@ def login():
         flash('you need to sign out to access that page')
         return redirect(url_for('view.account_home'))
     else:
-        return render_template('login.html', form=form, title='tukata-login')
+        return render_template('login.html', form=form, title='Esusu-login')
 
 
 @view.route('/signup')
@@ -34,7 +34,7 @@ def signup():
         flash('you need to sign out to access that page')
         return redirect(url_for('view.account_home'))
     else:
-        return render_template('signup.html', form=form, title='tukata-signup')
+        return render_template('signup.html', form=form, title='Esusu-signup')
 
 @view.route('/account_home')
 @login_required
