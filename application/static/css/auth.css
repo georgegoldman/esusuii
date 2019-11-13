@@ -1,13 +1,15 @@
 *{
   font-family: 'Cabin', sans-serif;
 }
-#box-auth {
-  border: thin solid darkcyan;
-  background-color: darkcyan;
+
+@media(max-width: 800px){
+
+  #sub-box-auth{
+    margin-top: 7cm;
+  }
 }
 
-
-@media (min-width: 900px){
+@media(min-width: 900px){
   
   form legend,form div input, #box-input-btn, form fieldset div, #sign-btn, #login-btn{
     margin-left: 0%;
@@ -42,3 +44,7 @@
   border-radius: 7px;
 }
 
+#box-auth {
+  border: thin solid darkcyan;
+  background-color: darkcyan;
+}
