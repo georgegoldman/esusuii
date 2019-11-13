@@ -2,7 +2,7 @@
   font-family: 'Cabin', sans-serif;
 }
 
-@media(max-width: 800px){
+@media screen and (max-width: 800px){
 
   #sub-box-auth {
     margin-top: 25% !important;
