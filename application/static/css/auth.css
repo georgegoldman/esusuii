@@ -10,6 +10,7 @@
 
   #sub-box-auth{
     border: 3px solid white !important;
+    margin-left: 0%;
   }
   form , #sign-btn, #login-btn{
     margin-left: 0%;
