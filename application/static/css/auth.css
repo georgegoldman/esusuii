@@ -22,17 +22,6 @@
     margin-bottom: 3%;
   }
 }
-@media (max-width: 900px){
-
-  #sub-box-auth{
-    border: 3px solid white !important;
-    margin-top: 20%;
-  }
-  form,#sign-btn,#login-btn{
-    margin-left: 0%;
-  }
-
-}
 
 #sub-box-auth{
   height: inherit !important;
