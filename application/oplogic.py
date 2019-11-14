@@ -91,19 +91,19 @@ def join_group():
 
     
 
-    if not (group.member_limit == members_in_group):
+    if (group.member_limit == members_in_group):
         res = make_response(jsonify({"message": f'The group have reach it limit.'}), 200)
         return res
 
     else:
         if member:
-            res = make_response(jsonify({'message': f'You\re already a member to {group.group_name}.'}))
+            res = make_response(jsonify({'message': f'You\re already a member to {group.group_name}.'}, 200))
             return res
 
         else:
             member_target = (group.group_target/group.member_limit)/4
             monthly_target = group.group_target/group.member_limit
-            new_member = Member(username=current_user.username, member_target=member_target,monthly_target=monthly_target,group_id=group_id,user_id=current_user.id)
+            new_member = Member(member_target=member_target, monthly_target=monthly_target,group_id=group_id,user_id=current_user.id)
             db.session.add(new_member)
             db.session.commit()
 
@@ -114,7 +114,7 @@ def join_group():
             group.group_members += 1
             db.session.commit()
             
-            res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}.'}))
+            res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}.'}), 200)
             return res
 
 
