@@ -1,18 +1,19 @@
 function joinGroup(group_id) {
 
-  fetch(`http://esusu-app.herokuapp.com/leave_group?group_id=${group_id}`)
+  fetch(`http://esusu-app.herokuapp.com/join_group?group_id=${group_id}`)
 
-  .then(res => {
-    return res.text()
-  ;
-  })
-  .then(data => {
-    data = JSON.parse(data)
-    if (data["error"] === "0") {
-      alert(data["message"])
-    }
-  })
-  
+    .then(res => {
+      return res.text();
+    })
+    .then(data => {
+      data = JSON.parse(data)
+      if (data["error"] === "0") {
+        alert(data["message"])
+        console.log(data["message"])
+      }
+    })
+}
+
 function leaveGroup(group_id, user_id, member_id) {
 
   if (user_id == member_id){
