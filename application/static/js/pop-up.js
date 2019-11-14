@@ -7,7 +7,7 @@ function joinGroup(group_id) {
     group_id: group_id
   };
 
-  fetch(`${window.origin}/join_group`, {
+  fetch(`${window.origin}/join_group?${group_id}`, {
     method: "POST",
     credentials: "include",
     body: JSON.stringify(entry),
@@ -16,7 +16,11 @@ function joinGroup(group_id) {
       "content-type": "application/json"
     })
   })
+  .then(function (response) {
+    if (response.status !== 200) {
 
+    }
+  })
 
 }
 
