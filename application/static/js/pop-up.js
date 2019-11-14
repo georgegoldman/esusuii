@@ -1,5 +1,5 @@
 function pop(){
-  alert('testing the button!')
+  alert('testing the button!');
 }
 
 function joinGroup(group_id) {
