@@ -20,14 +20,14 @@ function joinGroup(group_id) {
 
     if (response.status !== 200) {
 
-      console.log(`Response status was not 200: ${response}`);
+      console.log(`Response status was not 200: ${response.status}`);
       return ;
 
     }
 
     response.json().then(function (data) {
 
-      alert(data['message'])
+      alert(data['message'[0]])
 
     })
 
