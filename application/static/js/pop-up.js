@@ -16,6 +16,7 @@ function joinGroup(group_id) {
       "content-type": "application/json"
     })
   })
+  
 
 }
 
