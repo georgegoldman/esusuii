@@ -17,9 +17,20 @@ function joinGroup(group_id) {
     })
   })
   .then(function (response) {
+
     if (response.status !== 200) {
 
+      console.log(`Response status was not 200: ${response.status}`);
+      return :
+
     }
+
+    response.json().then(function (data) {
+
+      console.log(data)
+
+    })
+
   })
 
 }
@@ -42,7 +53,7 @@ function leaveGroup(group_id, user_id, member_id) {
             alert(data["message"])
           }
         })
-    }
+     }
 
   }
   else{
