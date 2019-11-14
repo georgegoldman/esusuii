@@ -36,8 +36,9 @@
 
     </div>
 
-    <button class="btn btn-success btn-lg col-lg-5" type="button" onclick="pop()" name="button" >join</button>
-    <button class="btn btn-warning btn-lg col-lg-5 pull-right " type="button" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})" name="button">leave</button>
+    <button class="btn btn-success btn-lg col-lg-5" onclick="pop()">join</button>
+    
+    <button class="btn btn-warning btn-lg col-lg-5 pull-right" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
 
   </div>
 
