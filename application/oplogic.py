@@ -90,9 +90,9 @@ def join_group():
     req =request.get_json()
 
     #return req
-
-
-    res = make_response(jsonify({"message": f'group id is {req['group_id']}'}), 200)
+    
+    msg = req['group_id']
+    res = make_response(jsonify({"message": f'group id is {msg}'}), 200)
 
     return res
 
