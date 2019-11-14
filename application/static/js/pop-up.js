@@ -1,18 +1,14 @@
+
 function joinGroup(group_id) {
+  
+  var group_id = group_id;
+  
+  var entry = {
+    group_id: group_id
+  };
 
-  fetch(`http://esusu-app.herokuapp.com/join_group?group_id=${group_id}`)
+  console.log(entry)
 
-    .then(res => {
-      return res.text();
-    })
-    .then(data => {
-      console.log(data["message"])
-      data = JSON.parse(data)
-      if (data["error"] === "0") {
-        alert(data["message"])
-        console.log(data["message"])
-      }
-    })
 }
 
 function leaveGroup(group_id, user_id, member_id) {
