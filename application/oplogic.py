@@ -78,7 +78,7 @@ def create_group():
         return redirect(url_for('view.group_creation'))
 
 '''adding a member to a group '''
-@oplogic.route('/join_group', methods=['POST'])
+@oplogic.route('/join_group')
 @login_required
 def join_group():
     group_id = request.args.get('group_id')
