@@ -36,7 +36,7 @@
 
     </div>
     
-    {if not_member }
+    {% if not_member %}
     <button class="btn btn-success btn-lg col-lg-5" id="join" onclick="joinGroup({{group.id}})">join</button>
 
     {% elif member %}
