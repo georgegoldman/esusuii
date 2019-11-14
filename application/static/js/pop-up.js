@@ -1,10 +1,10 @@
-(function pop(){
-confirm('testin the javascript file connection '  );
-})
+function pop(){
+  alert('testing the button!')
+}
 
 function joinGroup(group_id) {
   fetch(`http://esusu-app.herokuapp.com/join_group?group_id=${group_id}`)
-  
+
     .then(res => {
       return res.text()
     ;
