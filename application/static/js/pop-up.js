@@ -1,4 +1,5 @@
 function pop(){
+  console.log('testing')
   alert('testing the button!');
 }
 
