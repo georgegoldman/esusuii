@@ -11,12 +11,12 @@ function joinGroup(group_id) {
     method: "POST",
     credentials: "include",
     body: JSON.stringify(entry),
-    cache: "no cache",
+    cache: "no-cache",
     headers: new Headers({
       "content-type": "application/json"
     })
   })
-  
+
 
 }
 
