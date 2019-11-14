@@ -81,10 +81,10 @@ def create_group():
 @oplogic.route('/join_group', methods=['POST'])
 @login_required
 def join_group():
-    group_id = request.args.get('group_id')
-    member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
-    members_in_group = Member.query.filter_by(group_id=group_id).count()
-    group = Group.query.get(group_id)
+    # group_id = request.args.get('group_id')
+    # member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
+    # members_in_group = Member.query.filter_by(group_id=group_id).count()
+    # group = Group.query.get(group_id)
 
 
     req =request.get_json()
