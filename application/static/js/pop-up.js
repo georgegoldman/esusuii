@@ -1,4 +1,5 @@
 function joinGroup(group_id) {
+  
   fetch(`http://esusu-app.herokuapp.com/join_group?group_id=${group_id}`)
 
     .then(res => {
@@ -6,7 +7,6 @@ function joinGroup(group_id) {
     ;
     })
     .then(data => {
-      console.log(data);
       data = JSON.parse(data)
       if (data["error"] === "0") {
         alert(data["message"])

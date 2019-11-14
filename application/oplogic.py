@@ -77,7 +77,7 @@ def create_group():
         flash(f'{group.group_name} have been successfully created')
         return redirect(url_for('view.group_creation'))
 
-
+#join group
 @oplogic.route('/join_group')
 @login_required
 def join_group():
@@ -89,20 +89,16 @@ def join_group():
     if group.member_limit == members_in_group:
         res = {
             'error' : '0',
-            'message': f'{group.group_name} has reached it limit'
+            'message': f'{group.group_name} has reached it limit',
         }
-        # flash(f'{group.group_name} has reached it limit')
-        # return redirect(url_for('view.group_details', group_id=group.id))
         return res
 
     else:
         if member:
             res = {
                 'error' : '0',
-                'message': 'You are already a member to this group'
+                'message': 'You are already a member to this group',
             }
-            # flash('You are already a member to this group')
-            # return redirect(url_for('view.group_details', group_id=group.id))
             return res
 
         else:
@@ -121,7 +117,7 @@ def join_group():
 
             res = {
                 'error' : '0',
-                'message': f'{current_user.username} you have been successfully added to {group.group_name} Group'
+                'message': f'{current_user.username} you have been successfully added to {group.group_name} Group',
             }
 
             return res
