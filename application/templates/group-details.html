@@ -38,10 +38,10 @@
     
     {% if current_user and not member %}
 
-      <button class="btn btn-success btn-lg col-lg-6" id="join" onclick="joinGroup({{group.id}})">join</button><br>
+      <button class="btn ml-lg-2 ml-2 btn-success btn-lg col-lg-6" id="join" onclick="joinGroup({{group.id}})">join</button><br>
 
     {% elif member %}
-      <button class="btn btn-warning btn-lg col-lg-6" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
+      <button class="btn btn-warning ml-lg-2 ml-2 btn-lg col-lg-6" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
     {% endif %}
 
   </div>
