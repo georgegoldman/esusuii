@@ -27,7 +27,7 @@ function joinGroup(group_id) {
 
     response.json().then(function (data) {
 
-      console.log(data)
+      alert(data['message'])
 
     })
 
