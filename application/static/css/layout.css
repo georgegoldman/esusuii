@@ -30,7 +30,7 @@
 
 
 
-  ul li#admin-nav:hover ul#admin-sub-nav {
+  li#admin-nav:hover #admin-sub-nav {
     display: block;
     font-size: 4mm;
   }
