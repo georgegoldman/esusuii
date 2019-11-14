@@ -77,7 +77,7 @@ def create_group():
         flash(f'{group.group_name} have been successfully created')
         return redirect(url_for('view.group_creation'))
 
-'''adding a member to a group '''
+
 @oplogic.route('/join_group')
 @login_required
 def join_group():
