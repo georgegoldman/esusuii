@@ -10,10 +10,10 @@
 			<title> Esusu </title>
 		{% endif %}
 
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/group-details.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/account-home.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/group-details.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/account-home.css') }}" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Cabin&display=swap" rel="stylesheet">
 		<script type="text/javascript" src="{{url_for('static', filename='js/pop-up.js')}}"></script>
 		<script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
@@ -31,22 +31,22 @@
 
 					<div class="col-lg-3 col-xs-9 col-sm-3">
 
-						<ul class="nav nav-pills " id="nav" >
+						<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
+							
+							<i class="fas fa-hand-holding-usd fa-3x"></i> Esusu
 
-							<li><i class="fas fa-hand-holding-usd fa-3x"></i> Esusu</li>
+							<a class="nav-link" data-toggle="pill" href="/account_home" role="tab" aria-controls="v-pills-home"> <i class="fas fa-home "></i> Home </a>
 
-							<li> <a href="/account_home"> <i class="fas fa-home "></i> Home </a> </li>
+							<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
 
-							<li> <a href="/account_profile"> <i class="fas fa-user"></i>  Profile </a> </li>
-
-						{% if current_user.is_admin %}
-							<li id="admin-nav"> <a href=""><i class="fas fa-user-cog"></i> admin </a>
+							{% if current_user.is_admin %}
+							<li id="admin-nav"> <a class="nav-link" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin </a>
 
 								<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
 
 									{% for group in current_user.group %}
 
-									<li> <a href="/admin_pannel?group_id={{group.id}}">{{group.group_name}}</a> </li>
+									<li> <a class="nav-link" data-toggle="pill" href="/admin_pannel?group_id={{group.id}}" role="tab" aria-controls="v-pills-profile" >{{group.group_name}}</a> </li>
 
 									{% endfor %}
 								</ul>
@@ -54,13 +54,11 @@
 
 							 </li>
 
-							 <li id="mbl"> <a href="/group"><i class="fas fa-user-cog"></i> admin </a> </li>
-						{% endif %}
+							 <a class="nav-link" data-toggle="pill" href="/group" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin </a>
+							{% endif %}
 
-							<li> <a href="/logout"> <i class="fas fa-sign-out-alt"></i> Log-out </a> </li>
-
-
-						</ul>
+							<a  class="nav-link" data-toggle="pill" href="/logout" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-sign-out-alt"></i> Log-out </a>
+						</div>
 
 					</div>
 
