@@ -81,34 +81,23 @@ def create_group():
 @oplogic.route('/join_group', methods=['POST'])
 @login_required
 def join_group():
-    # group_id = request.args.get('group_id')
-    # member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
-    # members_in_group = Member.query.filter_by(group_id=group_id).count()
-    # group = Group.query.get(group_id)
-
 
     req =request.get_json()
-
-    #return req
+    group_id = int(req['group_id'])
     
-    msg = req['group_id']
-    res = make_response(jsonify({"message": f'group id is {msg}'}), 200)
+    member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
+    members_in_group = Member.query.filter_by(group_id=group_id).count()
+    group = Group.query.get(group_id)
 
-    return res
+    
 
     if group.member_limit == members_in_group:
-        res = {
-            'error' : '0',
-            'message': f'{group.group_name} has reached it limit',
-        }
+        res = make_response(jsonify({"message": f'The group have reach it limit.'}), 200)
         return res
 
     else:
         if member:
-            res = {
-                'error' : '0',
-                'message': 'You are already a member to this group',
-            }
+            res = make_response(jsonify({'message': f'You\re already a member to {group.group_name}.'}))
             return res
 
         else:
@@ -124,12 +113,8 @@ def join_group():
 
             group.group_members += 1
             db.session.commit()
-
-            res = {
-                'error' : '0',
-                'message': f'{current_user.username} you have been successfully added to {group.group_name} Group',
-            }
-
+            
+            res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}'}))
             return res
 
 
