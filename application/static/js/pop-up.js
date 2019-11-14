@@ -6,6 +6,7 @@ function joinGroup(group_id) {
     ;
     })
     .then(data => {
+      console.log(data);
       data = JSON.parse(data)
       if (data["error"] === "0") {
         alert(data["message"])
