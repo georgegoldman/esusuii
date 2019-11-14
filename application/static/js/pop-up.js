@@ -1,8 +1,3 @@
-function pop(){
-  console.log('testing')
-  alert('testing the button!');
-}
-
 function joinGroup(group_id) {
   fetch(`http://esusu-app.herokuapp.com/join_group?group_id=${group_id}`)
 
