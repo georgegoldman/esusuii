@@ -97,7 +97,7 @@ def join_group():
 
     else:
         if member:
-            res = make_response(jsonify({'message': f'You\\re already a member to {group.group_name}.'}), 200)
+            res = make_response(jsonify({'message': f'You\'re already a member to {group.group_name}.'}), 200)
             return res
 
         else:
