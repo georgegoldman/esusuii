@@ -7,7 +7,15 @@ function joinGroup(group_id) {
     group_id: group_id
   };
 
-  console.log(entry)
+  fetch(`${window.origin}/join_group`, {
+    method: "POST",
+    credentials: "include",
+    body: JSON.stringify(entry),
+    cache: "no cache",
+    headers: new Headers({
+      "content-type": "application/json"
+    })
+  })
 
 }
 

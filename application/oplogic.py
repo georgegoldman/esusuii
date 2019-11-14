@@ -86,6 +86,15 @@ def join_group():
     members_in_group = Member.query.filter_by(group_id=group_id).count()
     group = Group.query.get(group_id)
 
+
+    req =request.get_json()
+
+    #return req
+
+    res = make_response(jsonify({"message": "json recieved "}), 200)
+
+    return res
+
     if group.member_limit == members_in_group:
         res = {
             'error' : '0',
