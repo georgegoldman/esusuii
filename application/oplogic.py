@@ -91,7 +91,7 @@ def join_group():
 
     #return req
 
-    res = make_response(jsonify({"message": f'group id is {req}'}), 200)
+    res = make_response(jsonify({"message": f'group id is {req[0]}'}), 200)
 
     return res
 
