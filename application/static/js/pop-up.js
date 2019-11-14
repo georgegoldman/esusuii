@@ -4,6 +4,7 @@ confirm('testin the javascript file connection '  );
 
 function joinGroup(group_id) {
   fetch(`http://esusu-app.herokuapp.com/join_group?group_id=${group_id}`)
+  
     .then(res => {
       return res.text()
     ;
