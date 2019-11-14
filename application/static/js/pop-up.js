@@ -20,7 +20,7 @@ function joinGroup(group_id) {
 
     if (response.status !== 200) {
 
-      console.log(`Response status was not 200: ${response.status}`);
+      console.log(`Response status was not 200: ${response}`);
       return ;
 
     }
