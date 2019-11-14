@@ -83,16 +83,12 @@ def group_details():
 
     group = Group.query.get(group_id)
     member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
+    not_member = connection.execute(
+        text(f'select * from public.member full join public.user on public.member.user_id = public.user.id where public.user.id = {current_user.id} and public.member.group_id = {group.id}')
+    )
 
-    return render_template('group-details.html', group=group, current_user=current_user, group_id=group_id, member=member)
+    return render_template('group-details.html', group=group, current_user=current_user, group_id=group_id, member=member, not_member=not_member)
 
-# @view.route('/admin')
-# @login_required
-# def admin():
-#     if current_user.is_admin:
-#         return 'welcome admin.'
-#     else:
-#         return abort(404)
 
 @view.route('/member')
 @login_required

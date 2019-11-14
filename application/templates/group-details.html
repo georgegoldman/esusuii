@@ -35,10 +35,13 @@
       <p> current contribution: {{group.current_contribution}} </p>
 
     </div>
-
+    
+    {if not_member }
     <button class="btn btn-success btn-lg col-lg-5" id="join" onclick="joinGroup({{group.id}})">join</button>
 
-    <button class="btn btn-warning btn-lg col-lg-5 pull-right" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
+    {% elif member %}
+     <button class="btn btn-warning btn-lg col-lg-5 pull-right" onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
+    {% endif %}
 
   </div>
 
