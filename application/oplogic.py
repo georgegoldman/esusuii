@@ -91,7 +91,7 @@ def join_group():
 
     
 
-    if group.member_limit == members_in_group:
+    if not (group.member_limit == members_in_group):
         res = make_response(jsonify({"message": f'The group have reach it limit.'}), 200)
         return res
 
@@ -114,7 +114,7 @@ def join_group():
             group.group_members += 1
             db.session.commit()
             
-            res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}'}))
+            res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}.'}))
             return res
 
 
