@@ -35,8 +35,19 @@
 
 #crt-grp :hover {
   background-color: darkcyan;
+
 }
-#jnlv{
-  margin-left: 45%;
-  margin-top: 2%;
+
+@media screen and (min-width: 900px){
+  #jnlv{
+    margin-left: 45%;
+    margin-top: 2%;
+  }
+}
+
+@media screen and (max-width: 900px){
+  #jnlv{
+    margin-left: 40%;
+    margin-top: 2%;
+  }
 }
