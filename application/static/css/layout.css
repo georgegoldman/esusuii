@@ -19,6 +19,18 @@
 
   }
 
+  #admin-sub-nav{
+    display: none;
+  
+  }
+  
+  
+  
+  li#admin-nav:hover #admin-sub-nav {
+    display: block;
+    font-size: 4mm;
+  }
+
   #admin-sub-nav li a{
     margin-left: 10mm;
   }
@@ -33,6 +45,15 @@
     margin-left: 3mm;
   }
 
+  #admin-sub-nav{
+    display: none;
+  
+  }
+  
+  li#admin-nav:active #admin-sub-nav {
+    display: block;
+    font-size: 4mm;
+  }
 
   ul li#admin-nav:visited ul#admin-sub-nav {
     display: block !important;
@@ -41,20 +62,6 @@
 
 
 }
-
-#admin-sub-nav{
-  display: none;
-
-}
-
-
-
-li#admin-nav:hover #admin-sub-nav {
-  display: block;
-  font-size: 4mm;
-}
-
-
 
 #nav > li > a{
   color: black;
