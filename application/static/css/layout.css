@@ -50,7 +50,7 @@
   
   }
   
-  li#admin-nav:active #admin-sub-nav {
+  li#admin-nav:visited #admin-sub-nav {
     display: block;
     font-size: 4mm;
   }
