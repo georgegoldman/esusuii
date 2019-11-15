@@ -42,7 +42,7 @@
 								<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
 	
 								{% if current_user.is_admin %}
-								<a class="nav-link" id="admin-nav" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin
+								<a class="nav-link" id="admin-nav" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin</a>
 	
 									<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
 	
@@ -52,8 +52,6 @@
 	
 										{% endfor %}
 									</ul>
-
-								</a>
 	
 								{% endif %}
 	
