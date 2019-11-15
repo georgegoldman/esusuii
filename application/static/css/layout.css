@@ -23,6 +23,13 @@
     margin-left: 10mm;
   }
 
+  #admin-sub-nav{
+    display: none;
+
+  }
+
+
+
   li#admin-nav:hover #admin-sub-nav {
     display: block;
     font-size: 4mm;
@@ -47,6 +54,9 @@
   #admin-nav{
     display: none !important;
   }
+
+
+
 
 }
 
