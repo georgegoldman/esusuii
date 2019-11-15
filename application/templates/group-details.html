@@ -36,13 +36,17 @@
 
     </div>
     
-    {% if current_user and not member %}
+    <div id="jnlv">
 
-      <button class="btn ml-lg-5 ml-xl-5 btn-success btn-lg " id="join" onclick="joinGroup({{group.id}})">join</button><br>
+        {% if current_user and not member %}
 
-    {% elif member %}
-      <button class="btn btn-warning ml-lg-10 ml-xl-10 btn-lg " onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
-    {% endif %}
+        <button class="btn btn-success btn-lg " id="join" onclick="joinGroup({{group.id}})">join</button><br>
+  
+      {% elif member %}
+        <button class="btn btn-warning  btn-lg " onclick="leaveGroup({{group.id}}, {{current_user.id}}, {{member.user_id}})">leave</button>
+      {% endif %}
+
+    </div>
 
   </div>
 
