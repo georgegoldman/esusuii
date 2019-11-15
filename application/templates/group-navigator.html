@@ -4,14 +4,26 @@
 
     <div class="col-lg-10 col-sm-12 col-xs-12 ">
 
-      <ul class="nav nav-tabs navbar-static-top col-sm-12 col-xs-12 col-lg-12">
+      <ul class="nav nav-pills col-sm-12 col-xs-12 col-lg-12">
 
-        <li> <a href="/member?group_id={{group_id}}">Members</a> </li>
-        <li> <a href="/busery?group_id={{group_id}}">Finance</a> </li>
+        <li class="nav-item" > 
+          <a class="nav-link" href="/member?group_id={{group_id}}">Members</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/busery?group_id={{group_id}}">Finance</a> 
+        </li>
+
         {%if current_user.id == group.group_admin %}
-        <li> <a href="/admin_pannel?group_id={{group_id}}">admin panel</a> </li>
+
+        <li class="nav-item" >
+           <a class="nav-link" href="/admin_pannel?group_id={{group_id}}">admin panel</a> 
+        </li class="nav-item">
+
         {% endif %}
-        <li> <a href="/payee_list?group_id={{group_id}}">Payee list</a> </li>
+        <li class="nav-item"> 
+          <a class="nav-link" href="/payee_list?group_id={{group_id}}">Payee list</a> 
+        </li>
 
       </ul>
 
