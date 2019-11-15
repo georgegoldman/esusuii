@@ -55,7 +55,7 @@
     font-size: 4mm;
   }
 
-  ul li#admin-nav:visited ul#admin-sub-nav {
+  ul li#admin-nav:active ul#admin-sub-nav {
     display: block !important;
     font-size: 4mm !important;
   }
