@@ -60,3 +60,7 @@
 #nav > li > a{
   color: black;
 }
+
+#adm-nv ul li a:hover{
+  background-color: darkcyan;
+}
