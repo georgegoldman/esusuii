@@ -26,7 +26,7 @@
   
   
   
-  #admin-nav:hover #admin-sub-nav {
+  a#admin-nav:hover #admin-sub-nav {
     display: block;
     font-size: 4mm;
   }
@@ -50,7 +50,7 @@
   
   }
   
-  #admin-nav:hover #admin-sub-nav {
+  a#admin-nav:hover #admin-sub-nav {
     display: block;
     font-size: 4mm;
   }
