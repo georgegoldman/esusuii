@@ -26,7 +26,7 @@
   
   
   
-  li#admin-nav:hover #admin-sub-nav {
+  #admin-nav:hover #admin-sub-nav {
     display: block;
     font-size: 4mm;
   }
@@ -50,7 +50,7 @@
   
   }
   
-  li#admin-nav:hover #admin-sub-nav {
+  #admin-nav:hover #admin-sub-nav {
     display: block;
     font-size: 4mm;
   }
@@ -59,6 +59,10 @@
 
 #nav > li > a{
   color: black;
+}
+
+#adm-nv ul li a{
+  color: darkcyan;
 }
 
 #adm-nv ul li a:hover{
