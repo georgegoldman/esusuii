@@ -33,29 +33,32 @@
 
 						<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
 							
-							<i class="fas fa-hand-holding-usd fa-3x"></i> Esusu
+							<div id="main-nav">
 
-							<a class="nav-link" data-toggle="pill" href="/account_home" role="tab" aria-controls="v-pills-home"> <i class="fas fa-home "></i> Home </a>
+								<i class="fas fa-hand-holding-usd fa-3x"></i> Esusu
 
-							<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
+								<a class="nav-link" data-toggle="pill" href="/account_home" role="tab" aria-controls="v-pills-home"> <i class="fas fa-home "></i> Home </a>
+	
+								<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
+	
+								{% if current_user.is_admin %}
+								<a class="nav-link" id="admin-nav" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin </a>
+	
+									<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
+	
+										{% for group in current_user.group %}
+	
+										<li> <a class="nav-link" data-toggle="pill" href="/admin_pannel?group_id={{group.id}}" role="tab" aria-controls="v-pills-profile" >{{group.group_name}}</a> </li>
+	
+										{% endfor %}
+									</ul>
+	
+								{% endif %}
+	
+								<a  class="nav-link" data-toggle="pill" href="/logout" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-sign-out-alt"></i> Log-out </a>
 
-							{% if current_user.is_admin %}
-							<li id="admin-nav"> <a class="nav-link" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin </a>
+							</div>
 
-								<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
-
-									{% for group in current_user.group %}
-
-									<li> <a class="nav-link" data-toggle="pill" href="/admin_pannel?group_id={{group.id}}" role="tab" aria-controls="v-pills-profile" >{{group.group_name}}</a> </li>
-
-									{% endfor %}
-								</ul>
-
-
-							 </li>
-							{% endif %}
-
-							<a  class="nav-link" data-toggle="pill" href="/logout" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-sign-out-alt"></i> Log-out </a>
 						</div>
 
 					</div>

@@ -62,5 +62,14 @@
 }
 
 #adm-nv ul li a:hover{
-  background-color: darkcyan;
+  background-color: whitesmoke;
+}
+
+#main-nav a{
+  color: black;
+}
+
+#main-nav a:hover{
+  color: whitesmoke;
+  background: darkcyan;
 }
