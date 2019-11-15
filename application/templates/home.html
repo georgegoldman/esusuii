@@ -8,17 +8,16 @@
           <hr>
           {% for group in groups %}
 
-          <div class="media position-relative" id="group-box">
-
-            <div class="" id="grp-box-main-dtl">
-
-              <h5>{{group.group_name}}</h5>
-              <hr>
-
-
+          <div class="row no-gutters bg-light position-relative" id="group-box">
+            
+            <div class="col-md-6 mb-md-0 p-md-4">
+                <img src="..." class="w-100" alt="...">
             </div>
 
-            <div class="media-body" id="grp-box-footer-dtl">
+            <div class=""col-md-6 position-static p-4 pl-md-0"" >
+
+                <h5 class="mt-0" >{{group.group_name}}</h5>
+                <hr>
 
               <p> <i class="fa fa-users"></i> {{group.group_members}}</p>
 
@@ -27,7 +26,7 @@
               <p><i class="fas fa-funnel-dollar"></i> {{group.group_target}}</p>
 
               <a href="/group_details?group_id={{group.id}}" class="btn btn-primary stretched-link" >View group details</a>
-              
+
             </div>
             
 
