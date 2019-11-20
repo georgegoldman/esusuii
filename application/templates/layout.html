@@ -33,7 +33,7 @@
 
 						<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
 							
-							<div id="main-nav" class="dropdown show">
+							<div id="main-nav">
 
 								<i class="fas fa-hand-holding-usd fa-3x"></i> Esusu
 
@@ -42,7 +42,10 @@
 								<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
 	
 								{% if current_user.is_admin %}
-								<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-user-cog"></i> admin</a>
+								
+								<div class="dropdown show">
+
+									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-user-cog"></i> admin</a>
 	
 								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 									{% for group in current_user.group %}
@@ -50,6 +53,8 @@
 										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
 
 									{% endfor %}
+								</div>
+
 								</div>
 	
 								{% endif %}
