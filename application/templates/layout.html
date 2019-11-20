@@ -33,7 +33,7 @@
 
 						<div class="nav flex-column nav-pills" role="tablist" aria-orientation="vertical">
 							
-							<div id="main-nav">
+							<div id="main-nav" class="dropdown show">
 
 								<i class="fas fa-hand-holding-usd fa-3x"></i> Esusu
 
@@ -42,12 +42,12 @@
 								<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
 	
 								{% if current_user.is_admin %}
-								<a class="nav-link dropdown btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="admin-nav" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin</a>
+								<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ><i class="fas fa-user-cog"></i> admin</a>
 	
-								<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 									{% for group in current_user.group %}
 
-											<a class="dropdown-item" type="button" href="/admin_pannel?group_id={{group.id}}" role="tab" aria-controls="v-pills-profile" >{{group.group_name}}</a>
+										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
 
 									{% endfor %}
 								</div>
