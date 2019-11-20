@@ -42,16 +42,15 @@
 								<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
 	
 								{% if current_user.is_admin %}
-								<a class="nav-link" id="admin-nav" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin</a>
+								<a class="nav-link dropdown btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="admin-nav" data-toggle="pill" href="" role="tab" aria-controls="v-pills-profile" ><i class="fas fa-user-cog"></i> admin</a>
 	
-									<ul class="nav nav-pills nav-stacked " id="admin-sub-nav">
-	
-										{% for group in current_user.group %}
-	
-										<li> <a class="nav-link" data-toggle="pill" href="/admin_pannel?group_id={{group.id}}" role="tab" aria-controls="v-pills-profile" >{{group.group_name}}</a> </li>
-	
-										{% endfor %}
-									</ul>
+									{% for group in current_user.group %}
+										<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+
+											<a class="dropdown-item" type="button" href="/admin_pannel?group_id={{group.id}}" role="tab" aria-controls="v-pills-profile" >{{group.group_name}}</a>
+
+										</div>
+									{% endfor %}
 	
 								{% endif %}
 	
