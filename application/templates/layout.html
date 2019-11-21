@@ -51,7 +51,7 @@
 	
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
-										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a	>
+										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
 										{% for group in current_user.group %}
 
 											<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
@@ -63,7 +63,7 @@
 	
 								{% endif %}
 	
-								<a  class="nav-link" data-toggle="pill" href="/logout" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-sign-out-alt"></i> Log-out </a>
+								<a  class="nav-link" data-toggle="pill" href="/logout" role="tab" aria-controls="v-pills-profile"> <i class="fas fa-sign-out-alt"></i> Log-out </a>
 
 							</div>
 
