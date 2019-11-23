@@ -67,3 +67,7 @@ class UpdateAccountInfoForm(FlaskForm):
             email = User.query.filter_by(email=email.data).first()
             if email:
                 raise ValidationError('Email already taken')
+
+class ChangePasswordForm():
+    password = PasswordField('password',  validators=[DataRequired(message='password required')])
+    confirm_pwd = PasswordField('confirm password',  validators=[DataRequired(message='confirm password required'), EqualTo('password', message='Passwords must match')])

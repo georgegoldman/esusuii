@@ -1,21 +1,31 @@
 import os
-
 from flask import Flask, Markup
+from flask_apscheduler import APScheduler
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_fontawesome import FontAwesome
+from flask_mail import Mail
 
 app = Flask(__name__)
 
 app.config['DEBUG']=True
-app.config['SECRET_KEY']= os.environ.get('SECRET')
-app.config['SQLALCHEMY_DATABASE_URI']= os.environ.get('DATABASE_URL')
+app.config['SECRET_KEY']= 'duhwuheu234532i0290k@{{@~@nirjgir}}'
+app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://postgres:password@localhost/esusu'
+app.config.update(
+    MAIL_SERVER = 'smtp.googlemail.com',
+    MAIL_PORT = '587',
+    MAIL_USE_TLS = True,
+    MAIL_USERNAME = 'georgegoldman2014@gmail.com',
+    MAIL_PASSWORD = 'Goldman14'
+)
 
 
 
 
 db = SQLAlchemy(app)
 fa = FontAwesome(app)
+mail = Mail(app)
+scheduler = APScheduler(app)
 
 
 from application import models

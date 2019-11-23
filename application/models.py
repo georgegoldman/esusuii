@@ -1,6 +1,7 @@
 from . import db
 from flask_login import UserMixin, AnonymousUserMixin
 from sqlalchemy.dialects.postgresql import ARRAY
+from datetime import datetime
 
 class User(db.Model, UserMixin, AnonymousUserMixin):
 
@@ -78,3 +79,15 @@ class Paylist(db.Model):
 
     def __repr__(self):
         return f"[{self.payee_list}]"
+
+
+class ResetPassword(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.Text)
+    token = db.Column(db.Text)
+    is_active = db.Column(db.Boolean, default=False)
+    date = db.Column(db.DateTime, default=datetime.utcnow())
+
+    def __init_(self,email, reset_check):
+        self.email = email
+        self.reset_check = reset_check

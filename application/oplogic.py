@@ -11,7 +11,7 @@ from sqlalchemy.sql import text
 from sqlalchemy import create_engine
 
 oplogic = Blueprint('oplogic', __name__)
-engine = create_engine(os.environ.get('DATABASE_URL'), convert_unicode=True)
+engine = create_engine('postgresql://postgres:password@localhost/esusu', convert_unicode=True)
 connection = engine.connect()
 
 '''admin creation and group route'''
@@ -84,12 +84,12 @@ def join_group():
 
     req =request.get_json()
     group_id = int(req['group_id'])
-    
+
     member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
     members_in_group = Member.query.filter_by(group_id=group_id).count()
     group = Group.query.get(group_id)
 
-    
+
 
     if (group.member_limit == members_in_group):
         res = make_response(jsonify({"message": f'The group have reach it limit.'}), 200)
@@ -113,7 +113,7 @@ def join_group():
 
             group.group_members += 1
             db.session.commit()
-            
+
             res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}.'}), 200)
             return res
 

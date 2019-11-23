@@ -1,7 +1,7 @@
 import os
 import random
 from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm, UpdateAccountInfoForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, ChangeAdminForm, UpdateAccountInfoForm, ChangePasswordForm
 from flask_login import login_required, current_user, login_required
 from .models import Group, Member, User, Paylist
 import datetime
@@ -12,7 +12,7 @@ from sqlalchemy import create_engine
 
 view = Blueprint('view', __name__)
 
-engine = create_engine(os.environ.get('DATABASE_URL'), convert_unicode=True)
+engine = create_engine('postgresql://postgres:password@localhost/esusu', convert_unicode=True)
 connection  = engine.connect()
 
 @view.route('/')
@@ -142,3 +142,10 @@ def payee_list():
         return render_template('payee-list.html', group_id=group_id, group=group, member=member, paylist=paylist)
     else:
         return abort(404)
+
+@view.route('/reset_password')
+def reset_password():
+
+    form = ChangePasswordForm()
+
+    return render_template('reset_pass.html', form=form)

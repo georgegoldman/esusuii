@@ -1,13 +1,19 @@
 import os
 import secrets
-from flask import Blueprint, render_template, redirect, url_for, flash, request, Markup
+import atexit
+from datetime import datetime, timedelta
+from apscheduler.schedulers.background import BackgroundScheduler
+from flask import abort, Blueprint, render_template, redirect, url_for, flash, request, Markup, jsonify, make_response
 from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, UpdateAccountInfoForm
-from application.models import User, Group, Member
-from application import db, app
+from application.models import User, Group, Member, ResetPassword
+from application import db, app, mail
+from flask_mail import Message
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
+
+scheduler = BackgroundScheduler()
 
 
 @auth.route('/signup', methods=['POST'])
@@ -94,3 +100,57 @@ def logout():
 
     logout_user()
     return redirect(url_for('view.login'))
+
+
+@auth.route('/send_reset_password_mail')
+def send_reset_password_mail():
+
+    email = request.args.get('email')
+    user = User.query.filter_by(email=email).first()
+    token = secrets.token_urlsafe(16)
+    if user:
+        reset_logs = ResetPassword(
+            email=email,
+            is_active = True,
+            token= token,
+        )
+        db.session.add(reset_logs)
+        db.session.commit()
+
+
+        msg = Message(
+            subject='reset email',
+            html= f" testing the email app http://localhost:5000/reset_password/reset_link?i={token}",
+            sender = ('noreply@esusu','georgegoldman2014@gmail.com'),
+            recipients = [email]
+        )
+        mail.send(msg)
+        def deactivate():
+            reset_logs = ResetPassword.query.filter_by(token=token).first()
+            reset_logs.is_active = False
+            db.session.commit()
+
+        scheduler = BackgroundScheduler()
+        scheduler.add_job(func=deactivate, trigger="interval", minutes=3)
+        scheduler.start()
+
+        atexit.register(lambda: scheduler.shutdown())
+
+        res = make_response(jsonify({'msg': 'A link has been sent to your email'}), 200)
+        return res
+    else:
+        res = make_response(jsonify({'msg':'This email does not have an account with our platform'}), 200)
+        return res
+
+
+@auth.route(f'/reset_password/reset_link')
+def reset_password():
+
+    token  = request.args.get('i')
+    reset_log = ResetPassword.query.filter_by(token=token).first()
+
+    if (reset_log.is_active):
+        return 'just testin the time factors'
+    else:
+        return abort(404)
+
