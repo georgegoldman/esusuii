@@ -4,7 +4,7 @@ import atexit
 from datetime import datetime, timedelta
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import abort, Blueprint, render_template, redirect, url_for, flash, request, Markup, jsonify, make_response
-from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, UpdateAccountInfoForm
+from application.web_forms import RegistrationForm, LoginForm, AdminForm, GroupForm, UpdateAccountInfoForm, ChangePasswordForm
 from application.models import User, Group, Member, ResetPassword
 from application import db, app, mail
 from flask_mail import Message
@@ -147,10 +147,26 @@ def send_reset_password_mail():
 def reset_password():
 
     token  = request.args.get('i')
-    reset_log = ResetPassword.query.filter_by(token=token).first()
-
-    if (reset_log.is_active):
-        return 'just testin the time factors'
-    else:
+    try:
+        reset_log = ResetPassword.query.filter_by(token=token).first()
+        form = ChangePasswordForm()
+        if (reset_log.is_active):
+            return render_template('reset_pass.html', form=form, email=reset_log.email)
+        else:
+            return abort(404)
+    except AttributeError:
         return abort(404)
 
+@auth.route('/reseting', methods=['POST'])
+def reset():
+    form  = ChangePasswordForm()
+
+    if form.validate_on_submit():
+        email = request.args.get('email')
+        password = form.password.data
+        hashpass = generate_password_hash(password, method='sha256')
+        user = User.query.filter_by(email=email).first()
+        user.password = hashpass
+        db.session.commit()
+
+        return 'password reset done'

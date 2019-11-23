@@ -142,10 +142,3 @@ def payee_list():
         return render_template('payee-list.html', group_id=group_id, group=group, member=member, paylist=paylist)
     else:
         return abort(404)
-
-@view.route('/reset_password')
-def reset_password():
-
-    form = ChangePasswordForm()
-
-    return render_template('reset_pass.html', form=form)

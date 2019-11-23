@@ -15,8 +15,6 @@
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}" rel="stylesheet">
 		<link rel="stylesheet" href="{{ url_for('static', filename='css/account-home.css') }}" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Cabin&display=swap" rel="stylesheet">
-		<script type="text/javascript" src="{{url_for('static', filename='js/pop-up.js')}}"></script>
-		<script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
 
 
 
@@ -41,27 +39,6 @@
 	
 								<a class="nav-link" data-toggle="pill" href="/account_profile" role="tab" aria-controls="v-pills-profile" > <i class="fas fa-user"></i>  Profile </a>
 	
-								{% if current_user.is_admin %}
-								
-								<div class="dropdown show">
-
-									<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-										<i class="fas fa-user-cog"></i> admin
-									</a>
-	
-									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-										{% for group in current_user.group %}
-										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
-										<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
-
-											<a class="dropdown-item" href="/admin_pannel?group_id={{group.id}}" >{{group.group_name}}</a>
-
-										{% endfor %}
-									</div>
-
-								</div>
-	
-								{% endif %}
 	
 								<a  class="nav-link" data-toggle="pill" href="/logout" role="tab" aria-controls="v-pills-profile"> <i class="fas fa-sign-out-alt"></i> Log-out </a>
 
@@ -103,6 +80,8 @@
 
 		</div>
 
+		<script type="text/javascript" src="{{url_for('static', filename='js/pop-up.js')}}"></script>
+		<script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
 	</body>
 
 </html>

@@ -27,7 +27,8 @@ function joinGroup(group_id) {
 
     response.json().then(function (data) {
 
-      alert(data['message'])
+      alert(data['message']);
+      location.reload();
 
     })
 
@@ -37,21 +38,36 @@ function joinGroup(group_id) {
 
 function leaveGroup(group_id, user_id, member_id) {
 
-  if (user_id == member_id){
-    y = confirm('Click ok to confirm leave');
-    y;
-    if (y == true){
-      fetch(`${window.origin}/leave_group?group_id=${group_id}`)
+  var group_id = group_id;
+  
+  var entry = {
+    group_id: group_id
+  };
 
-        .then(res => {
-          return res.text()
-        ;
+  if (user_id == member_id){
+    confrim_leave = confirm('Click ok to confirm leave');
+    if (confrim_leave){
+      fetch(`${window.origin}/leave_group?${group_id}`, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(entry),
+        cache: "no-cache",
+        headers: new Headers({
+          "content-type": "application/json"
         })
-        .then(data => {
-          data = JSON.parse(data)
-          if (data["error"] === "0") {
-            alert(data["message"])
+      })
+        .then(function (response){
+
+          if (response.status !== 200){
+            console.log(`your response status was not 200: ${response.status}` );
+            return ;
           }
+
+          response.json().then(function (data) {
+            alert(data['msg']);
+            location.reload()
+
+          })
         })
      }
 

@@ -25,8 +25,11 @@
 
           {% for member in current_user.member %}
 
-            <li> <a href="/group_details?group_id={{member.group.id}}"> <button type="button" name="button" class="btn btn-lg btn-xs btn-primary" >{{member.group.group_name}}</button> </a> </li><br>
-
+            {% if not member.group.group_admin %}
+              <li> <a href="/group_details?group_id={{member.group.id}}"> <button type="button" name="button" class="btn btn-lg btn-xs btn-primary" ><i class="fas fa-user-cog"></i>{{member.group.group_name}}</button> </a> </li><br>
+            {% else %}
+            <li> <a href="/admin_pannel?group_id={{member.group.id}}" > <button type="button" name="button" class="btn btn-lg btn-xs btn-primary" ><i class="fas fa-user-cog"></i>{{member.group.group_name}}</button> </a> </li><br>
+            {% endif %}
           {% endfor %}
 
         </ol>

@@ -2,17 +2,31 @@
 
 {% block content %}
 
-<form action="">
+<form action="/reseting?email={{email}}" method="POST">
 
     <legend>Reset password </legend>
 
-    <fieldset>
+    <fieldset>        
 
-        <div class="input-group">
+        <div class="input-group col-lg-7 col-xs-12 col-sm-12">
 
             {{ form.password(class=' form-control input-lg', placeholder='Password')}}
 
+        </div><br>
+
+        <div class="input-group col-lg-7 col-xs-12 col-sm-12">
+
+            {{ form.confirm_pwd(class=' form-control input-lg', placeholder='Confirm password')}}
+
+        </div><br>
+
+        <div class="input-group col-lg-7 col-xs-12 col-sm-12">
+
+            {{ form.submit(class='btn btn-success form-control input-lg', placeholder='Confirm password')}}
+
         </div>
+
+        {{form.csrf_token }}
 
     </fieldset>
 

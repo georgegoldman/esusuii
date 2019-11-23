@@ -96,33 +96,31 @@ def join_group():
         return res
 
     else:
-        if member:
-            res = make_response(jsonify({'message': f'You\'re already a member to {group.group_name}.'}), 200)
-            return res
+        member_target = (group.group_target/group.member_limit)/4
+        monthly_target = group.group_target/group.member_limit
+        new_member = Member(member_target=member_target, monthly_target=monthly_target,group_id=group_id,user_id=current_user.id)
+        db.session.add(new_member)
+        db.session.commit()
 
-        else:
-            member_target = (group.group_target/group.member_limit)/4
-            monthly_target = group.group_target/group.member_limit
-            new_member = Member(member_target=member_target, monthly_target=monthly_target,group_id=group_id,user_id=current_user.id)
-            db.session.add(new_member)
-            db.session.commit()
-
-            current_user.group_in += 1
-            db.session.commit()
+        current_user.group_in += 1
+        db.session.commit()
 
 
-            group.group_members += 1
-            db.session.commit()
+        group.group_members += 1
+        db.session.commit()
 
-            res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}.'}), 200)
-            return res
+        res = make_response(jsonify({'message': f'you\'ve been added to {group.group_name}.'}), 200)
+        return res
 
 
 #Remove a member route
-@oplogic.route('/leave_group')
+@oplogic.route('/leave_group', methods=['POST'])
 @login_required
 def remove_user():
-    group_id = request.args.get('group_id')
+
+    req = request.get_json()
+    group_id = int(req['group_id'])
+
     member = Member.query.filter_by(group_id=group_id).filter_by(user_id=current_user.id).first()
     group = Group.query.get(group_id)
 
@@ -137,17 +135,11 @@ def remove_user():
         group.group_members -= 1
         db.session.commit()
 
-        res = {
-            'error' : '0',
-            'message' : f'{current_user.username} you have been successfully removed from this group                                    '
-        }
+        res = make_response(jsonify({'msg': f'{current_user.username} you have been removed from this group'}), 200)
         return res
     else:
 
-        res = {
-            'error' : '0',
-            'message' : f'You are not a member to this {group.group_name}'
-        }
+        res = make_response(jsonify({'msg': f'You are not a member to {group.group_name}'}),200)
         return res
 
 @oplogic.route('/start_tenure')
